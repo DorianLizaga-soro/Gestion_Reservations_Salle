@@ -1,0 +1,76 @@
+.sec_body{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: rgba(233, 231, 231, 0.247);
+    align-items: center;
+}
+.div_export{
+    display: flex;
+    gap: 50px;
+}
+.card_export{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 15px;
+    border: 1px solid rgba(167, 167, 167, 0.548);
+    border-radius: 10px;
+    color: black;
+    width: 600px;
+}
+.btn_exportExcel{
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgba(1, 173, 15, 0.726);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+#sel_periode,#sel_assos{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(179, 178, 178, 0.164);
+}
+#logoExcel{
+    padding: 10px;
+    font-size: 30px;
+    background-color: rgba(53, 255, 53, 0.199);
+    border-radius: 10px;
+}
+#logoGoogle{
+    padding: 10px;
+    font-size: 30px;
+    background-color: rgba(67, 101, 252, 0.199);
+    border-radius: 10px;
+}
+.btn_exportGoogle{
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgba(0, 81, 255, 0.726);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.div_historique{
+    border-radius: 10px;
+    border: 1px solid rgba(167, 167, 167, 0.548);
+    width: 70%;
+}
+.div_head{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.div_titre{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-top: 1px solid rgba(167, 167, 167, 0.548);
+    font-size: 12px;
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/exportations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Exportations</title>
+</head>
+<body>
+<section class="sec_body">
+    <div class="div_export">
+        <div class="card_export">
+            <p><i id="logoExcel" class="fa-regular fa-file-lines" style="color: rgb(10, 180, 0);"></i></p>
+            <b><p>Export Excel</p></b>
+            <p>Exporte toutes les réservations avec détails complets : associations, salles, horaires, statuts, responsables.</p>
+            <p>Période</p>
+            <select name="sel_periode" id="sel_periode">
+                <option value="MoisEnCours">Mois en cours</option>
+                <option value="MoisPrecedent">Mois précédent</option>
+                <option value="Trimeste">Trimeste</option>
+                <option value="Année">Année 2026</option>
+                <option value="Personnaliser">Période personnalisée...</option>
+            </select>
+            <p>Association</p> 
+            <select name="sel_assos" id="sel_assos">
+                <option value="ToutesAssos">Toutes les associations</option>
+                <option value="Tennis">Club de Tennis</option>
+                <option value="LesArts">Association Culturelle Les Arts</option>
+                <option value="Retraites">Amicale des Retraités</option>
+                <option value="Petanque">Club de Pétanque du Terroir</option>
+                <option value="Danse">Danse Traditionnelle Occitane</option>
+                <option value="Parents">Association Parents d'Élèves</option>
+                <option value="Voix">Chorale Voix du Sud</option>
+                <option value="Informatique">Club Informatique Senior</option>
+                <option value="Yoga">Yoga & Bien-être</option>
+            </select>
+            <button class="btn_exportExcel"><i class="fa-solid fa-download" style="color: rgb(255, 255, 255);"></i> Exporter Export Excel</button>
+        </div>
+
+        <div class="card_export">
+            <p><i id="logoGoogle" class="fa-regular fa-calendar" style="color: rgb(8, 76, 248);"></i></p>
+            <b><p>Export Google Calendar</p></b>
+            <p>Synchronise les réservations avec Google Calendar. Compatible avec iCal et Outlook.</p>
+            <p>Période</p>
+            <select name="sel_periode" id="sel_periode">
+                <option value="MoisEnCours">Mois en cours</option>
+                <option value="MoisPrecedent">Mois précédent</option>
+                <option value="Trimeste">Trimeste</option>
+                <option value="Année">Année 2026</option>
+                <option value="Personnaliser">Période personnalisée...</option>
+            </select>
+            <p>Association</p> 
+            <select name="sel_assos" id="sel_assos">
+                <option value="ToutesAssos">Toutes les associations</option>
+                <option value="Tennis">Club de Tennis</option>
+                <option value="LesArts">Association Culturelle Les Arts</option>
+                <option value="Retraites">Amicale des Retraités</option>
+                <option value="Petanque">Club de Pétanque du Terroir</option>
+                <option value="Danse">Danse Traditionnelle Occitane</option>
+                <option value="Parents">Association Parents d'Élèves</option>
+                <option value="Voix">Chorale Voix du Sud</option>
+                <option value="Informatique">Club Informatique Senior</option>
+                <option value="Yoga">Yoga & Bien-être</option>
+            </select>
+            <button class="btn_exportGoogle"><i class="fa-solid fa-download" style="color: rgb(255, 255, 255);"></i> Exporter Export Google Calendar</button>
+        </div>
+    </div>
+
+    <div class="div_historique">
+        <div class="div_head">
+            <b><p>Historique des exports</p></b>
+            <p>$nombre exports</p>
+        </div>
+        
+        <div class="div_titre">
+            <p>TYPE</p>
+            <p>DATE</p>
+            <p>PÉRIODE</p>
+            <p>UTILISATEUR</p>
+            <p>STATUT</p>
+            <p>TÉLÉCHARGER</p>
+        </div>
+
+        <div class="div_titre">
+            <p>$fichier</p>
+            <p>$date</p>
+            <p>$periode</p>
+            <p>$user</p>
+            <p>$statut</p>
+            <p>$telecharger</p>
+        </div>
+                
+    </div>
+    
+</section>
+
+</body>
+</html>

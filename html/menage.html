@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/menage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Gestion du ménage</title>
+</head>
+<body>
+<section class="sec_body">
+    <section class="sec_header">
+        <h1>Planning du ménage</h1>
+    </section>  
+
+    <nav class="nav_btn">
+        <button class="btn_menage" id="btn_tous">Tous</button>
+        <button class="btn_menage" id="btn_faire">À faire</button>
+        <button class="btn_menage" id="btn_effectue">Effectué</button>
+        <button class="btn_menage" id="btn_attente">En attente</button>
+    </nav>
+
+    <section>
+        <div class="card_menage">
+            <div class="card_header">
+            <h3>nom de la salle</h3>
+            <p>À faire</p>
+            </div>
+            <p>date</p>
+            <p class="nom_assos">nom assos</p>
+            <div class="div_resp">
+            <span class="initial_resp">NR</span>   
+            <p>nom responsable</p>
+            </div>
+            <p class="commentaire">commentaire</p>
+            <div>
+            <button class="btn_valider">Valider le passage</button>
+            <button id="afficherComm"class="btn_commentaire"><i class="fa-regular fa-message" style="color: rgb(99, 98, 98);"></i></button>
+            </div>
+            <div class="partie_commentaire">
+                <input type="text" name="" id="input_commentaire" placeholder="Commentaire...(50 car.)">
+                <button class="btn_ok">OK</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="sec_historique">
+        <h2>Historique des passages validés</h2>
+        <div class="div_passage">
+            <div class="div_historique">
+                <p><i class="fa-regular fa-circle-check" style="color: rgb(14, 255, 0);"></i></p>
+                <p>date du passage</p>
+                <p>Nom de la salle</p>
+                <p>nom assos</p>
+            </div>
+            <div class="div_comHistorique">
+                <p>nom du responsable</p>
+                <p>commentaire</p>
+            </div>
+        </div>
+         
+    </section>
+</section>
+<script src="/JS/menage.js"></script>
+</body>
+</html>

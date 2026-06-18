@@ -1,0 +1,141 @@
+.sec_body{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: rgba(233, 231, 231, 0.247);
+}
+.sec_header{
+    background-color: rgb(59, 144, 255);
+    padding: 10px;
+    border-radius: 20px;
+}
+.nav_btn{
+    display: flex;
+    gap: 20px;
+}
+.btn_menage{
+    background-color: white;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius:10px ;
+    color: rgb(87, 87, 87);
+    cursor: pointer;
+}
+#btn_tous:hover{
+    background: blue;
+    color: white;
+    border: 1px solid blue;
+}
+#btn_faire:hover{
+    background: rgb(254, 243, 199);
+    color: rgb(146, 64, 14);
+    border: 1px solid rgb(146, 64, 14);
+}
+#btn_effectue:hover{
+    background: rgb(143, 255, 162);
+    color: rgb(17, 83, 0);
+    border: 1px solid rgb(17, 83, 0);
+}
+#btn_attente:hover{
+    background: #F1F5F9;
+    color: #4e5d6e;
+    border: 1px solid #4e5d6e;
+}
+.card_menage{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+}
+.card_header{
+    display: flex;
+    align-items: center;
+    gap: 120px;
+}
+.nom_assos{
+    background-color: rgb(186, 248, 186);
+    padding: 10px;
+    border-radius: 10px;
+}
+.div_resp{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.commentaire{
+    background-color: rgba(228, 226, 226, 0.397);
+    padding: 10px;
+    border-radius: 10px;
+}
+.sec_historique{
+    display:flex ;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: white;
+    
+}
+.div_passage{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid black;
+    padding: 10 px;
+}
+.div_historique{
+    display: flex;
+    gap: 20px;
+}
+.div_comHistorique{
+    display: flex;
+    gap: 20px;
+}
+.initial_resp{
+    border-radius: 50%;
+    padding: 10px;
+    color: white;
+    background-color: blue;
+}
+.btn_valider{
+    background-color: rgb(4, 201, 4);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    width: 85%;
+    color: white;
+    cursor: pointer;
+}
+.btn_commentaire{
+    background-color: rgba(212, 212, 212, 0.356);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.partie_commentaire{
+    margin-top: 10px;
+   display: none;
+}
+.partie_commentaire.active{
+    display: block ;
+}
+#input_commentaire{
+    padding: 10px;
+    border-radius: 5px;
+    width: 75%;
+    border: 1px solid grey;
+    background-color: rgba(184, 184, 184, 0.199);
+}
+.btn_ok{
+    background-color: blue;
+    color: white;
+    margin-left: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
