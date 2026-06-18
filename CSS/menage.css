@@ -6,10 +6,25 @@
     background-color: rgba(233, 231, 231, 0.247);
 }
 .sec_header{
+    display: flex;
+    justify-content: space-between;
     background-color: rgb(59, 144, 255);
     padding: 10px;
     border-radius: 20px;
 }
+.btn_deconnexion{
+    padding: 10px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    
+}
+.btn_deconnexion:hover{
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
+
 .nav_btn{
     display: flex;
     gap: 20px;
