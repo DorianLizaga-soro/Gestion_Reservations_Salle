@@ -1,0 +1,169 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI, sans-serif;
+    background:#f4f6fb;
+    padding:20px;
+    color:#1e293b;
+}
+
+.page{
+    width:100%;
+}
+
+.toolbar{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.search{
+    width:300px;
+}
+
+.toolbar input,
+.toolbar select{
+    height:42px;
+    padding:0 14px;
+    border:1px solid #d9dee7;
+    border-radius:10px;
+    background:white;
+    font-size:14px;
+}
+
+.btn-primary{
+    margin-left:auto;
+    border:none;
+    background:#3366ff;
+    color:white;
+    padding:0 20px;
+    height:42px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.btn-primary:hover{
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid #e5e7eb;
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    padding:18px 20px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead th{
+    text-align:left;
+    padding:14px 20px;
+    font-size:12px;
+    letter-spacing:1px;
+    color:#64748b;
+    background:#fafafa;
+}
+
+tbody td{
+    padding:14px 20px;
+    border-top:1px solid #eef2f7;
+    font-size:14px;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:8px;
+}
+
+.blue{
+    background:#2563eb;
+}
+
+.green{
+    background:#22c55e;
+}
+
+.orange{
+    background:#f97316;
+}
+
+.purple{
+    background:#8b5cf6;
+}
+
+.badge{
+    padding:5px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.recurring{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.ponctual{
+    background:#ffedd5;
+    color:#ea580c;
+}
+
+.confirmed{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+.conflict{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.actions{
+    white-space:nowrap;
+}
+
+.actions button{
+    border:none;
+    background:#f1f5f9;
+    padding:7px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-right:5px;
+}
+
+.actions button:hover{
+    background:#e2e8f0;
+}
+
+.actions .danger{
+    color:#dc2626;
+    background:#fee2e2;
+}
