@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Réservations</title>
-    <script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-  crossorigin="anonymous">
-</script>
+       <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="/CSS/test.css">
 </head>
 <body>
@@ -47,12 +48,9 @@
             data-bs-target="#staticBackdrop" >
             + Nouvelle réservation
           </button>
-
     </div>
 
-
     <!-- Modal -->
-       
         <div
           class="modal fade"
           id="staticBackdrop"
@@ -62,7 +60,7 @@
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-dialog-scrollable modal-md">
+          <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <div>
@@ -82,11 +80,13 @@
                 <!-- Modal Body start of Form-->
 
                 <div class="d-flex gap-2 mb-4">
-                  <button class="btn btn-outline-warning flex-fill">
+                  <button id="btnPonctuelle"
+                  class="btn btn-outline-warning flex-fill reservation-type active-type">
                     Ponctuelle
                   </button>
 
-                  <button class="btn btn-outline-success flex-fill">
+                  <button id="btnReccurente" 
+                  class="btn btn-outline-success flex-fill reservation-type">
                     Réccurente
                   </button>
                 </div>
@@ -166,7 +166,7 @@
                   ></textarea>
                 </div>
 
-                <div class="drop-zone" id="dropZone">
+                <div class="drop-zone my-2" id="dropZone">
                   <i class="fa-solid fa-arrow-up-from-bracket upload-icon"></i>
 
                   <h5>Déposer un programme PDF</h5>
@@ -185,7 +185,7 @@
                   />
                 </div>
 
-                <h6>Commentaire</h6>
+                <h6>Commentaire (50 car.max)</h6>
                 <div class="input-group">
                   <textarea
                     id="modalComment"
@@ -202,7 +202,10 @@
                 >
                   Annuler
                 </button>
-                <button class="btn btn-outline-primary">
+                <button 
+                id="createReservationBtn"
+                type ="button" 
+                class="btn btn-outline-primary">
                   Créer la réservation
                 </button>
               </div>
@@ -233,7 +236,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id ="reservationTableBody">
                     
                 <tr>
                     <td>02 juin</td>
@@ -287,6 +290,266 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td>04 juin</td>
+                    <td>10:00-12:00</td>
+                    <td>
+                        <span class="dot orange"></span>
+                        Retraités
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle de</td>
+                    <td>Pierre Cazalet</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>05 juin</td>
+                    <td>18:00–21:00</td>
+                    <td>
+                        <span class="dot blue"></span>
+                        Tennis
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle Sportive</td>
+                    <td>Jean-Paul Fabre</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>02 juin</td>
+                    <td>09:00-11:00</td>
+                    <td>
+                        <span class="dot blue"></span>
+                        Tennis
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle Sportive</td>
+                    <td>Jean-Paul Fabre</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>02 juin</td>
+                    <td>09:00-11:00</td>
+                    <td>
+                        <span class="dot blue"></span>
+                        Tennis
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle Sportive</td>
+                    <td>Jean-Paul Fabre</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>02 juin</td>
+                    <td>09:00-11:00</td>
+                    <td>
+                        <span class="dot blue"></span>
+                        Tennis
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle Sportive</td>
+                    <td>Jean-Paul Fabre</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>02 juin</td>
+                    <td>09:00-11:00</td>
+                    <td>
+                        <span class="dot blue"></span>
+                        Tennis
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle Sportive</td>
+                    <td>Jean-Paul Fabre</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>02 juin</td>
+                    <td>09:00-11:00</td>
+                    <td>
+                        <span class="dot blue"></span>
+                        Tennis
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle Sportive</td>
+                    <td>Jean-Paul Fabre</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>02 juin</td>
+                    <td>09:00-11:00</td>
+                    <td>
+                        <span class="dot blue"></span>
+                        Tennis
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle Sportive</td>
+                    <td>Jean-Paul Fabre</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>02 juin</td>
+                    <td>09:00-11:00</td>
+                    <td>
+                        <span class="dot blue"></span>
+                        Tennis
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle Sportive</td>
+                    <td>Jean-Paul Fabre</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>02 juin</td>
+                    <td>09:00-11:00</td>
+                    <td>
+                        <span class="dot blue"></span>
+                        Tennis
+                    </td>
+                    <td>
+                        <span class="badge recurring">
+                            Récurrente
+                        </span>
+                    </td>
+                    <td>Salle Sportive</td>
+                    <td>Jean-Paul Fabre</td>
+                    <td>
+                        <span class="badge confirmed">
+                            Confirmée
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button>Voir</button>
+                        <button>Modifier</button>
+                        <button class="danger">Annuler</button>
+                    </td>
+                </tr>
+
             </tbody>
 
         </table>
@@ -295,5 +558,11 @@
 
 </div>
 
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/JS/reservations.js"></script>
 </body>
 </html>

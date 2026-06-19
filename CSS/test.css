@@ -52,6 +52,19 @@ body{
     opacity:.9;
 }
 
+.active-type {
+  color: white !important;
+  font-weight: bold;
+}
+
+.btn-outline-warning.active-type {
+  background-color: #ffc107;
+}
+
+.btn-outline-success.active-type {
+  background-color: #198754;
+}
+
 .card{
     background:white;
     border-radius:14px;
@@ -166,4 +179,43 @@ tbody tr:hover{
 .actions .danger{
     color:#dc2626;
     background:#fee2e2;
+}
+
+.drop-zone {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drop-zone:hover {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
+
+.upload-icon {
+  font-size: 2.5rem;
+  color: #2563eb;
+  margin-bottom: 15px;
+}
+
+.drop-zone h5 {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.upload-text {
+  color: #6b7280;
+  margin-bottom: 5px;
+}
+
+.drop-zone small {
+  color: #9ca3af;
+}
+.drop-zone.active {
+  border-color: #2563eb;
+  background-color: #dbeafe;
 }
