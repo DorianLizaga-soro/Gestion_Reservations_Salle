@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/CSS/utilisateur.css">
+    <title>Utilisateur</title>
+</head>
+<body>
+    <section class="sec_body">
+        <section class="sec_headUser">
+            <div class="div_inputHead">
+                <div class="div_search">
+                    <i id="search" class="fa-solid fa-magnifying-glass" style="color: rgb(148, 148, 148);"></i>
+                    <input type="search" name="searchUser" id="searchUser" placeholder="Rechercher un utilisateur..." >
+                </div>
+                <select name="selectUser" id="selectUser">
+                    <option value="toutRole">Tous les rôles</option>
+                    <option value="gestionnaire">Gestionnaire</option>
+                    <option value="responsableAssos">Responsable Association</option>
+                    <option value="membreAssos">Membre Association</option>
+                    <option value="menage">Personnel Ménage</option>
+                </select>
+            </div>
+            <div>
+                <button id="btnAddUser" class="btn_ajoutUser">+ Ajouter un utilisateur</button>
+            </div>
+        </section>
+
+        <section class="sec_case">
+            <div class="div_case">
+                <h1>$nombreGestionnaire</h1>
+                <p>Gestionnnaire</p>
+            </div>
+
+             <div class="div_case">
+                <h1>$nombreResponsable</h1>
+                <p>Responsable Association</p>
+            </div>
+
+             <div class="div_case">
+                <h1>$nombreMembre</h1>
+                <p>Membre Association</p>
+            </div>
+
+             <div class="div_case">
+                <h1>$nombreMenage</h1>
+                <p>Personnel Ménage</p>
+            </div>
+        </section>
+
+        <section class="sec_user">
+            <div class="div_head">
+                <b><p>$nombreUtilisateur utilisateur</p></b>
+            </div>
+        
+            <div class="div_titre">
+                <p>UTILISATEUR</p>
+                <p>EMAIL</p>
+                <p>ASSOCIATION</p>
+                <p>RÔLE</p>
+                <p>ACTIONS</p>
+            </div>
+
+            <div class="div_userElement">
+                <div class="div_user">
+                    <span class="initial_resp">NR</span>   
+                    <p>$nomUtilisateur</p> 
+                </div>
+                <p>$emailUtilisateur</p>
+                <p>$association</p>
+                <p>$role</p>
+                <div>
+                    <button class="btn_modif"><i class="fa-regular fa-pen-to-square" style="color: rgb(148, 148, 148);"></i></button>
+                    <button class="btn_delete"><i class="fa-regular fa-trash-can" style="color: rgb(255, 0, 0);"></i></button>
+                </div>
+            </div>
+        </section>
+        <div id="modalAddUser" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <h2>Ajouter un utilisateur</h2>
+
+                <hr>
+
+                <form class="form_addUser">
+                    <div class="div_formName">
+                        <div class="div_Name">
+                            <label>Prénom *</label>
+                            <input class="input_form" type="text" placeholder="Prénom" required>
+                        </div>
+                        <div class="div_Name">
+                            <label>Nom *</label>
+                            <input class="input_form" type="text" placeholder="Nom" required>
+                        </div> 
+                    </div>
+
+                    <label>Email *</label>
+                    <input class="input_form" type="email" placeholder="Mail" required>
+
+                    <label>Association</label>
+                    <select class="input_form" name="" id="">
+                        <option value="Mairie">Marie / Aucune</option>
+                        <option value="Tennis">Club de Tennis</option>
+                        <option value="LesArts">Association Culturelle Les Arts</option>
+                        <option value="Retraites">Amicale des Retraités</option>
+                        <option value="Petanque">Club de Pétanque du Terroir</option>
+                        <option value="Danse">Danse Traditionnelle Occitane</option>
+                        <option value="Parents">Association Parents d'Élèves</option>
+                        <option value="Voix">Chorale Voix du Sud</option>
+                        <option value="Informatique">Club Informatique Senior</option>
+                        <option value="Yoga">Yoga & Bien-être</option>
+                    </select>
+
+                    <label>Rôle *</label>
+                    <div class="roles">
+                        <button type="button" class="role-btn role-gestionnaire">Gestionnaire</button>
+                        <button type="button" class="role-btn role-resp-association">Responsable Association</button>
+                        <button type="button" class="role-btn role-membre">Membre Association</button>
+                        <button type="button" class="role-btn role-menage">Personnel Ménage</button>                      
+                    </div>
+
+                   
+
+                    <div class="div_btn_form">
+                        <button type="button" class="btn_annuler">Annuler</button>
+                        <button class="btn_creerUser" type="submit">Créer l'utilisateur</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script src="/JS/utilisateur.js"></script>
+</body>
+</html>

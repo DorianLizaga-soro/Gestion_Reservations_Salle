@@ -7,6 +7,7 @@ btn.addEventListener("click", () => {
     divCommentaire.classList.toggle("active");
 });
 
+//partie deconnexion
 function deconnexion(){
     if (confirm("Souhaitez-vous vous déconnecter ?")){
         window.location.href = '/html/connexion.html';

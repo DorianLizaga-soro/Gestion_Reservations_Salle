@@ -66,16 +66,19 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    cursor: pointer;
 }
 .btn_telecharger{
     width: 80%;
     padding: 10px;
     border: none;
     border-radius: 10px;
+    cursor: pointer;
 }
 .btn_delete{
     padding: 10px;
     border: none;
     border-radius: 10px;
     background-color: rgba(255, 0, 0, 0.178);
+    cursor: pointer;
 }
