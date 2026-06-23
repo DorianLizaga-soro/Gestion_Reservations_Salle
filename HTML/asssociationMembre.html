@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="CSS/association.css">
+    <link rel="stylesheet" href="/CSS/association.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -18,12 +18,12 @@
 
     <article class="head">
         <article class="btn-connexion">
-            <h1>Bienvenue, {{nomassociation}}</h1>
+            <h1>Bienvenue, Association Culturelle Les Arts</h1>
             <button class="deconnexion" id="ouvrir-modale-deconnexion">Deconnexion</button>
         </article>
-        <p>Gestion de vos réservations · {{mois}}</p><br><br>
-        <button class="btn-add" id="ouvrir-modale"> + Nouvelle réservation ponctuelle</button>
-        <button class="btn-add" id="ouvrir-ajout-membre">Ajouter un membre</button>
+        <p>Gestion de vos réservations · ("Mois")</p><br><br>
+       
+       
     </article>
 
 
@@ -31,139 +31,23 @@
 
 
 
-
-
-    <!-- modal pour le boutton Nouvelle reservation-->
-
-    <div class="overlay" id="overlay-reservation">
-        <div class="modale">
-
-            <button class="fermer-croix" id="fermer-modale">&times;</button>
-
-            <div class="modale-entete">
-                <div class="modale-icone">📅</div>
-                <h2>Nouvelle réservation</h2>
-            </div>
-            <p class="modale-sous-titre">Réservation ponctuelle pour votre association</p>
-
-
-            <form method="post" action="ajouter_reservation.php">
-
-                <input type="hidden" name="id_association" value="<?php echo $idAssociationConnectee; ?>">
-                <input type="hidden" name="id_responsable" value="<?php echo $idUtilisateurConnecte; ?>">
-                <input type="hidden" name="statut" value="en_attente">
-
-
-
-                <label for="salle">Salle</label>
-                <select name="id_salle" id="salle" required>
-                    <option value="">-- Choisir une salle --</option>
-                    <option value="">Local</option>
-                    <option value="1">Salle de réunion</option>
-                    <option value="2">Bar</option>
-                    <option value="3">Réfectoire</option>
-
-                </select>
-
-                <label for="date_">Date</label>
-                <input type="date" name="date_" id="date_" required>
-
-                <div class="ligne-heures">
-                    <div>
-                        <label for="heure_debut">Heure début</label>
-                        <input type="time" name="heure_debut" id="heure_debut" required>
-                    </div>
-                    <div>
-                        <label for="heure_fin">Heure fin</label>
-                        <input type="time" name="heure_fin" id="heure_fin" required>
-                    </div>
-                </div>
-
-                <div class="modale-boutons">
-                    <button type="button" class="btn-annuler-modale" id="annuler-modale">Annuler</button>
-                    <button type="submit" class="btn-valider-modale">Réserver</button>
-                </div>
-
-            </form>
-
-        </div>
-    </div>
-    <!-- Fin modal pour le boutton Nouvelle reservation-->
-
-
-
-
-
-
-
-    <!-- modal pour le boutton Ajouter un membre-->
-
-
-
-    <div class="overlay" id="overlay-ajout-membre">
-        <div class="modale">
-
-            <button class="fermer-croix" id="fermer-ajout-membre">&times;</button>
-
-            <div class="modale-entete">
-                <div class="modale-icone">👤</div>
-                <h2>Ajouter un membre</h2>
-            </div>
-
-            <p class="modale-sous-titre">
-                Ajoutez un nouveau membre à l’association
-            </p>
-
-            <form method="post" action="ajouter_membre.php">
-
-                <label for="identifiant">Identifiant</label>
-                <input type="text" name="identifiant" id="identifiant" required>
-
-                <label for="mail">Mail</label>
-                <input type="email" name="mail" id="mail" required>
-
-                <label for="mot_de_passe">Mot de passe</label>
-                <input type="password" name="mot_de_passe" id="mot_de_passe" required>
-
-                <div class="modale-boutons">
-                    <button type="button" class="btn-annuler-modale" id="annuler-ajout-membre">
-                        Annuler
-                    </button>
-                    <button type="submit" class="btn-valider-modale">
-                        Ajouter
-                    </button>
-                </div>
-
-            </form>
-
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-
     <section class="rubrique">
 
         <article class="reservationDuMois">
             <p><i class="fa-solid fa-book-open" style="color: #35CA6C;"></i> Réservations du mois</p>
-            <h2>{{resadumois}}</h2>
-            <p>Dont {{quantité}} récurrentes</p>
+            <h2>2</h2>
+            <p>Dont Numero 0 récurrentes</p>
         </article>
 
         <article class="quota">
             <p><i class="fa-solid fa-clock" style="color: #F97316;"></i> Quota ponctuelles</p>
-            <h2>{{quantité/quantité}}</h2>
-            <progress class="barre"  value="40" max="100"></progress>
+            <h2>2 / 3</h2>
+            <p>Barre de progression</p>
         </article>
 
         <article class="documentDepose">
             <p><i class="fa-solid fa-file-lines" style="color: #8B5CF6;"></i> Documents déposés</p>
-            <h2>{{quantité}}</h2>
+            <h2>1</h2>
             <p>PDF actifs</p>
         </article>
 
@@ -191,7 +75,71 @@
             <!-- ===== CARTE 1 ===== -->
 
 
-            {{carteReservation}}
+            <div class="carte-reservation">
+
+                <button class="entete-bouton" data-cible="panneau-1">
+                    <div class="entete-gauche">
+                        <div class="barre-couleur"></div>
+                        <div class="date-heure">
+                            <p>03 juin</p>
+                            <p>14:00–17:00</p>
+                        </div>
+                        <div class="titre-salle">
+                            <p>Exposition de peintures printemps</p>
+                            <p>Grande Salle Polyvalente</p>
+                        </div>
+                    </div>
+                    <div class="entete-droite">
+                        <span class="statut-badge">Confirmée</span>
+                        <span class="chevron">&#9660;</span>
+                    </div>
+                </button>
+
+                <div class="panneau" id="panneau-1">
+                    <div class="panneau-contenu">
+
+                        <div class="commentaire-box">
+                            Commentaire : ex  : Tables supplémentaires requises
+                        </div>
+
+                        <p class="messages-label">Messages</p>
+
+                        <div class="message">
+                            <div class="avatar">SM</div>
+                            <div class="message-contenu">
+                                <p><span class="auteur">Sylvie Marque</span> <span class="date-message">2025-06-01
+                                        09:12</span></p>
+                                <p>Tables supplémentaires req.</p>
+                            </div>
+                        </div>
+
+                        <div class="message">
+                            <div class="avatar">MD</div>
+                            <div class="message-contenu">
+                                <p><span class="auteur">Marie Dupont</span> <span class="date-message">2025-06-01
+                                        10:45</span></p>
+                                <p>Noté, prévu 4 tables.</p>
+                            </div>
+                        </div>
+
+                        <div class="message">
+                            <div class="avatar">AB</div>
+                            <div class="message-contenu">
+                                <p><span class="auteur">Ahmed Benali</span> <span class="date-message">2025-06-01
+                                        14:22</span></p>
+                                <p>Salle préparée la veille.</p>
+                            </div>
+                        </div>
+
+                        <div class="ajout-commentaire">
+                            <input type="text" placeholder="Ajouter un commentaire... (50 car.)" maxlength="50">
+                            <button>Envoyer</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
 
 
     </section>
