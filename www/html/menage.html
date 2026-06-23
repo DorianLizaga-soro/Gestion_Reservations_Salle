@@ -11,7 +11,7 @@
 <section class="sec_body">
     <section class="sec_header">
         <h1>Planning du ménage</h1>
-        <p>Bienvenue, {{nomPersonnelMenage}}</p>
+        <h2>Bienvenue, {{nomPersonnelMenage}}</h2>
         <form action="/PHP/codes/logout.php" method="POST" class="logoutForm" id="logoutForm">
             <button class="btn_deconnexion" type="submit">Déconnexion</button>
         </form>
@@ -25,28 +25,8 @@
         <button class="btn_menage" id="btn_attente">En attente</button>
     </nav>
 
-    <section>
-        <div class="card_menage">
-            <div class="card_header">
-            <h3>{{nomDeLaSalle}}</h3>
-            <span class="badge">À faire</span>
-            </div>
-            <p><i class="fa-regular fa-calendar" style="color: rgb(148, 148, 148);"></i> {{date}}</p>
-            <p class="nom_assos">{{nomAssos}}</p>
-            <div class="div_resp">
-            <span class="initial_resp">{{Initial}}</span>   
-            <p>{{nomResponsable}}</p>
-            </div>
-            <p class="commentaire">commentaire</p>
-            <div>
-            <button class="btn_valider">Valider le passage</button>
-            <button id="afficherComm"class="btn_commentaire"><i class="fa-regular fa-message" style="color: rgb(99, 98, 98);"></i></button>
-            </div>
-            <div class="partie_commentaire">
-                <input type="text" name="" id="input_commentaire" placeholder="Commentaire...(50 car.)">
-                <button class="btn_ok">OK</button>
-            </div>
-        </div>
+    <section class="sec_carteMenage">
+        {{cartesMenage}}
     </section>
 
     <section class="sec_historique">

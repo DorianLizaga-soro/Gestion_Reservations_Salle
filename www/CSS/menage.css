@@ -8,6 +8,7 @@
 .sec_header{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: rgb(59, 144, 255);
     padding: 10px;
     border-radius: 20px;
@@ -160,4 +161,9 @@
   padding: 4px 8px;
   text-align: center;
   border-radius: 20px;
+}
+.sec_carteMenage{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 50px;
 }
