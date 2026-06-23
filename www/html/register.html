@@ -1,0 +1,36 @@
+ <section id="sec_compte">
+    
+ <h1>S'inscrire</h1>
+
+        <form method="POST" id="form_register">
+             <article>
+            <label for=""> 
+                <input class="input_login" type="text" name="identifiant" placeholder="Identifiant">
+            </label>
+        </article>
+        <article>
+            <label for="">
+                <input class="input_login" type="email" name="email" placeholder="Mail">
+            </label>
+        </article>
+        <article>
+            <label for="">
+                <input class="input_login" type="password" name="mdp" placeholder="Mot de passe">
+            </label>
+        </article>
+        <article>
+            <label for="">
+                <select name="select_role" id="select_role">
+                    <option value="gestionnaire">Gestionnaire</option>
+                    <option value="responsable_association">Responsable association</option>
+                    <option value="membre_association">Membre association</option>
+                    <option value="personnel_menage">Personnel ménage</option>
+                </select>
+            </label>
+        </article>
+        <article>
+            <button class="btn_compte" type="submit" name="action" value="register">Inscription</button>
+        </article>
+        </form>
+        
+    </section>

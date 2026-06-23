@@ -11,9 +11,10 @@
 <section class="sec_body">
     <section class="sec_header">
         <h1>Planning du ménage</h1>
-        <button onclick="deconnexion()" class="btn_deconnexion">
-            Déconnexion
-        </button>
+        <p>Bienvenue, {{nomPersonnelMenage}}</p>
+        <form action="/PHP/codes/logout.php" method="POST" class="logoutForm" id="logoutForm">
+            <button class="btn_deconnexion" type="submit">Déconnexion</button>
+        </form>
 
     </section>  
 
@@ -27,14 +28,14 @@
     <section>
         <div class="card_menage">
             <div class="card_header">
-            <h3>nom de la salle</h3>
-            <p>À faire</p>
+            <h3>{{nomDeLaSalle}}</h3>
+            <span class="badge">À faire</span>
             </div>
-            <p>date</p>
-            <p class="nom_assos">nom assos</p>
+            <p><i class="fa-regular fa-calendar" style="color: rgb(148, 148, 148);"></i> {{date}}</p>
+            <p class="nom_assos">{{nomAssos}}</p>
             <div class="div_resp">
-            <span class="initial_resp">NR</span>   
-            <p>nom responsable</p>
+            <span class="initial_resp">{{Initial}}</span>   
+            <p>{{nomResponsable}}</p>
             </div>
             <p class="commentaire">commentaire</p>
             <div>

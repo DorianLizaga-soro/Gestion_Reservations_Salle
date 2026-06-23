@@ -154,3 +154,10 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.badge {
+  background-color: rgb(254, 243, 199);
+  color: rgb(146, 64, 14);
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 20px;
+}
