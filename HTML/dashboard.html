@@ -13,7 +13,10 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.css" rel="stylesheet">
      <script src="JS/calendar_reservation.js"></script>
+     <script src="JS/dashboard.js"></script>
+     <script src="JS/menage.js"></script>
     <link rel="stylesheet" href="CSS/gestionnaire.css">
+    <link rel="stylesheet" href="CSS/menage.css">
 </head>
 
 <body>
@@ -59,10 +62,12 @@
                         <span>Utilisateurs</span>
                     </button>
 
-                    <button class="sidebar-link">
+                    <button class="sidebar-link" id="btn-menage">
                         <i class="bi bi-stars"></i>
                         <span>Gestion du ménage</span>
                     </button>
+
+                    
 
                     <button class="sidebar-link">
                         <i class="bi bi-chat-left"></i>
@@ -102,7 +107,10 @@
                         <p>{{role}}</p>
                     </div>
 
-                    <button><i class="bi bi-box-arrow-right ms-auto"></i></button>
+                    <form action="index.php?page=logout">
+                        <button type="submit"><i class="bi bi-box-arrow-right ms-auto"></i></button>
+                    </form>
+                    
                     
                 </div>
 
@@ -447,7 +455,7 @@
         crossorigin="anonymous"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
-    <script src="../JS/calendar_reservation.js"></script>
+    <script src="JS/calendar_reservation.js"></script>
 
 </body>
 

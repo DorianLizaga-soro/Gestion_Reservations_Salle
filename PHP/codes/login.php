@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             
             // Redirection selon le rôle
             if ($user["role"] === "personnel_menage") {
-               header("Location: index.php?page=menage");
+               header("Location: index.php?page=menagePersonnel");
                 exit;
             }
 

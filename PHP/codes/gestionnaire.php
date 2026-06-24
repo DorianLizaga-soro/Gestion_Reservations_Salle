@@ -11,6 +11,7 @@ if (!isset($_SESSION["id"])) {
     exit;
 }
 
+
 //salle
 $stmt = $conn->prepare("SELECT nom FROM salles WHERE id = ?");
 $stmt->execute([1]); 
