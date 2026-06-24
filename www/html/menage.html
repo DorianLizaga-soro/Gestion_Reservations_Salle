@@ -10,18 +10,18 @@
 <body>
 <section class="sec_body">
     <section class="sec_header">
-        <h1>Planning du ménage</h1>
+        
+        <h1><i class="fa-solid fa-broom" style="color: rgb(255, 255, 255);"></i> Planning du ménage</h1>
         <h2>Bienvenue, {{nomPersonnelMenage}}</h2>
         <form action="/PHP/codes/logout.php" method="POST" class="logoutForm" id="logoutForm">
             <button class="btn_deconnexion" type="submit">Déconnexion</button>
-        </form>
+        </form> 
 
     </section>  
 
     <nav class="nav_btn">
         <button class="btn_menage" id="btn_tous">Tous</button>
         <button class="btn_menage" id="btn_faire">À faire</button>
-        <button class="btn_menage" id="btn_effectue">Effectué</button>
         <button class="btn_menage" id="btn_attente">En attente</button>
     </nav>
 
@@ -31,18 +31,7 @@
 
     <section class="sec_historique">
         <h2>Historique des passages validés</h2>
-        <div class="div_passage">
-            <div class="div_historique">
-                <p><i class="fa-regular fa-circle-check" style="color: rgb(14, 255, 0);"></i></p>
-                <p>date du passage</p>
-                <p>Nom de la salle</p>
-                <p>nom assos</p>
-            </div>
-            <div class="div_comHistorique">
-                <p>nom du responsable</p>
-                <p>commentaire</p>
-            </div>
-        </div>
+        {{carteValidation}}
          
     </section>
 </section>
