@@ -39,62 +39,60 @@
 
                     <span class="sidebar-label">PRINCIPAL</span>
 
-                    <button class="sidebar-link active">
+                    <button class="sidebar-link active"
+                    id="btn_tableau_de_bord">
                         <i class="bi bi-grid"></i>
                         <span>Tableau de bord</span>
-                        <i class="bi bi-chevron-right ms-auto"></i>
                     </button>
 
-                    <button class="sidebar-link">
+                    <button class="sidebar-link"
+                    id="btn_reservation">
                         <i class="bi bi-book"></i>
                         <span>Réservations</span>
                     </button>
 
                     <span class="sidebar-label">GESTION</span>
 
-                    <button class="sidebar-link">
+                    <button class="sidebar-link"
+                    id="btn_association">
                         <i class="bi bi-building"></i>
                         <span>Associations</span>
                     </button>
 
-                    <button class="sidebar-link">
+                    <button class="sidebar-link"
+                    id="btn_utilisateur">
                         <i class="bi bi-people"></i>
                         <span>Utilisateurs</span>
                     </button>
 
-                    <button class="sidebar-link" id="btn-menage">
+                    <button class="sidebar-link"
+                    id="btn-menage">
                         <i class="bi bi-stars"></i>
                         <span>Gestion du ménage</span>
                     </button>
 
                     
 
-                    <button class="sidebar-link">
+                    <button class="sidebar-link"
+                    id="btn_messagerie">
                         <i class="bi bi-chat-left"></i>
                         <span>Messagerie</span>
                     </button>
 
                     <span class="sidebar-label">OUTILS</span>
 
-                    <button class="sidebar-link">
+                    <button class="sidebar-link"
+                    id="btn_programmes">
                         <i class="bi bi-file-earmark-text"></i>
                         <span>Programmes PDF</span>
                     </button>
 
-                    <button class="sidebar-link">
+                    <button class="sidebar-link"
+                    id="exportation">
                         <i class="bi bi-download"></i>
                         <span>Exportations</span>
                     </button>
 
-                    <button class="sidebar-link">
-                        <i class="bi bi-wrench"></i>
-                        <span>Design System</span>
-                    </button>
-
-                    <button class="sidebar-link">
-                        <i class="bi bi-gear"></i>
-                        <span>Paramètres</span>
-                    </button>
 
                 </nav>
 
@@ -139,7 +137,7 @@
                             </div>
 
                             <div>
-                                <h3>12</h3>
+                                <h3>{{nbReservation}}</h3>
                                 <p>Réservations ce mois</p>
                                 <span>1 conflit</span>
                             </div>
@@ -162,7 +160,7 @@
                             </div>
 
                             <div>
-                                <h3>7</h3>
+                                <h3>{{nbReservationRecurrente}}</h3>
                                 <p>Réservations récurrentes</p>
                             </div>
                         </article>

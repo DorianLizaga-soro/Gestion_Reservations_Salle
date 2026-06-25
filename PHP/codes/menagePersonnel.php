@@ -1,8 +1,6 @@
 <?php
 
 require_once(__DIR__ . '/connexionBDD.php');
-
-
 date_default_timezone_set('Europe/Paris');
 setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
 
@@ -46,7 +44,8 @@ if (!isset($_SESSION["id"])) {
     header("Location: /index.php?page=login");
     exit;
 }
-$sql = "SELECT 
+$sql = "
+SELECT 
     M.*, 
     R.id_salle,
     R.id_association,
@@ -54,11 +53,11 @@ $sql = "SELECT
     A.nom AS nom_assos,
     A.id_responsable,
     U.nom AS nom_responsable
-FROM menage M
-JOIN reservations R ON M.id_reservation = R.id
-JOIN salles S ON R.id_salle = S.id
-JOIN associations A ON R.id_association = A.id
-JOIN utilisateurs U ON A.id_responsable = U.id
+FROM Menage M
+JOIN Reservations R ON M.id_reservation = R.id
+JOIN Salles S ON R.id_salle = S.id
+JOIN Associations A ON R.id_association = A.id
+JOIN Utilisateurs U ON A.id_responsable = U.id
 WHERE M.statut != 'fait'
 ORDER BY M.date_prevue ASC
 ";
@@ -66,20 +65,20 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 $menages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-$sql = "SELECT M.*, 
+$sql = "
+SELECT 
+    M.*, 
     R.id_salle,
     R.id_association,
     S.nom AS nom_salle,
     A.nom AS nom_assos,
     A.id_responsable,
     U.nom AS nom_responsable
-FROM menage M
-JOIN reservations R ON M.id_reservation = R.id
-JOIN salles S ON R.id_salle = S.id
-JOIN associations A ON R.id_association = A.id
-JOIN utilisateurs U ON A.id_responsable = U.id
+FROM Menage M
+JOIN Reservations R ON M.id_reservation = R.id
+JOIN Salles S ON R.id_salle = S.id
+JOIN Associations A ON R.id_association = A.id
+JOIN Utilisateurs U ON A.id_responsable = U.id
 WHERE M.statut = 'fait'
 ORDER BY M.date_validation DESC
 ";
@@ -118,7 +117,7 @@ else {
 }
 
     // Commentaires
-    $stmt = $conn->prepare("SELECT contenu FROM commentaires WHERE id_reservation = ?");
+    $stmt = $conn->prepare("SELECT contenu FROM Commentaires WHERE id_reservation = ?");
     $stmt->execute([$m["id_reservation"]]);
     $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -152,11 +151,11 @@ else {
         <div class='div_btn_menage'>
             <form method='POST'>
                 <input type='hidden' name='id_menage' value='{$m["id"]}'>
-                
+                " . ($m["statut"] === "a_faire" ? "
                     <button name='action' value='valider' class='btn_valider'>
-                        <i class='fa-regular fa-circle-check'></i> Valider le menage
+                        <i class='fa-regular fa-circle-check'></i> Valider le passage
                     </button>
-                
+                " : "") . "
 
             </form>
             <button class='btn_commentaire'><i class='fa-regular fa-message'></i></button>
@@ -166,7 +165,7 @@ else {
             <input type='hidden' name='id_reservation' value='{$m["id_reservation"]}'>
             <input type='hidden' name='date_creation' value='" . date("Y-m-d H:i:s") . "'>
             <input name='commentaire' id='input_commentaire' type='text' maxlength='50' placeholder='Commentaire...(50 car.)'>
-            <button class='btn_ok' type='submit'>OK</button>
+            <button class='btn_ok'>OK</button>
             <div id='info' class='info'>0 / 50 caractères</div>
         </form>
     </div>
@@ -176,7 +175,7 @@ else {
 
 foreach ($menagesValides as $mv) {
 
-    $stmt = $conn->prepare("SELECT contenu FROM commentaires WHERE id_reservation = ?");
+    $stmt = $conn->prepare("SELECT contenu FROM Commentaires WHERE id_reservation = ?");
     $stmt->execute([$mv["id_reservation"]]);
     $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -204,22 +203,21 @@ foreach ($menagesValides as $mv) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'valider') {
 
     $stmt = $conn->prepare("
-        UPDATE menage 
-        SET statut = 'a_faire', date_validation = NOW() 
+        UPDATE Menage 
+        SET statut = 'fait', date_validation = NOW() 
         WHERE id = ?
     ");
     $stmt->execute([$_POST['id_menage']]);
 
-    echo "OK";
-exit;
-
+    header("Location: index.php?page=menagePersonnel");
+    exit;
 }
 
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $stmt = $conn->prepare("INSERT INTO commentaires (id_reservation, id_auteur, contenu, date_creation) VALUES (:id_r, :id_a, :co, :d_c)
+    $stmt = $conn->prepare("INSERT INTO Commentaires (id_reservation, id_auteur, contenu, date_creation) VALUES (:id_r, :id_a, :co, :d_c)
     ");
 
     $stmt->execute([
@@ -230,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
   
-    header("Location: index.php?page=menage");
+    header("Location: index.php?page=menagePersonnel");
     exit;
 }
 
@@ -242,14 +240,10 @@ $variables = [
 ];
 
 
-$template = file_get_contents(__DIR__ . '/../../HTML/menage.html');
+$template = file_get_contents(__DIR__ . '/../../html/menagePersonnel.html');
 
-if (!$template) {
-    die("❌ ERREUR : fichier menage.html introuvable !");
-}
 
 $page = str_replace(array_keys($variables), array_values($variables), $template);
-
 
 
 echo $page;

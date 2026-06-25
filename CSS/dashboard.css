@@ -85,7 +85,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+
 }
+
+.sidebar-link.active::after {
+  content: "\F285"; /* chevron-right Bootstrap Icons */
+  font-family: "bootstrap-icons";
+  margin-left: auto;
+}
+
+
 
 .sidebar-label {
   margin: 12px 0 6px;

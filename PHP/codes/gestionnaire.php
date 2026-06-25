@@ -34,10 +34,22 @@ $nomResponsable = $stmt->fetch(PDO::FETCH_ASSOC);
 $nom = $nomResponsable["nom"];
 $role = $nomResponsable["role"];
 
+//nombre tout reservation
+$stmt = $conn->prepare("SELECT COUNT(*)  FROM reservations");
+$stmt->execute();
+$nbReservation = $stmt->fetchColumn();
 
+//nb reservation recurrente
 
+$stmt = $conn->prepare("SELECT COUNT(*)  FROM reservations WHERE type = 'recurrente'");
+$stmt->execute();
+$nbReservationRecurente = $stmt->fetchColumn();
 
+//nb reservation ponctuelle
 
+$stmt = $conn->prepare("SELECT COUNT(*)  FROM reservations WHERE type = 'recurrente'");
+$stmt->execute();
+$nbReservationPonctuelle = $stmt->fetchColumn();
 
 // carte reservations
 
@@ -54,6 +66,7 @@ if (!$reservation) {
 
 $cartesHTML = "";
 
+
 foreach($reservation as $r) {
 
     $stmt = $conn->prepare("SELECT nom FROM salles WHERE id = ?");
@@ -68,6 +81,8 @@ $nomSalle = $stmt->fetchColumn();
         "annulee" => "Annuler",
         default => "Inconnu"
     };
+
+
 
 $carte = "
     <div class='reservation-item reservation-blue'>
@@ -95,7 +110,10 @@ $carte = "
 ";
 
     $cartesHTML .= $carte;
+
 }
+
+
 
 $variables = [
     "{{nomassociation}}" => $nomAssos,
@@ -103,7 +121,8 @@ $variables = [
     "{{nom}}" => $nom,
     "{{role}}" => $role,
     "{{initial}}" => substr($nom, 0, 2),
-    
+    "{{nbReservation}}"=>$nbReservation,
+    "{{nbReservationRecurrente}}"=>$nbReservationRecurente
     
 
 ];
