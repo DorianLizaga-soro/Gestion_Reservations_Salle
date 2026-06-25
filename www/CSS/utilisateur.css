@@ -234,3 +234,21 @@
     color: white;
     cursor: pointer;
 }
+.btn_modifDelete{
+    display: flex;
+    gap: 20px;
+}
+.form_editUser{
+     display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.btn_annulerEdit{
+     padding: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 80px;
+    height: 40px;
+    color: rgb(65, 64, 64);
+    cursor: pointer;
+}

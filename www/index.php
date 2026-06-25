@@ -30,6 +30,18 @@ switch($page){
     case 'gestionnaire' :
         include __DIR__ . '/PHP/codes/gestionnaire.php';
         break;
+
+    case 'utilisateur' :
+        include __DIR__. '/PHP/codes/utilisateurs.php';
+        break;
+
+    case 'pdf' :
+        include __DIR__. '/PHP/codes/panneaudaffichage.php';
+        break;
+    
+    case 'exportation' :
+        include __DIR__. '/PHP/codes/exportations.php';
+        break;
 }
 
 ob_end_flush();

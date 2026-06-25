@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -9,32 +10,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"] ?? null;
     $mdp = $_POST["mdp"] ?? null;
     $role = $_POST["select_role"] ?? null;
+    $id_association = $_POST["id_association"] ?? null;
+
 
     if ($action === "register") {
 
-        if (empty($mdp)) {
-            die("Mot de passe manquant");
+        if (empty($identifiant) || empty($email) || empty($mdp) || empty($role)) {
+            die("Champs manquants");
         }
 
         $hash = password_hash($mdp, PASSWORD_BCRYPT);
 
-        $stmt = $conn->prepare("INSERT INTO Utilisateurs(nom, email, password, role) VALUES (?,?,?,?)");
-        $stmt->execute([$identifiant, $email, $hash, $role]);
+        $stmt = $conn->prepare("
+    INSERT INTO Utilisateurs(nom, email, password, role, id_association) 
+    VALUES (?, ?, ?, ?, ?)
+");
+$stmt->execute([$identifiant, $email, $hash, $role, $id_association]);
+
     }
 
-    $stmt = $conn->prepare("SELECT * FROM Utilisateurs WHERE nom = ?");
-    $stmt->execute([$identifiant]);
-    $user = $stmt->fetch();
-
-    if ($user && password_verify($mdp, $user["password"])) {
-        $_SESSION["id"] = $user["id"];
-        $_SESSION["nom"] = $user["nom"];
-        $_SESSION["email"] = $user["email"];
-        $_SESSION["mdp"] = $user["password"];
-        $_SESSION["select_role"] = $user["role"];
-    }
-
+    // Redirection vers la page utilisateur
+    header("Location: /index.php?page=utilisateur");
     exit;
 }
-
-include __DIR__ . '/../../html/register.html';

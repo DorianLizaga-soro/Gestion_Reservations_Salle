@@ -21,53 +21,28 @@
         <div><i class="fa-solid fa-triangle-exclamation" style="color: rgb(137, 69, 0);"></i></div>
         <div>
             <b><p>Conservation automatique sur 2 trimestres</p></b>
-            <p>Les documents plus anciens sont supprimés automatiquement. Seuls $trimestre1 et $trimestre2 sont conservés.</p>
+            <p>Les documents plus anciens sont supprimés automatiquement. Seuls T{{trimestreencours}} {{annee}} et T{{trimestresuivant}} {{annee}} sont conservés.</p>
         </div>
     </div>
 
-    <div>
-        <div class="div_trimEnCours">
-            <b><p>Trimestre en cours</p></b>
-            <p>$trimestre1</p>
-            <p>$nombre documents</p>
-        </div>
-        <div class="div_sec">
-            <div class="div_card">
-
-                <button class="btn_download"><i id="download" class="fa-regular fa-file-pdf" style="color: rgb(255, 0, 0);"></i></button>
-
-                <b><p>Programme $nomAssos $periodeProgamme</p></b>
-                <p>$nomAssos</p>
-                <p><i class="fa-regular fa-clock" style="color: rgb(136, 136, 136);"></i> $date - $kbPdf KB</p>
-                <div>
-                    <button class="btn_telecharger"><i class="fa-solid fa-download" style="color: rgb(136, 136, 136);"></i> Télécharger</button>
-                    <button class="btn_delete"><i class="fa-regular fa-trash-can" style="color: rgb(255, 0, 0);"></i></button>
-                </div>
-            </div>
-        </div>
+    <div class='div_trimEnCours'>
+        <b><p>Trimestre en cours</p></b>
+        <p>T{{trimestreencours}}</p>
+        <p>{{nombrePdf}} document</p>
     </div>
 
-     <div>
-        <div class="div_trimEnCours">
-            <b><p>Trimestre suivant</p></b>
-            <p>$trimestre2</p>
-            <p>$nombre documents</p>
-        </div>
-        <div class="div_sec">
-            <div class="div_card">
+    <section>
+        {{pdfEnCours}}
+    </section>
 
-                <button class="btn_download"><i id="download" class="fa-regular fa-file-pdf" style="color: rgb(255, 0, 0);"></i></button>
-
-                <b><p>Programme $nomAssos $periodeProgamme</p></b>
-                <p>$nomAssos</p>
-                <p><i class="fa-regular fa-clock" style="color: rgb(136, 136, 136);"></i> $date - $kbPdf KB</p>
-                <div>
-                    <button class="btn_telecharger"><i class="fa-solid fa-download" style="color: rgb(136, 136, 136);"></i> Télécharger</button>
-                    <button class="btn_delete"><i class="fa-regular fa-trash-can" style="color: rgb(255, 0, 0);"></i></button>
-                </div>
-            </div>
-        </div>
+    <div class='div_trimEnCours'>
+        <b><p>Trimestre suivant</p></b>
+        <p>T{{trimestresuivant}}</p>
+        <p>{{nombrePdf}} document</p>
     </div>
+    <section>
+        {{pdfSuivant}}
+    </section>
 
 </section>
 

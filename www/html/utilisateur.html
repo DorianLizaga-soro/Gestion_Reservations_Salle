@@ -10,7 +10,7 @@
 <body>
     <section class="sec_body">
         <section class="sec_headUser">
-            <div class="div_inputHead">
+            <div class="div_inputHead"> 
                 <div class="div_search">
                     <i id="search" class="fa-solid fa-magnifying-glass" style="color: rgb(148, 148, 148);"></i>
                     <input type="search" name="searchUser" id="searchUser" placeholder="Rechercher un utilisateur..." >
@@ -18,10 +18,12 @@
                 <select name="selectUser" id="selectUser">
                     <option value="toutRole">Tous les rôles</option>
                     <option value="gestionnaire">Gestionnaire</option>
-                    <option value="responsableAssos">Responsable Association</option>
-                    <option value="membreAssos">Membre Association</option>
-                    <option value="menage">Personnel Ménage</option>
+                    <option value="responsable_association">Responsable Association</option>
+                    <option value="membre_association">Membre Association</option>
+                    <option value="personnel_menage">Personnel Ménage</option>
                 </select>
+                {{messageErreur}}
+
             </div>
             <div>
                 <button id="btnAddUser" class="btn_ajoutUser">+ Ajouter un utilisateur</button>
@@ -30,29 +32,29 @@
 
         <section class="sec_case">
             <div class="div_case">
-                <h1>$nombreGestionnaire</h1>
+                <h1>{{nombreGestionnaire}}</h1>
                 <p>Gestionnnaire</p>
             </div>
 
              <div class="div_case">
-                <h1>$nombreResponsable</h1>
+                <h1>{{nombreResponsable}}</h1>
                 <p>Responsable Association</p>
             </div>
 
              <div class="div_case">
-                <h1>$nombreMembre</h1>
+                <h1>{{nombreMembre}}</h1>
                 <p>Membre Association</p>
             </div>
 
              <div class="div_case">
-                <h1>$nombreMenage</h1>
+                <h1>{{nombreMenage}}</h1>
                 <p>Personnel Ménage</p>
             </div>
         </section>
 
         <section class="sec_user">
             <div class="div_head">
-                <b><p>$nombreUtilisateur utilisateur</p></b>
+                <b><p>{{nombreUtilisateur}} utilisateur</p></b>
             </div>
         
             <div class="div_titre">
@@ -63,19 +65,7 @@
                 <p>ACTIONS</p>
             </div>
 
-            <div class="div_userElement">
-                <div class="div_user">
-                    <span class="initial_resp">NR</span>   
-                    <p>$nomUtilisateur</p> 
-                </div>
-                <p>$emailUtilisateur</p>
-                <p>$association</p>
-                <p>$role</p>
-                <div>
-                    <button class="btn_modif"><i class="fa-regular fa-pen-to-square" style="color: rgb(148, 148, 148);"></i></button>
-                    <button class="btn_delete"><i class="fa-regular fa-trash-can" style="color: rgb(255, 0, 0);"></i></button>
-                </div>
-            </div>
+            {{carteUtilisateur}}
         </section>
         <div id="modalAddUser" class="modal">
             <div class="modal-content">
@@ -85,53 +75,91 @@
 
                 <hr>
 
-                <form class="form_addUser">
+                <form action="/PHP/codes/register.php" method="POST" class="form_addUser">
+
+                    <input type="hidden" name="action" value="register">
+                    
                     <div class="div_formName">
                         <div class="div_Name">
-                            <label>Prénom *</label>
-                            <input class="input_form" type="text" placeholder="Prénom" required>
-                        </div>
-                        <div class="div_Name">
-                            <label>Nom *</label>
-                            <input class="input_form" type="text" placeholder="Nom" required>
+                            <label>Nom :</label>
+                            <input class="input_form" type="text" name="identifiant" placeholder="Nom" required>
                         </div> 
                     </div>
 
-                    <label>Email *</label>
-                    <input class="input_form" type="email" placeholder="Mail" required>
+                    <label>Email :</label>
+                    <input class="input_form" type="email" name="email" placeholder="Mail" required>
+
+                    <label>Mot de passe :</label>
+                    <input class="input_form" type="password" name="mdp" placeholder="Mot de passe" required>
+
 
                     <label>Association</label>
-                    <select class="input_form" name="" id="">
-                        <option value="Mairie">Marie / Aucune</option>
-                        <option value="Tennis">Club de Tennis</option>
-                        <option value="LesArts">Association Culturelle Les Arts</option>
-                        <option value="Retraites">Amicale des Retraités</option>
-                        <option value="Petanque">Club de Pétanque du Terroir</option>
-                        <option value="Danse">Danse Traditionnelle Occitane</option>
-                        <option value="Parents">Association Parents d'Élèves</option>
-                        <option value="Voix">Chorale Voix du Sud</option>
-                        <option value="Informatique">Club Informatique Senior</option>
-                        <option value="Yoga">Yoga & Bien-être</option>
+                    <select class="input_form" name="id_association" required>
+                        <option value="">Sélectionner une association</option>
+                        {{optionsAssociations}}
                     </select>
 
-                    <label>Rôle *</label>
+
+
+                    <label>Rôle :</label>
                     <div class="roles">
-                        <button type="button" class="role-btn role-gestionnaire">Gestionnaire</button>
-                        <button type="button" class="role-btn role-resp-association">Responsable Association</button>
-                        <button type="button" class="role-btn role-membre">Membre Association</button>
-                        <button type="button" class="role-btn role-menage">Personnel Ménage</button>                      
+                        <select class="input_form" name="select_role" required>
+                            <option value="gestionnaire">Gestionnaire</option>
+                            <option value="responsable_association">Responsable association</option>
+                            <option value="membre_association">Membre association</option>
+                            <option value="personnel_menage">Personnel ménage</option>
+                        </select>
                     </div>
-
-                   
-
-                    <div class="div_btn_form">
-                        <button type="button" class="btn_annuler">Annuler</button>
-                        <button class="btn_creerUser" type="submit">Créer l'utilisateur</button>
-                    </div>
+                    <button type="button" class="btn_annuler">Annuler</button>
+                    <button type="submit" class="btn_creerUser">Créer l'utilisateur</button>
                 </form>
             </div>
         </div>
+        <div id="modalEditUser" class="modal">
+    <div class="modal-content">
+        <span class="close closeEdit">&times;</span>
+
+        <h2>Modifier un utilisateur</h2>
+
+        <hr>
+
+        <form action="/PHP/codes/updateUser.php" method="POST" class="form_editUser">
+
+            <input type="hidden" name="id_user" id="edit_id">
+
+            <label>Nom :</label>
+            <input class="input_form" type="text" name="identifiant" id="edit_nom" required>
+
+            <label>Email :</label>
+            <input class="input_form" type="email" name="email" id="edit_email" required>
+
+            <label>Mot de passe :</label>
+            <input id="edit_mdp" class="input_form" type="password" name="mdp" placeholder="Mot de passe" required>
+
+            <label>Association</label>
+            <select class="input_form" name="id_association" id="edit_association" required>
+                <option value="">Sélectionner une association</option>
+                {{optionsAssociations}}
+            </select>
+
+            <label>Rôle :</label>
+            <select class="input_form" name="select_role" id="edit_role" required>
+                <option value="gestionnaire">Gestionnaire</option>
+                <option value="responsable_association">Responsable association</option>
+                <option value="membre_association">Membre association</option>
+                <option value="personnel_menage">Personnel ménage</option>
+            </select>
+
+            <button type="button" class="btn_annulerEdit">Annuler</button>
+            <button type="submit" class="btn_creerUser">Modifier l'utilisateur</button>
+        </form>
+    </div>
+</div>
+
+        </div>
     </section>
     <script src="/JS/utilisateur.js"></script>
+
+
 </body>
 </html>
