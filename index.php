@@ -36,10 +36,6 @@ switch($page){
     case 'gestionnaire' :
         include __DIR__ . '/PHP/codes/gestionnaire.php';
         break;
-    
-    case 'logout' :
-        include __DIR__ . '/PHP/codes/logout.php';
-        break;
 }
 
 ob_end_flush();
