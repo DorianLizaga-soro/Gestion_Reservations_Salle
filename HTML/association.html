@@ -16,7 +16,7 @@
 <body>
     <!-- En tete "Bienvenue, Association Culturelle Les Arts" -->
 
-    <article class="head">
+    <article class="head" style="background-color: {{couleur}};">
         <article class="btn-connexion">
             <h1>Bienvenue, {{nomassociation}}</h1>
             <button class="deconnexion" id="ouvrir-modale-deconnexion">Deconnexion</button>
@@ -47,7 +47,7 @@
             <p class="modale-sous-titre">Réservation ponctuelle pour votre association</p>
 
 
-            <form method="post" action="ajouter_reservation.php">
+            <form method="post" action="/ReservationSalle/index.php?page=ajouter_reservation">
 
                 <input type="hidden" name="id_association" value="<?php echo $idAssociationConnectee; ?>">
                 <input type="hidden" name="id_responsable" value="<?php echo $idUtilisateurConnecte; ?>">
@@ -77,7 +77,16 @@
                         <label for="heure_fin">Heure fin</label>
                         <input type="time" name="heure_fin" id="heure_fin" required>
                     </div>
+
+
                 </div>
+
+                <label for="motif">Motif de la réunion</label>
+                <input type="text" name="Motif" id="motif" required>
+
+                <label for="commentaire">Commentaire</label>
+                <input type="text" name="commentaire" id="commentaire">
+
 
                 <div class="modale-boutons">
                     <button type="button" class="btn-annuler-modale" id="annuler-modale">Annuler</button>
@@ -114,7 +123,7 @@
                 Ajoutez un nouveau membre à l’association
             </p>
 
-            <form method="post" action="ajouter_membre.php">
+            <form method="post" action="./index.php?page=ajouter_membre">
 
                 <label for="identifiant">Identifiant</label>
                 <input type="text" name="identifiant" id="identifiant" required>
@@ -152,18 +161,18 @@
         <article class="reservationDuMois">
             <p><i class="fa-solid fa-book-open" style="color: #35CA6C;"></i> Réservations du mois</p>
             <h2>{{resadumois}}</h2>
-            <p>Dont {{quantité}} récurrentes</p>
+            <p>Dont {{nbRecurrentes}} récurrentes</p>
         </article>
 
         <article class="quota">
             <p><i class="fa-solid fa-clock" style="color: #F97316;"></i> Quota ponctuelles</p>
             <h2>{{quantité/quantité}}</h2>
-            <progress class="barre"  value="40" max="100"></progress>
+            <progress class="barre" value="{{nbPonctuelles}}" max="{{quotaMax}}"></progress>
         </article>
 
         <article class="documentDepose">
             <p><i class="fa-solid fa-file-lines" style="color: #8B5CF6;"></i> Documents déposés</p>
-            <h2>{{quantité}}</h2>
+            <h2>{{nbPdfs}}</h2>
             <p>PDF actifs</p>
         </article>
 
@@ -223,10 +232,10 @@
 
             <div class="modale-entete-centree">
                 <h2>Supprimer la réservation ?</h2>
-                <p>Cette action est irréversible. La réservation sera définitivement supprimée.</p>
+                <p>Voulez-vous vraiment supprimer la reservation ?</p>
             </div>
 
-            <form method="post" action="supprimer_reservation.php" id="form-suppression">
+            <form method="post" action="./index.php?page=supprimer_reservation" id="form-suppression">
                 <input type="hidden" name="id_reservation" id="id-reservation-a-supprimer">
 
                 <div class="modale-boutons">
@@ -257,12 +266,12 @@
                 <h2>Modifier la réservation</h2>
             </div>
 
-            <form method="post" action="modifier_reservation.php" id="form-modification">
+            <form method="post" action="/ReservationSalle/index.php?page=modifier_reservation" id="form-modification">
 
                 <input type="hidden" name="id_reservation" id="id-reservation-a-modifier">
 
                 <label for="modif-salle">Salle</label>
-                <select name="id_salle" id="modif-salle" required>
+                <select name="id_salle" id="modif-salle">
                     <option value="1">Salle de réunion</option>
                     <option value="2">Bar</option>
                     <option value="3">Réfectoire</option>
@@ -270,18 +279,24 @@
                 </select>
 
                 <label for="modif-date">Date</label>
-                <input type="date" name="date_" id="modif-date" required>
+                <input type="date" name="date_" id="modif-date">
 
                 <div class="ligne-heures">
                     <div>
                         <label for="modif-heure-debut">Heure début</label>
-                        <input type="time" name="heure_debut" id="modif-heure-debut" required>
+                        <input type="time" name="heure_debut" id="modif-heure-debut">
                     </div>
                     <div>
                         <label for="modif-heure-fin">Heure fin</label>
-                        <input type="time" name="heure_fin" id="modif-heure-fin" required>
+                        <input type="time" name="heure_fin" id="modif-heure-fin">
                     </div>
                 </div>
+
+                <label for="modif-motif">Motif de la réunion</label>
+                <input type="text" name="Motif" id="modif-motif">
+
+                <label for="modif-commentaire">Commentaire</label>
+                <input type="text" name="commentaire" id="modif-commentaire">
 
                 <div class="modale-boutons">
                     <button type="button" class="btn-annuler-modale" id="annuler-modification">Annuler</button>
@@ -314,7 +329,11 @@
 
             <div class="modale-boutons">
                 <button type="button" class="btn-annuler-modale" id="annuler-deconnexion">Annuler</button>
-                <button onclick="deconnexion()" class="btn-deconnexion-confirme">Se déconnecter</button>
+
+                <form action="./index.php?page=deconnexion" method="POST">
+                    <button class="btn-deconnexion-confirme" type="submit">Se déconnecter</button>
+                </form>
+
             </div>
 
 
@@ -419,13 +438,8 @@
 
 
 
-
-
-
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="/JS/JS.js"></script>
+    <script src="JS/association.js"></script>
 
 
 

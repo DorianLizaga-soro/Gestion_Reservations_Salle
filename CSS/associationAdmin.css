@@ -300,6 +300,18 @@
 .overlay-details.actif {
     display: flex;
 }
+.overlay-details {
+    z-index: 999999 !important;
+}
+
+.modale-details {
+    z-index: 1000000 !important;
+}
+
+.overlay,
+.overlay-ajout-asso {
+    z-index: 900 !important;
+}
 
 
 /* ========================================

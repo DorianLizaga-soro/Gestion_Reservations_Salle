@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["email"] = $user["email"];
             $_SESSION["mdp"] = $user["password"];
             $_SESSION["select_role"] = $user["role"]; 
+            $_SESSION["id_association"] = $user["id_association"];
 
             $_SESSION["total"] = 0;
 

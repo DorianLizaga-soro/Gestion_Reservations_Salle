@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/CSS/associationAdmin.css">
+    <link rel="stylesheet" href="CSS/associationAdmin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -21,7 +21,7 @@
 
 
     <article class="en-tete">
-        <p class="assoc-save">9 associations enregistrées</p><br><br>
+        <p class="assoc-save">{{nbAssociations}} associations enregistrées</p><br><br>
         <button class="new-assoc" id="ouvrir-ajout-association">+ Nouvelle association</button>
 
     </article>
@@ -30,18 +30,7 @@
     <section>
 
 
-        <!DOCTYPE html>
-        <html lang="fr">
-
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Gestion des associations</title>
-            <link rel="stylesheet" href="/CSS/association.css">
-        </head>
-
-        <body>
-
+        
             <!-- ========================================
          GRILLE DES ASSOCIATIONS
          Affiche toutes les associations sous forme
@@ -49,706 +38,25 @@
          ======================================== -->
 
             <div class="grille-associations">
-
-                <!-- ========================================
-             STRUCTURE D'UNE CARTE ASSOCIATION
-             Chaque carte est composée de 4 blocs :
-             1. En-tête (icône + nom + couleur)
-             2. Statistiques (membres + réservations)
-             3. Barre de progression du quota mensuel
-             4. Boutons d'action (voir / modifier / supprimer)
-             ======================================== -->
-
-
-                <!-- ===== CARTE 1 : Club de Tennis Monestié ===== -->
-                <div class="carte-asso" style="--couleur-asso: #2563EB; --couleur-asso-light: #EFF6FF;">
-
-                    <!-- Bloc 1 : En-tête avec icône colorée, nom et code couleur -->
-                    <div class="carte-asso-entete">
-                        <div class="carte-asso-icone" style="background: #EFF6FF;">
-                            <!-- Icône institution (Font Awesome) -->
-                            <i class="fa-solid fa-building-columns" style="color: #2563EB;"></i>
-                        </div>
-                        <div>
-                            <!-- Nom de l'association -->
-                            <p class="carte-asso-nom">Club de Tennis Monestié</p>
-                            <!-- Pastille de couleur + code couleur hex -->
-                            <p class="carte-asso-couleur">
-                                <span class="pastille-couleur" style="background: #2563EB;"></span>#2563EB
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Bloc 2 : Statistiques membres et réservations -->
-                    <div class="carte-asso-stats">
-                        <!-- Stat membres -->
-                        <div class="stat-box">
-                            <p class="stat-label">
-                                <i class="fa-solid fa-user-group"></i> Membres
-                            </p>
-                            <p class="stat-valeur">34</p>
-                        </div>
-                        <!-- Stat réservations (colorée avec la couleur de l'asso) -->
-                        <div class="stat-box">
-                            <p class="stat-label">
-                                <i class="fa-solid fa-calendar-days"></i> Réservations
-                            </p>
-                            <p class="stat-valeur" style="color: #2563EB;">12</p>
-                        </div>
-                    </div>
-
-                    <!-- Bloc 3 : Barre de progression du quota mensuel (3 ponctuelles max) -->
-                    <div class="carte-asso-quota">
-                        <div class="quota-texte">
-                            <span>Quota mensuel (3 ponctuelles)</span>
-                            <!-- Affichage du ratio utilisé / max -->
-                            <span class="quota-ratio" style="color: #2563EB;">3/3</span>
-                        </div>
-                        <!-- Barre de progression colorée selon la couleur de l'asso -->
-                        <!-- La largeur en % correspond à (réservations ponctuelles / 3) * 100 -->
-                        <div class="quota-barre-fond">
-                            <div class="quota-barre-remplie" style="background: #2563EB; width: 100%;"></div>
-                        </div>
-                    </div>
-
-                    <!-- Bloc 4 : Boutons d'action -->
-                    <div class="carte-asso-actions">
-                        <!-- Bouton "Voir détails" : couleur dynamique selon l'association -->
-                        <button class="btn-voir-details" data-nom="Club de Tennis Monestié" data-couleur="#2563EB"
-                            data-couleur-light="#EFF6FF" data-membres="34" data-reservations="12"
-                            data-email="tennis@associations-monastie.fr" data-tel="05 63 XX XX XX"
-                            style="background: #EFF6FF; color: #2563EB;">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </button>
-                        <!-- Bouton modifier (icône crayon, neutre) -->
-                        <button class="btn-modifier-asso" aria-label="Modifier" data-nom="Club de Tennis Monestié"
-                            data-couleur="#2563EB">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-                        <!-- Bouton supprimer (icône poubelle, rouge) -->
-                        <button class="btn-supprimer-asso" data-nom="Club de Tennis Monestié" aria-label="Supprimer">
-
-                            <i class="fa-solid fa-trash"></i>
-
-                        </button>
-                    </div>
-
-                </div>
-
-
-                <!-- ===== CARTE 2 : Association Culturelle Les Arts ===== -->
-                <div class="carte-asso" style="--couleur-asso: #22C55E; --couleur-asso-light: #F0FDF4;">
-                    <div class="carte-asso-entete">
-                        <div class="carte-asso-icone" style="background: #F0FDF4;">
-                            <i class="fa-solid fa-building-columns" style="color: #16A34A;"></i>
-                        </div>
-                        <div>
-                            <p class="carte-asso-nom">Association Culturelle Les Arts</p>
-                            <p class="carte-asso-couleur">
-                                <span class="pastille-couleur" style="background: #22C55E;"></span>#22C55E
-                            </p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-stats">
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-user-group"></i> Membres</p>
-                            <p class="stat-valeur">27</p>
-                        </div>
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-calendar-days"></i> Réservations</p>
-                            <p class="stat-valeur" style="color: #16A34A;">8</p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-quota">
-                        <div class="quota-texte">
-                            <span>Quota mensuel (3 ponctuelles)</span>
-                            <span class="quota-ratio" style="color: #16A34A;">3/3</span>
-                        </div>
-                        <div class="quota-barre-fond">
-                            <div class="quota-barre-remplie" style="background: #22C55E; width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="carte-asso-actions">
-                        <button class="btn-voir-details" style="background: #F0FDF4; color: #16A34A;">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </button>
-                        <button class="btn-modifier-asso" aria-label="Modifier"
-                            data-nom="Association Culturelle Les Arts" data-couleur="#22C55E">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-                        <button class="btn-supprimer-asso" data-nom="Association Culturelle Les Arts"
-                            aria-label="Supprimer">
-
-                            <i class="fa-solid fa-trash"></i>
-
-                        </button>
-                    </div>
-                </div>
-
-
-                <!-- ===== CARTE 3 : Amicale des Retraités ===== -->
-                <div class="carte-asso" style="--couleur-asso: #F97316; --couleur-asso-light: #FFF7ED;">
-                    <div class="carte-asso-entete">
-                        <div class="carte-asso-icone" style="background: #FFF7ED;">
-                            <i class="fa-solid fa-building-columns" style="color: #EA580C;"></i>
-                        </div>
-                        <div>
-                            <p class="carte-asso-nom">Amicale des Retraités</p>
-                            <p class="carte-asso-couleur">
-                                <span class="pastille-couleur" style="background: #F97316;"></span>#F97316
-                            </p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-stats">
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-user-group"></i> Membres</p>
-                            <p class="stat-valeur">52</p>
-                        </div>
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-calendar-days"></i> Réservations</p>
-                            <p class="stat-valeur" style="color: #EA580C;">15</p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-quota">
-                        <div class="quota-texte">
-                            <span>Quota mensuel (3 ponctuelles)</span>
-                            <span class="quota-ratio" style="color: #EA580C;">3/3</span>
-                        </div>
-                        <div class="quota-barre-fond">
-                            <div class="quota-barre-remplie" style="background: #F97316; width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="carte-asso-actions">
-                        <button class="btn-voir-details" style="background: #FFF7ED; color: #EA580C;">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </button>
-                        <button class="btn-modifier-asso" aria-label="Modifier" data-nom="Amicale des Retraités"
-                            data-couleur="#F97316">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-                        <button class="btn-supprimer-asso" data-nom="Amicale des Retraités" aria-label="Supprimer">
-
-                            <i class="fa-solid fa-trash"></i>
-
-                        </button>
-                    </div>
-                </div>
-
-
-                <!-- ===== CARTE 4 : Club de Pétanque du Terroir ===== -->
-                <div class="carte-asso" style="--couleur-asso: #8B5CF6; --couleur-asso-light: #F5F3FF;">
-                    <div class="carte-asso-entete">
-                        <div class="carte-asso-icone" style="background: #F5F3FF;">
-                            <i class="fa-solid fa-building-columns" style="color: #7C3AED;"></i>
-                        </div>
-                        <div>
-                            <p class="carte-asso-nom">Club de Pétanque du Terroir</p>
-                            <p class="carte-asso-couleur">
-                                <span class="pastille-couleur" style="background: #8B5CF6;"></span>#8B5CF6
-                            </p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-stats">
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-user-group"></i> Membres</p>
-                            <p class="stat-valeur">41</p>
-                        </div>
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-calendar-days"></i> Réservations</p>
-                            <p class="stat-valeur" style="color: #7C3AED;">6</p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-quota">
-                        <div class="quota-texte">
-                            <span>Quota mensuel (3 ponctuelles)</span>
-                            <span class="quota-ratio" style="color: #7C3AED;">3/3</span>
-                        </div>
-                        <div class="quota-barre-fond">
-                            <div class="quota-barre-remplie" style="background: #8B5CF6; width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="carte-asso-actions">
-                        <button class="btn-voir-details" style="background: #F5F3FF; color: #7C3AED;">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </button>
-                        <button class="btn-modifier-asso" aria-label="Modifier" data-nom="Club de Pétanque du Terroir"
-                            data-couleur="#8B5CF6">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-                        <button class="btn-supprimer-asso" data-nom="Club de Pétanque du Terroir"
-                            aria-label="Supprimer">
-
-                            <i class="fa-solid fa-trash"></i>
-
-                        </button>
-                    </div>
-                </div>
-
-
-                <!-- ===== CARTE 5 : Danse Traditionnelle Occitane ===== -->
-                <div class="carte-asso" style="--couleur-asso: #EC4899; --couleur-asso-light: #FDF2F8;">
-                    <div class="carte-asso-entete">
-                        <div class="carte-asso-icone" style="background: #FDF2F8;">
-                            <i class="fa-solid fa-building-columns" style="color: #DB2777;"></i>
-                        </div>
-                        <div>
-                            <p class="carte-asso-nom">Danse Traditionnelle Occitane</p>
-                            <p class="carte-asso-couleur">
-                                <span class="pastille-couleur" style="background: #EC4899;"></span>#EC4899
-                            </p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-stats">
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-user-group"></i> Membres</p>
-                            <p class="stat-valeur">29</p>
-                        </div>
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-calendar-days"></i> Réservations</p>
-                            <p class="stat-valeur" style="color: #DB2777;">10</p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-quota">
-                        <div class="quota-texte">
-                            <span>Quota mensuel (3 ponctuelles)</span>
-                            <span class="quota-ratio" style="color: #DB2777;">3/3</span>
-                        </div>
-                        <div class="quota-barre-fond">
-                            <div class="quota-barre-remplie" style="background: #EC4899; width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="carte-asso-actions">
-                        <button class="btn-voir-details" style="background: #FDF2F8; color: #DB2777;">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </button>
-                        <button class="btn-modifier-asso" aria-label="Modifier" data-nom="Danse Traditionnelle Occitane"
-                            data-couleur="#EC4899">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-                        <button class="btn-supprimer-asso" data-nom="Danse Traditionnelle Occitane"
-                            aria-label="Supprimer">
-
-                            <i class="fa-solid fa-trash"></i>
-
-                        </button>
-                    </div>
-                </div>
-
-
-                <!-- ===== CARTE 6 : Association Parents d'Élèves ===== -->
-                <div class="carte-asso" style="--couleur-asso: #06B6D4; --couleur-asso-light: #ECFEFF;">
-                    <div class="carte-asso-entete">
-                        <div class="carte-asso-icone" style="background: #ECFEFF;">
-                            <i class="fa-solid fa-building-columns" style="color: #0891B2;"></i>
-                        </div>
-                        <div>
-                            <p class="carte-asso-nom">Association Parents d'Élèves</p>
-                            <p class="carte-asso-couleur">
-                                <span class="pastille-couleur" style="background: #06B6D4;"></span>#06B6D4
-                            </p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-stats">
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-user-group"></i> Membres</p>
-                            <p class="stat-valeur">18</p>
-                        </div>
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-calendar-days"></i> Réservations</p>
-                            <p class="stat-valeur" style="color: #0891B2;">4</p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-quota">
-                        <div class="quota-texte">
-                            <span>Quota mensuel (3 ponctuelles)</span>
-                            <span class="quota-ratio" style="color: #0891B2;">3/3</span>
-                        </div>
-                        <div class="quota-barre-fond">
-                            <div class="quota-barre-remplie" style="background: #06B6D4; width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="carte-asso-actions">
-                        <button class="btn-voir-details" style="background: #ECFEFF; color: #0891B2;">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </button>
-                        <button class="btn-modifier-asso" aria-label="Modifier" data-nom="Association Parents d'Élèves"
-                            data-couleur="#06B6D4">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-                        <button class="btn-supprimer-asso" data-nom="Association Parents d'Élèves"
-                            aria-label="Supprimer">
-
-                            <i class="fa-solid fa-trash"></i>
-
-                        </button>
-                    </div>
-                </div>
-
-
-                <!-- ===== CARTE 7 : Chorale Voix du Sud ===== -->
-                <div class="carte-asso" style="--couleur-asso: #F59E0B; --couleur-asso-light: #FFFBEB;">
-                    <div class="carte-asso-entete">
-                        <div class="carte-asso-icone" style="background: #FFFBEB;">
-                            <i class="fa-solid fa-building-columns" style="color: #D97706;"></i>
-                        </div>
-                        <div>
-                            <p class="carte-asso-nom">Chorale Voix du Sud</p>
-                            <p class="carte-asso-couleur">
-                                <span class="pastille-couleur" style="background: #F59E0B;"></span>#F59E0B
-                            </p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-stats">
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-user-group"></i> Membres</p>
-                            <p class="stat-valeur">22</p>
-                        </div>
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-calendar-days"></i> Réservations</p>
-                            <p class="stat-valeur" style="color: #D97706;">9</p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-quota">
-                        <div class="quota-texte">
-                            <span>Quota mensuel (3 ponctuelles)</span>
-                            <span class="quota-ratio" style="color: #D97706;">3/3</span>
-                        </div>
-                        <div class="quota-barre-fond">
-                            <div class="quota-barre-remplie" style="background: #F59E0B; width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="carte-asso-actions">
-                        <button class="btn-voir-details" style="background: #FFFBEB; color: #D97706;">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </button>
-                        <button class="btn-modifier-asso" aria-label="Modifier" data-nom="Chorale Voix du Sud"
-                            data-couleur="#F59E0B">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-                        <button class="btn-supprimer-asso" data-nom="Chorale Voix du Sud" aria-label="Supprimer">
-
-                            <i class="fa-solid fa-trash"></i>
-
-                        </button>
-                    </div>
-                </div>
-
-
-                <!-- ===== CARTE 8 : Club Informatique Senior ===== -->
-                <div class="carte-asso" style="--couleur-asso: #EF4444; --couleur-asso-light: #FEF2F2;">
-                    <div class="carte-asso-entete">
-                        <div class="carte-asso-icone" style="background: #FEF2F2;">
-                            <i class="fa-solid fa-building-columns" style="color: #DC2626;"></i>
-                        </div>
-                        <div>
-                            <p class="carte-asso-nom">Club Informatique Senior</p>
-                            <p class="carte-asso-couleur">
-                                <span class="pastille-couleur" style="background: #EF4444;"></span>#EF4444
-                            </p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-stats">
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-user-group"></i> Membres</p>
-                            <p class="stat-valeur">15</p>
-                        </div>
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-calendar-days"></i> Réservations</p>
-                            <p class="stat-valeur" style="color: #DC2626;">3</p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-quota">
-                        <div class="quota-texte">
-                            <span>Quota mensuel (3 ponctuelles)</span>
-                            <span class="quota-ratio" style="color: #DC2626;">3/3</span>
-                        </div>
-                        <div class="quota-barre-fond">
-                            <div class="quota-barre-remplie" style="background: #EF4444; width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="carte-asso-actions">
-                        <button class="btn-voir-details" style="background: #FEF2F2; color: #DC2626;">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </button>
-                        <button class="btn-modifier-asso" aria-label="Modifier" data-nom="Club Informatique Senior"
-                            data-couleur="#EF4444">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-                        <button class="btn-supprimer-asso" data-nom="Club Informatique Senior" aria-label="Supprimer">
-
-                            <i class="fa-solid fa-trash"></i>
-
-                        </button>
-                    </div>
-                </div>
-
-
-                <!-- ===== CARTE 9 : Yoga & Bien-être ===== -->
-                <div class="carte-asso" style="--couleur-asso: #14B8A6; --couleur-asso-light: #F0FDFA;">
-                    <div class="carte-asso-entete">
-                        <div class="carte-asso-icone" style="background: #F0FDFA;">
-                            <i class="fa-solid fa-building-columns" style="color: #0D9488;"></i>
-                        </div>
-                        <div>
-                            <p class="carte-asso-nom">Yoga & Bien-être</p>
-                            <p class="carte-asso-couleur">
-                                <span class="pastille-couleur" style="background: #14B8A6;"></span>#14B8A6
-                            </p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-stats">
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-user-group"></i> Membres</p>
-                            <p class="stat-valeur">31</p>
-                        </div>
-                        <div class="stat-box">
-                            <p class="stat-label"><i class="fa-solid fa-calendar-days"></i> Réservations</p>
-                            <p class="stat-valeur" style="color: #0D9488;">11</p>
-                        </div>
-                    </div>
-                    <div class="carte-asso-quota">
-                        <div class="quota-texte">
-                            <span>Quota mensuel (3 ponctuelles)</span>
-                            <span class="quota-ratio" style="color: #0D9488;">3/3</span>
-                        </div>
-                        <div class="quota-barre-fond">
-                            <div class="quota-barre-remplie" style="background: #14B8A6; width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="carte-asso-actions">
-                        <button class="btn-voir-details" style="background: #F0FDFA; color: #0D9488;">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </button>
-                        <button class="btn-modifier-asso" aria-label="Modifier" data-nom="Yoga & Bien-être"
-                            data-couleur="#14B8A6">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-                        <button class="btn-supprimer-asso" data-nom="Yoga & Bien-être" aria-label="Supprimer">
-
-                            <i class="fa-solid fa-trash"></i>
-
-                        </button>
-                    </div>
-                </div>
-
+               
+                    {{cartesAssociations}}
+                               
             </div>
-            <!-- Fin grille des associations -->
+               
+
+                        {{cartesModal}}
+
+                        <!-- ===== EN-TÊTE : icône + nom + stats ===== -->
+                        
+                        <!-- Fin corps de la modale -->
+
+                    
+                
+                <!-- Fin modale voir détails -->
 
 
 
-
-
-            <!-- ========================================
-     HTML : MODALE "VOIR DÉTAILS"
-     A placer dans ton body, avant le script JS
-     ======================================== -->
-
-            <div class="overlay-details" id="overlay-details">
-                <div class="modale-details" id="modale-details">
-
-                    <!-- ===== EN-TÊTE : icône + nom + stats ===== -->
-                    <div class="modale-details-entete">
-
-                        <!-- Bouton fermer (croix en haut à droite) -->
-                        <button class="modale-details-fermer" id="fermer-details">&times;</button>
-
-                        <!-- Titre : icône colorée + nom + membres/réservations -->
-                        <div class="modale-details-titre">
-                            <!-- L'icône et sa couleur de fond sont injectées par le JS selon l'association -->
-                            <div class="modale-details-icone" id="details-icone">
-                                <i class="fa-solid fa-building-columns"></i>
-                            </div>
-                            <div>
-                                <!-- Le nom est injecté par le JS -->
-                                <p class="modale-details-nom" id="details-nom">Nom de l'association</p>
-                                <p class="modale-details-stats">
-                                    <span><i class="fa-solid fa-user-group"></i> <span id="details-membres">0</span>
-                                        membres</span>
-                                    <span><i class="fa-solid fa-calendar-days"></i> <span
-                                            id="details-reservations">0</span> réservations</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Onglets de navigation -->
-                        <div class="modale-details-onglets">
-                            <button class="onglet-btn actif" data-onglet="info" id="onglet-info">Informations</button>
-                            <button class="onglet-btn" data-onglet="cal" id="onglet-cal">Calendrier</button>
-                            <button class="onglet-btn" data-onglet="histo" id="onglet-histo">Historique</button>
-                            <button class="onglet-btn" data-onglet="docs" id="onglet-docs">Documents</button>
-                        </div>
-
-                    </div>
-
-                    <!-- ===== CORPS : contenu des onglets ===== -->
-                    <div class="modale-details-corps">
-
-                        <!-- ===== ONGLET 1 : INFORMATIONS ===== -->
-                        <div class="onglet-panel actif" id="panel-info">
-
-                            <!-- Grille 2 colonnes : Contact + Couleur -->
-                            <div class="details-info-grille">
-
-                                <!-- Boîte Contact -->
-                                <div class="details-box">
-                                    <p class="details-box-titre">Contact</p>
-                                    <p class="details-contact-ligne">
-                                        <i class="fa-solid fa-envelope" style="color: #9ca3af;"></i>
-                                        <!-- Email injecté par le JS -->
-                                        <span id="details-email">-</span>
-                                    </p>
-                                    <p class="details-contact-ligne">
-                                        <i class="fa-solid fa-phone" style="color: #9ca3af;"></i>
-                                        <!-- Téléphone injecté par le JS -->
-                                        <span id="details-tel">-</span>
-                                    </p>
-                                </div>
-
-                                <!-- Boîte Couleur -->
-                                <div class="details-box">
-                                    <p class="details-box-titre">Couleur</p>
-                                    <div class="details-couleur-ligne">
-                                        <!-- Carré de couleur, couleur injectée par le JS -->
-                                        <div class="details-couleur-carre" id="details-couleur-carre"></div>
-                                        <!-- Code hex injecté par le JS -->
-                                        <span class="details-couleur-code" id="details-couleur-code">#000000</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Boîte Membres principaux -->
-                            <div class="details-box">
-                                <p class="details-box-titre">Membres principaux</p>
-
-                                <!-- Membre 1 -->
-                                <div class="membre-ligne">
-                                    <div class="membre-avatar" id="details-avatar-1">T</div>
-                                    <div>
-                                        <p class="membre-nom" id="details-membre-1-nom">Membre 1</p>
-                                        <p class="membre-role">Président(e)</p>
-                                    </div>
-                                </div>
-
-                                <!-- Membre 2 -->
-                                <div class="membre-ligne">
-                                    <div class="membre-avatar" id="details-avatar-2">T</div>
-                                    <div>
-                                        <p class="membre-nom" id="details-membre-2-nom">Membre 2</p>
-                                        <p class="membre-role">Trésorier(ère)</p>
-                                    </div>
-                                </div>
-
-                                <!-- Membre 3 -->
-                                <div class="membre-ligne">
-                                    <div class="membre-avatar" id="details-avatar-3">T</div>
-                                    <div>
-                                        <p class="membre-nom" id="details-membre-3-nom">Membre 3</p>
-                                        <p class="membre-role">Secrétaire</p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- Fin onglet Informations -->
-
-
-                        <!-- ===== ONGLET 2 : CALENDRIER ===== -->
-                        <div class="onglet-panel" id="panel-cal">
-                            <div class="details-calendrier-vide">
-                                <i class="fa-regular fa-calendar"></i>
-                                <!-- Nombre de réservations ce mois injecté par le JS -->
-                                <p id="details-nb-reservations-mois">0 réservations ce mois</p>
-                            </div>
-                        </div>
-                        <!-- Fin onglet Calendrier -->
-
-
-                        <!-- ===== ONGLET 3 : HISTORIQUE ===== -->
-                        <div class="onglet-panel" id="panel-histo">
-
-                            <!-- Ligne historique 1 -->
-                            <div class="historique-ligne" style="border-left: 3px solid #2563EB;">
-                                <div>
-                                    <p class="historique-titre">Entraînement hebdomadaire</p>
-                                    <p class="historique-sous-titre">Salle Sportive · 09:00–11:00</p>
-                                </div>
-                                <div class="historique-droite">
-                                    <p class="historique-date">02/06/2025</p>
-                                    <span class="badge-recurrente">Récurrente</span>
-                                </div>
-                            </div>
-
-                            <!-- Ligne historique 2 -->
-                            <div class="historique-ligne" style="border-left: 3px solid #2563EB;">
-                                <div>
-                                    <p class="historique-titre">Soirée de gala tennis</p>
-                                    <p class="historique-sous-titre">Salle des Fêtes · 19:00–22:00</p>
-                                </div>
-                                <div class="historique-droite">
-                                    <p class="historique-date">10/06/2025</p>
-                                    <span class="badge-ponctuelle">Ponctuelle</span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- Fin onglet Historique -->
-
-
-                        <!-- ===== ONGLET 4 : DOCUMENTS ===== -->
-                        <div class="onglet-panel" id="panel-docs">
-
-                            <!-- Ligne document 1 -->
-                            <div class="document-ligne">
-                                <div class="document-gauche">
-                                    <!-- Icône document, fond coloré selon l'association -->
-                                    <div class="document-icone" style="background: #EFF6FF;">
-                                        <i class="fa-solid fa-file-lines" style="color: #2563EB;"></i>
-                                    </div>
-                                    <div>
-                                        <p class="document-nom">Programme Tennis Q2 2025</p>
-                                        <p class="document-infos">Déposé le 01/04/2025 · 245 KB</p>
-                                    </div>
-                                </div>
-                                <!-- Bouton ouvrir le document -->
-                                <button class="btn-ouvrir-doc"
-                                    style="background: #EFF6FF; color: #2563EB;">Ouvrir</button>
-                            </div>
-
-                        </div>
-                        <!-- Fin onglet Documents -->
-
-                    </div>
-                    <!-- Fin corps de la modale -->
-
-                </div>
-            </div>
-            <!-- Fin modale voir détails -->
-
-
-
-        </body>
-
-        </html>
+        
 
 
 
@@ -757,7 +65,7 @@
     <!-- modal ajout de nouvelle association  -->
 
 
-    <div class="overlay-ajout-asso" id="overlay-ajout-asso">
+    <div class="overlay-ajout-asso overlay" id="overlay-ajout-asso">
         <div class="modale-ajout-asso">
 
             <button class="fermer-ajout-asso" id="fermer-ajout-asso">
@@ -766,16 +74,24 @@
 
             <h2>Nouvelle association</h2>
 
-            <form>
+            <form method="POST" action="./index.php?page=ajout_association">
 
                 <div class="champ">
                     <label>Nom de l'association</label>
-                    <input type="text" placeholder="Nom de l'association" required>
+                    <input type="text" placeholder="Nom de l'association" name="nom_assos" required>
                 </div>
 
                 <div class="champ">
                     <label>Couleur</label>
-                    <input name="couleur" type="color" value="#2563EB">
+                    <input name="couleur" type="color"  value="#2563EB">
+                </div>
+
+                <div class="champ">
+                    <label>Responsable</label>
+
+                    <select name="responsable_assos">
+                        {{optionsResponsables}}
+                    </select>
                 </div>
 
                 <div class="actions">
@@ -807,33 +123,36 @@
 
             <h2>Modifier une association</h2>
 
-            <form>
+            <form method="POST" action="./index.php?page=modifier_association">
+    <input type="hidden" name="id_association" id="modifier-id-asso">
 
-                <div class="champ">
-                    <label>Nom de l'association</label>
+    <div class="champ">
+        <label>Nom de l'association</label>
+        <input type="text" id="modifier-nom" name="nom" required>
+    </div>
 
-                    <input type="text" id="modifier-nom" required>
-                </div>
+    <div class="champ">
+        <label>Couleur</label>
+        <input type="color" id="modifier-couleur" name="couleur" required>
+    </div>
 
-                <div class="champ">
-                    <label>Couleur</label>
+     <div class="champ">
+        <label>Nom Responsable</label>
+        <input type="text" id="modifier-membre" name="membre" required>
+    </div>
 
-                    <input type="color" id="modifier-couleur">
-                </div>
+    <div class="champ">
+        <label>Nouveau Responsable</label>
+        <select id="modifier-responsable" name="id_responsable">
+            {{optionsResponsables}}
+        </select>
+    </div>
 
-                <div class="actions">
-
-                    <button type="button" id="annuler-modifier-asso">
-                        Annuler
-                    </button>
-
-                    <button type="submit">
-                        Enregistrer
-                    </button>
-
-                </div>
-
-            </form>
+    <div class="actions">
+        <button type="button" id="annuler-modifier-asso">Annuler</button>
+        <button type="submit">Enregistrer</button>
+    </div>
+</form>
 
         </div>
 
@@ -858,9 +177,9 @@
                 Êtes-vous sûr de vouloir supprimer cette association ?
             </p>
 
-            <form>
+            <form method="POST" action="./index.php?page=supprimer_association">
 
-                <input type="hidden" id="id-asso-supprimer">
+                <input type="hidden" name="id_association" id="id-asso-supprimer">
 
                 <div class="actions">
 
@@ -884,7 +203,7 @@
 
 
 
-    <script src="/JS/JS.js"></script>
+    <script src="JS/associationadmin.js"></script>
 
 
 
