@@ -8,24 +8,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $id = $_POST["id_user"] ?? null;
 
     if (!$id) {
-        header("Location: /index.php?page=utilisateur&error=missing_id");
+        header("Location: ./index.php?page=gestionnaire");
         exit;
     }
 
     // Vérifier si l'utilisateur est responsable d'une association
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM Associations WHERE id_responsable = ?");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM associations WHERE id_responsable = ?");
     $stmt->execute([$id]);
     $isResponsable = $stmt->fetchColumn();
 
     if ($isResponsable > 0) {
-        header("Location: /index.php?page=utilisateur&error=responsable");
+        header("Location: ./index.php?page=gestionnaire");
         exit;
     }
 
     // Suppression
-    $stmt = $conn->prepare("DELETE FROM Utilisateurs WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM utilisateurs WHERE id = ?");
     $stmt->execute([$id]);
 
-    header("Location: /index.php?page=utilisateur&success=deleted");
+    header("Location: ./index.php?page=gestionnaire");
     exit;
 }

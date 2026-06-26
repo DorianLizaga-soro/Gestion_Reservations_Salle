@@ -15,30 +15,46 @@ document.addEventListener("DOMContentLoaded", () => {
 //gestionnaire
  dashboardHTML = document.querySelector(".main-content").innerHTML;
 
-    // Bouton ménage
-    document.getElementById("btn-menage").addEventListener("click", () => {
-        fetch("index.php?page=menage")
-            .then(r => r.text())
-            .then(html => {
-                document.querySelector(".main-content").innerHTML = html;
-                initMenage();
-            });
-    });
+    const btnMenage = document.getElementById("btn-menage");
+    if (btnMenage) {
+        btnMenage.addEventListener("click", () => {
+            fetch("index.php?page=menage")
+                .then(r => r.text())
+                .then(html => {
+                    document.querySelector(".main-content").innerHTML = html;
+                    initMenage();
+                });
+        });
+    }
 
-    // Bouton tableau de bord
-    document.getElementById("btn_tableau_de_bord").addEventListener("click", () => {
-        document.querySelector(".main-content").innerHTML = dashboardHTML;
-        initDashboard(); // si tu as des events à remettre
-    });
+    // --- BOUTON TABLEAU DE BORD ---
+    const btnDashboard = document.getElementById("btn_tableau_de_bord");
+    if (btnDashboard) {
+        btnDashboard.addEventListener("click", () => {
+            document.querySelector(".main-content").innerHTML = dashboardHTML;
+            initDashboard();
+        });
+    }
 
-    // Bouton réservations
+    // --- BOUTON UTILISATEURS ---
+    const btnUtilisateur = document.getElementById("btn_utilisateur");
+    if (btnUtilisateur) {
+        btnUtilisateur.addEventListener("click", () => {
+            fetch("index.php?page=utilisateur")
+                .then(r => r.text())
+                .then(html => {
+                    document.querySelector(".main-content").innerHTML = html;
+                    initUtilisateurs();
+                });
+        });
+    }
 
-
-
+});
+   
 
 //menage
 
-
+/*
 document.getElementById("btn-menage").addEventListener("click", () => {
     fetch("index.php?page=menage")
         .then(response => response.text())
@@ -50,6 +66,7 @@ document.getElementById("btn-menage").addEventListener("click", () => {
             
         });
 });
+*/
 document.addEventListener("click", function (e) {
         const btn = e.target.closest(".btn_commentaire");
         if (!btn) return;
@@ -89,7 +106,7 @@ document.addEventListener("click", function (e) {
 
 
 
-});
+
 
 
 

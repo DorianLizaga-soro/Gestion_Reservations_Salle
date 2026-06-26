@@ -12,19 +12,6 @@ if (!isset($_SESSION["id"])) {
 }
 
 
-//salle
-$stmt = $conn->prepare("SELECT nom FROM salles WHERE id = ?");
-$stmt->execute([1]); 
-$Salle = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
-// association
-$stmt = $conn->prepare("SELECT nom, id_responsable FROM associations WHERE id = ?");
-$stmt->execute([1]);
-$association = $stmt->fetch(PDO::FETCH_ASSOC);
-
-$nomAssos = $association["nom"];
-$idResponsable = $association["id_responsable"];
 
 // nom du responsable
 $stmt = $conn->prepare("SELECT * FROM utilisateurs");
@@ -51,17 +38,27 @@ $stmt = $conn->prepare("SELECT COUNT(*)  FROM reservations WHERE type = 'recurre
 $stmt->execute();
 $nbReservationPonctuelle = $stmt->fetchColumn();
 
+//nb de passages de ménage à faire 
+
+$stmt = $conn->prepare("SELECT COUNT(*)  FROM menage WHERE statut = 'a_faire'");
+$stmt->execute();
+$nbPassageDeMenage = $stmt->fetchColumn();
+
 // carte reservations
 
 
-$stmt = $conn->prepare("SELECT * FROM reservations");
+$stmt = $conn->prepare("
+    SELECT r.*, a.nom AS nom_association, s.nom AS nom_salle
+    FROM reservations r
+    LEFT JOIN associations a ON r.id_association = a.id
+    LEFT JOIN salles s ON r.id_salle = s.id
+    ORDER BY r.date_ ASC
+");
 $stmt->execute();
 $reservation = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
-if (!$reservation) {
-    $reservation = [];
-}
+
 
 
 $cartesHTML = "";
@@ -70,8 +67,8 @@ $cartesHTML = "";
 foreach($reservation as $r) {
 
     $stmt = $conn->prepare("SELECT nom FROM salles WHERE id = ?");
-$stmt->execute([$r["id_salle"]]);
-$nomSalle = $stmt->fetchColumn();
+    $stmt->execute([$r["id_salle"]]);
+    $nomSalle = $stmt->fetchColumn();
 
 
 
@@ -92,8 +89,8 @@ $carte = "
         </div>
 
         <div class='reservation-info'>
-            <strong>{$nomAssos}</strong>
-            <span>{$nomSalle}</span>
+            <strong>{$r["nom_association"]}</strong>
+            <span>{$r["nom_salle"]}</span>
         </div>
 
         <div class='reservation-actions'>
@@ -116,13 +113,14 @@ $carte = "
 
 
 $variables = [
-    "{{nomassociation}}" => $nomAssos,
+    
     "{{carteReservation}}" => $cartesHTML,
     "{{nom}}" => $nom,
     "{{role}}" => $role,
     "{{initial}}" => substr($nom, 0, 2),
     "{{nbReservation}}"=>$nbReservation,
-    "{{nbReservationRecurrente}}"=>$nbReservationRecurente
+    "{{nbReservationRecurrente}}"=>$nbReservationRecurente,
+    "{{nbPassageDeMenage}}"=>$nbPassageDeMenage
     
 
 ];

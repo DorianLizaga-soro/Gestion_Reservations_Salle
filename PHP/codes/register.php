@@ -15,14 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($action === "register") {
 
-        if (empty($identifiant) || empty($email) || empty($mdp) || empty($role)) {
-            die("Champs manquants");
-        }
+        
 
         $hash = password_hash($mdp, PASSWORD_BCRYPT);
 
         $stmt = $conn->prepare("
-    INSERT INTO Utilisateurs(nom, email, password, role, id_association) 
+    INSERT INTO utilisateurs(nom, email, password, role, id_association) 
     VALUES (?, ?, ?, ?, ?)
 ");
 $stmt->execute([$identifiant, $email, $hash, $role, $id_association]);
@@ -30,6 +28,6 @@ $stmt->execute([$identifiant, $email, $hash, $role, $id_association]);
     }
 
     // Redirection vers la page utilisateur
-    header("Location: /index.php?page=utilisateur");
+    header("Location: ./index.php?page=gestionnaire");
     exit;
 }

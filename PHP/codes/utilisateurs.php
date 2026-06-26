@@ -6,34 +6,34 @@ require_once(__DIR__ . '/connexionBDD.php');
 $sql = "SELECT 
     U.*, 
     A.nom AS nom_association
-FROM Utilisateurs U
-LEFT JOIN Associations A ON U.id_association = A.id
+FROM utilisateurs U
+LEFT JOIN associations A ON U.id_association = A.id
 ";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = "SELECT COUNT(*) FROM Utilisateurs WHERE role = 'gestionnaire'";
+$sql = "SELECT COUNT(*) FROM utilisateurs WHERE role = 'gestionnaire'";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $nombreGestionnaire = $stmt->fetchColumn();
 
-$sql = "SELECT COUNT(*) FROM Utilisateurs WHERE role = 'responsable_association'";
+$sql = "SELECT COUNT(*) FROM utilisateurs WHERE role = 'responsable_association'";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $nombreResponsable = $stmt->fetchColumn();
 
-$sql = "SELECT COUNT(*) FROM Utilisateurs WHERE role = 'membre_association'";
+$sql = "SELECT COUNT(*) FROM utilisateurs WHERE role = 'membre_association'";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $nombreMembre = $stmt->fetchColumn();
 
-$sql = "SELECT COUNT(*) FROM Utilisateurs WHERE role = 'personnel_menage'";
+$sql = "SELECT COUNT(*) FROM utilisateurs WHERE role = 'personnel_menage'";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $nombreMenage = $stmt->fetchColumn();
 
-$sql = "SELECT COUNT(*) FROM Utilisateurs";
+$sql = "SELECT COUNT(*) FROM utilisateurs";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $nombreUtilisateur = $stmt->fetchColumn();
@@ -67,7 +67,7 @@ foreach ($utilisateurs as $u) {
     <i class='fa-regular fa-pen-to-square' style='color: rgb(148, 148, 148);'></i>
 </button>
 
-                    <form action='/PHP/codes/deleteUser.php' method='POST' class='form_delete_user'>
+                    <form action='index.php?page=delete' method='POST' class='form_delete_user'>
                         <input type='hidden' name='id_user' value='{$u["id"]}'>
                         <button class='btn_delete' type='submit'>
                             <i class='fa-regular fa-trash-can' style='color: rgb(255, 0, 0);'></i>
@@ -81,7 +81,7 @@ foreach ($utilisateurs as $u) {
 
 
 
-$sql = "SELECT id, nom FROM Associations";
+$sql = "SELECT id, nom FROM associations";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $associations = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -123,11 +123,10 @@ $variables = [
 ];
 
 
-$template = file_get_contents(__DIR__ . '/../../html/utilisateur.html');
+$template = file_get_contents(__DIR__ . '/../../HTML/utilisateur.html');
 
 
 $page = str_replace(array_keys($variables), array_values($variables), $template);
-
 
 
 

@@ -12,12 +12,12 @@ $mdp = $_POST["mdp"];
 $hash = password_hash($mdp, PASSWORD_BCRYPT);
 
 $stmt = $conn->prepare("
-    UPDATE Utilisateurs 
+    UPDATE utilisateurs 
     SET nom = ?, email = ?, role = ?, id_association = ?, password = ?
     WHERE id = ?
 ");
 
 $stmt->execute([$nom, $email, $role, $association, $hash,$id]);
 
-header("Location: /index.php?page=utilisateur");
+header("Location: ./index.php?page=gestionnaire");
 exit;

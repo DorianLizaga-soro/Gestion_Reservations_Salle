@@ -16,6 +16,14 @@ switch($page){
     case 'register' :
         include __DIR__ . '/PHP/codes/register.php';
         break;
+
+    case 'edit' :
+        include __DIR__ . '/PHP/codes/updateUser.php';
+        break;
+    
+    case 'delete' :
+        include __DIR__ . '/PHP/codes/deleteUser.php';
+        break;
     
     case 'menage' :
         include __DIR__ . '/PHP/codes/menage.php';
@@ -35,6 +43,10 @@ switch($page){
     
     case 'gestionnaire' :
         include __DIR__ . '/PHP/codes/gestionnaire.php';
+        break;
+
+    case 'utilisateur' :
+        include __DIR__. '/PHP/codes/utilisateurs.php';
         break;
 }
 
