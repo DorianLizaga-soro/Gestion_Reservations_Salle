@@ -1,17 +1,13 @@
 <?php
+header('Content-Type: application/json');
+require_once(__DIR__ . '/connexionBDD.php');
 
-header("Content-Type: application/json");
-require "connexionBDD.php";
-
-$sql = "SELECT * FROM reservations ORDER BY date ASC";
-$result = $conn->query($sql);
-
-$data = [];
-
-while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
+try {
+    $stmt = $conn->query('SELECT * FROM reservations ORDER BY date ASC');
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($data);
+} catch (Throwable $e) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'error' => 'Server error']);
 }
 
-echo json_encode($data);
-
-?>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Réservations</title>
+       <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="CSS/test.css">
+</head>
+<body>
+<section>
+<div class="page">
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+
+       <!-- Les selects sont maintenant dans un <form>, sinon this.form.submit() échoue -->
+        <form id="filterForm" method="GET" action="index.php" class="d-flex gap-2 flex-fill align-items-center">
+
+        <input type="text" placeholder="🔍 Rechercher..." class="search">
+
+        <select name="association" onchange="this.form.submit()">
+          <option value="" disabled selected hidden>Toutes les associations</option>
+            {{Asso_select}}
+        </select>
+
+        <select name="type" onchange="this.form.submit()">
+          <option value="" disabled selected hidden>Toutes les types</option>
+            {{Type_select}}
+        </select>
+
+        <select name="statut" onchange="this.form.submit()">
+          <option value="" disabled selected hidden>Toutes les statuts</option>
+            {{Status_select}}
+        </select>
+        </form>
+        
+        <button
+        type="button"
+            class="btn-primary p-1"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop" >
+            + Nouvelle réservation
+          </button>
+    </div>
+
+    <!-- Modal -->
+        <div
+          class="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div>
+                  <h4 class="mb-1">Nouvelle réservation</h4>
+                  <small class="text-muted">
+                    Créer une réservation de salle</small
+                  >
+                </div>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+
+              <div class="modal-body">
+                <!-- Modal Body start of Form-->
+              <!--  <form id ="reservationForm" action="JS/../PHP/creerReservation.php" method="POST">-->
+                  <form id="reservationForm" method="POST" enctype="multipart/form-data">
+
+
+                  <!-- Champ caché synchronisé par reservations.js avec le bouton actif (Ponctuelle/Récurrente) -->
+                  <input type="hidden" id="modalType" name="type" value="ponctuelle">
+
+                <div class="d-flex gap-2 mb-4">
+                  <button id="btnPonctuelle"
+                  type="button"
+                  data-type ="ponctuelle"
+                  class="btn btn-outline-warning flex-fill reservation-type active-type">
+                    Ponctuelle
+                  </button>
+
+                  <button id="btnReccurente" 
+                  type="button"
+                  data-type ="reccurente"
+                  class="btn btn-outline-success flex-fill reservation-type">
+                    Réccurente
+                  </button>
+                </div>
+
+                <section>
+                  <div>
+                    <label>Association *</label>
+                    <div class="relative">
+                      <select id="Asso_select" name="id_association" class="form-select mb-3">
+                        {{Asso_select}}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label>Salle *</label>
+                    <div class="relative">
+                      <select id="salle_select" name="id_salle" class="form-select mb-3">
+                        {{Salle_select}}
+                      </select>
+                    </div>
+                  </div>
+                </section>
+
+                <div class="mb-3">
+                  <label for="basic-url" class="form-label">Date *</label>
+                  <div class="input-group">
+                    <span class="input-group-date" id="basic-addon3"></span>
+                   <input type="date" id="modalDate" name="date_" class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Heure début *</label>
+                    <input type="time" id="modalStartTime" name="heure_debut" class="form-control">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Heure fin *</label>
+                    <input type="time" id="modalEndTime" name="heure_fin" class="form-control">
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Description</label>
+
+                  <textarea
+                    id="modalDescription"
+                    name="description"
+                    placeholder="Objet de la réservation..."
+                    class="form-control"
+                    rows="3"
+                  ></textarea>
+                </div>
+
+                <div class="drop-zone my-2" id="dropZone">
+                  <i class="fa-solid fa-arrow-up-from-bracket upload-icon"></i>
+
+                  <h5>Déposer un programme PDF</h5>
+
+                  <p id="programmeFileName" class="upload-text">
+                    Glisser-déposer ou cliquer pour sélectionner un fichier
+                  </p>
+
+                  <small>PDF uniquement • Taille maximale : 10 MB</small>
+
+                  <input
+                    type="file"
+                    name="programmePdf"
+                    id="programmePdf"
+                    accept="application/pdf"
+                    hidden
+                  />
+                </div>
+
+                <h6>Commentaire (50 car.max)</h6>
+                <div class="input-group">
+                  <textarea
+                    id="modalComment"
+                    name="commentaire"
+                    class="form-control"
+                    aria-label="With textarea"
+                    placeholder="Remarque courte..."
+                    maxlength="50"
+                  ></textarea>
+                </div>
+              </div>
+              
+              <div class="modal-footer">
+                <button
+                  class="btn btn-outline-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Annuler
+                </button>
+                <button 
+                id="createReservationBtn"
+                type ="submit" 
+                class="btn btn-outline-primary">
+                  Créer la réservation
+                </button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+</section>
+    <!-- Table Card -->
+    <section class="card">
+
+        <header class="card-header">
+            <span><strong>12 réservations</strong></span>
+            <span>Mois 2026</span>
+        </header>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>DATE</th>
+                    <th>HEURE</th>
+                    <th>ASSOCIATION</th>
+                    <th>TYPE</th>
+                    <th>SALLE</th>
+                    <th>RESPONSABLE</th>
+                    <th>STATUT</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+
+            <tbody id ="reservationTableBody">
+              {{carteReservation}}
+            </tbody>
+
+        </table>
+
+    </section>
+
+</div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="JS/fileUpload.js"></script>
+    <script src="JS/reservations.js"></script>
+    
+    
+    
+</body>
+</html>
