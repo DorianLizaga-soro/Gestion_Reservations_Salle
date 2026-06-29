@@ -82,6 +82,18 @@ switch($page){
     case 'modifier_association':
         include __DIR__ . '/PHP/codes/modifier_association.php';
         break;
+
+    case 'messagerie':
+    include __DIR__ . '/PHP/codes/messagerie.php';
+    break;
+
+    case 'envoyer_message':
+    include __DIR__ . '/PHP/codes/envoyer_message.php';
+    break;
+
+    case 'exportation' :
+    include __DIR__. '/PHP/codes/exportations.php';
+    break;
 }
 
 ob_end_flush();
