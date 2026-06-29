@@ -52,24 +52,24 @@ switch($page){
         break;
 
     case 'deconnexion':
-    include __DIR__ . '/PHP/codes/logout.php';
-    break;
+        include __DIR__ . '/PHP/codes/logout.php';
+        break;
 
     case 'export_excel':
-    include __DIR__ . '/PHP/codes/export_excel.php';
-    break;
+        include __DIR__ . '/PHP/codes/export_excel.php';
+        break;
 
     case 'export_calendar':
     include __DIR__ . '/PHP/codes/export_calendar.php';
-    break;    
+        break;    
 
     case 'associationAdmin':
-    include __DIR__ . '/PHP/codes/associationAdmin.php';
-    break; 
+        include __DIR__ . '/PHP/codes/associationAdmin.php';
+        break; 
 
     case 'get_association_details':
-    include __DIR__ . '/PHP/codes/get_association_details.php';
-    break;
+        include __DIR__ . '/PHP/codes/get_association_details.php';
+        break;
 
     case 'supprimer_association':
         include __DIR__ . '/PHP/codes/supprimer_association.php';
@@ -84,16 +84,32 @@ switch($page){
         break;
 
     case 'messagerie':
-    include __DIR__ . '/PHP/codes/messagerie.php';
-    break;
+        include __DIR__ . '/PHP/codes/messagerie.php';
+        break;
 
     case 'envoyer_message':
-    include __DIR__ . '/PHP/codes/envoyer_message.php';
-    break;
+        include __DIR__ . '/PHP/codes/envoyer_message.php';
+        break;
 
     case 'exportation' :
     include __DIR__. '/PHP/codes/exportations.php';
     break;
+
+    case 'exportations':
+        include __DIR__ . '/PHP/codes/exportations.php';
+        break;
+
+    case 'export_excel_admin':
+        include __DIR__ . '/PHP/codes/export_excel_admin.php';
+        break;
+
+    case 'export_calendar_admin':
+        include __DIR__ . '/PHP/codes/export_calendar_admin.php';
+        break;
+
+        case 'telecharger_pdf':
+        include __DIR__ . '/PHP/codes/telecharger_pdf.php';
+        break;
 }
 
 ob_end_flush();
