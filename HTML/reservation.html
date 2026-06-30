@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <title>Réservations</title>
        <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
       rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="CSS/test.css">
+    <link rel="stylesheet" href="CSS/reservation.css">
 </head>
 <body>
 <section>
@@ -23,7 +21,6 @@
         <input id="searchBar" type="text" placeholder="🔍 Rechercher..." class="search">
 
         <select id="associationFilter" name="association">
-          
             {{Asso_select}}
         </select>
 
@@ -42,10 +39,10 @@
       </section>
         
         <button
+        id="btnAdd"
         type="button"
             class="btn-primary p-1"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop" >
+             >
             + Nouvelle réservation
           </button>
     </div>
@@ -60,8 +57,9 @@
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-dialog-scrollable modal-lg">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
+              <form id="reservationForm" method="POST" action="../Project_139_VS/PHP/codes/createReservation2.php" enctype="multipart/form-data">
               <div class="modal-header">
                 <div>
                   <h4 class="mb-1">Nouvelle réservation</h4>
@@ -78,10 +76,10 @@
 
               <div class="modal-body">
                 <!-- Modal Body start of Form-->
-              <!--  <form id ="reservationForm" action="JS/../PHP/creerReservation.php" method="POST">-->
-                  <form id="reservationForm" method="POST" enctype="multipart/form-data">
+             
+                  
 
-
+                  <input type="hidden" id="id_reservation_hidden" name="id_reservation" value="">
                   <!-- Champ caché synchronisé par reservations.js avec le bouton actif (Ponctuelle/Récurrente) -->
                   <input type="hidden" id="modalType" name="type" value="ponctuelle">
 
@@ -95,7 +93,7 @@
 
                   <button id="btnReccurente" 
                   type="button"
-                  data-type ="reccurente"
+                  data-type ="recurrente"
                   class="btn btn-outline-success flex-fill reservation-type">
                     Réccurente
                   </button>
@@ -187,7 +185,7 @@
               </div>
               
               <div class="modal-footer">
-                <button
+                <button type="button"
                   class="btn btn-outline-secondary"
                   data-bs-dismiss="modal"
                 >
@@ -202,10 +200,13 @@
               </div>
               </form>
             </div>
+            
           </div>
+          
         </div>
         
 </section>
+{{errorsHTML}}
     <!-- Table Card -->
     <section class="card">
 
@@ -241,10 +242,10 @@
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
+      
     ></script>
-    <script src="JS/fileUpload.js"></script>
+    <script src="JS/fileUp2.js"></script>
+    
     
     
     
