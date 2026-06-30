@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="CSS/dashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.css" rel="stylesheet">
-     <script src="JS/calendar_reservation.js"></script>
-     <script src="JS/dashboard.js"></script>
-     <script src="JS/menage.js"></script>
-     <script src="JS/utilisateur.js"></script>
+    
     <link rel="stylesheet" href="CSS/gestionnaire.css">
     <link rel="stylesheet" href="CSS/menage.css">
+    <link rel="stylesheet" href="CSS/utilisateur.css">
+    <link rel="stylesheet" href="CSS/association.css">
+    <link rel="stylesheet" href="CSS/reservation.css">
 </head>
 
 <body>
@@ -40,56 +40,48 @@
 
                     <span class="sidebar-label">PRINCIPAL</span>
 
-                    <button class="sidebar-link active"
-                    id="btn_tableau_de_bord">
+                    <button class="sidebar-link active" id="btn_tableau_de_bord">
                         <i class="bi bi-grid"></i>
                         <span>Tableau de bord</span>
                     </button>
 
-                    <button class="sidebar-link"
-                    id="btn_reservation">
+                    <button class="sidebar-link" id="btn_reservation">
                         <i class="bi bi-book"></i>
                         <span>Réservations</span>
                     </button>
 
                     <span class="sidebar-label">GESTION</span>
 
-                    <button class="sidebar-link"
-                    id="btn_association">
+                    <button class="sidebar-link" id="btn_association">
                         <i class="bi bi-building"></i>
                         <span>Associations</span>
                     </button>
 
-                    <button class="sidebar-link"
-                    id="btn_utilisateur">
+                    <button class="sidebar-link" id="btn_utilisateur">
                         <i class="bi bi-people"></i>
                         <span>Utilisateurs</span>
                     </button>
 
-                    <button class="sidebar-link"
-                    id="btn-menage">
+                    <button class="sidebar-link" id="btn-menage">
                         <i class="bi bi-stars"></i>
                         <span>Gestion du ménage</span>
                     </button>
 
-                    
 
-                    <button class="sidebar-link"
-                    id="btn_messagerie">
+
+                    <button class="sidebar-link" id="btn_messagerie">
                         <i class="bi bi-chat-left"></i>
                         <span>Messagerie</span>
                     </button>
 
                     <span class="sidebar-label">OUTILS</span>
 
-                    <button class="sidebar-link"
-                    id="btn_programmes">
+                    <button class="sidebar-link" id="btn_programmes">
                         <i class="bi bi-file-earmark-text"></i>
                         <span>Programmes PDF</span>
                     </button>
 
-                    <button class="sidebar-link"
-                    id="exportation">
+                    <button class="sidebar-link" id="exportation">
                         <i class="bi bi-download"></i>
                         <span>Exportations</span>
                     </button>
@@ -98,27 +90,16 @@
                 </nav>
 
                 <!-- Profil bas -->
-                <div class="sidebar-user">
-                    <div class="user-avatar">{{initial}}</div>
+                 {{sidebarUser}}
 
-                    <div>
-                        <strong>{{nom}}</strong>
-                        <p>{{role}}</p>
-                    </div>
-
-                    <form action="index.php?page=logout">
-                        <button type="submit"><i class="bi bi-box-arrow-right ms-auto"></i></button>
-                    </form>
-                    
-                    
-                </div>
+                
 
     </aside>
 
 
     <main id="header-content" class="container-fluid">
         <header class="topbar">
-            <h4>Variable</h4>
+            <h4 id="variable">Variable</h4>
 
             <div class="topbar-actions"></div>
 
@@ -128,320 +109,241 @@
             </nav>
         </header>
         <section class="dashboard-content">
-                            <main class="main-content">
-                    <!-- CARDS STATISTIQUES DU HAUT -->
-                    <section class="stats-grid">
+            <main class="main-content">
+                <!-- CARDS STATISTIQUES DU HAUT -->
+                <section class="stats-grid">
 
-                        <article class="stat-card">
-                            <div class="stat-icon blue-light">
-                                <i class="bi bi-book"></i>
-                            </div>
-
-                            <div>
-                                <h3>{{nbReservation}}</h3>
-                                <p>Réservations ce mois</p>
-                                <span>1 conflit</span>
-                            </div>
-                        </article>
-
-                        <article class="stat-card">
-                            <div class="stat-icon orange-light">
-                                <i class="bi bi-lightning-charge"></i>
-                            </div>
-
-                            <div>
-                                <h3>5</h3>
-                                <p>Réservations ponctuelles</p>
-                            </div>
-                        </article>
-
-                        <article class="stat-card">
-                            <div class="stat-icon green-light">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </div>
-
-                            <div>
-                                <h3>{{nbReservationRecurrente}}</h3>
-                                <p>Réservations récurrentes</p>
-                            </div>
-                        </article>
-
-                        <article class="stat-card">
-                            <div class="stat-icon purple-light">
-                                <i class="bi bi-stars"></i>
-                            </div>
-
-                            <div>
-                                <h3>{{nbPassageDeMenage}}</h3>
-                                <p>Passages ménage à faire</p>
-                                <span>Cette semaine</span>
-                            </div>
-                        </article>
-
-                    </section>
-                    <!-- SECTION PRINCIPALE DU DASHBOARD -->
-                    <section class="dashboard-layout">
-
-                        <!-- COLONNE GAUCHE : calendriers + réservations -->
-                        <div class="left-panel">
-
-                            <!-- SECTION DES 3 CALENDRIERS -->
-                            <section class="calendar-section">
-
-                                <!-- Titre de la section calendrier -->
-
-                                <div class="calendar-title-row">
-                                    <h4 class="section-title">
-                                        Calendrier des réservations
-                                    </h4>
-
-                                    <div class="association-legend">
-                                        <span><i class="legend-dot blue-dot"></i> Tennis</span>
-                                        <span><i class="legend-dot green-dot"></i> Les Arts</span>
-                                        <span><i class="legend-dot orange-dot"></i> Retraités</span>
-                                        <span><i class="legend-dot purple-dot"></i> Pétanque</span>
-                                        <span><i class="legend-dot pink-dot"></i> Danse</span>
-                                        <span><i class="legend-dot cyan-dot"></i> Parents</span>
-                                        <span>+3</span>
-                                    </div>
-                                </div>
-
-                                <!-- Grille qui contient les 3 calendriers -->
-                                <div class="calendar-grid">
-
-                                    <!-- Calendrier Mai -->
-                                    <div class="calendar-card">
-                                        <div id="cal-mai"></div>
-                                    </div>
-
-                                    <!-- Calendrier Juin -->
-                                    <div class="calendar-card">
-                                        <div id="cal-juin"></div>
-                                    </div>
-
-                                    <!-- Calendrier Juillet -->
-                                    <div class="calendar-card">
-                                        <div id="cal-juillet"></div>
-                                    </div>
-
-                                </div>
-
-                                <div class="calendar-type-legend">
-                                    <span class="legend-recurrent">
-                                        <i class="bi bi-arrow-repeat"></i> Récurrente
-                                    </span>
-
-                                    <span class="legend-punctual">
-                                        <i class="bi bi-square-fill"></i> Ponctuelle
-                                    </span>
-
-                                    <span class="legend-conflict">
-                                        <i class="bi bi-exclamation-triangle"></i> Conflit
-                                    </span>
-                                </div>
-                            </section>
-
-                            <!-- SECTION DES PROCHAINES RÉSERVATIONS -->
-                            <section class="reservations-card">
-                                
-                                <!-- En-tête de la carte -->
-                                <div class="card-header">
-                                    <h5>Prochaines réservations</h5>
-                                    <a href="#">Tout voir</a>
-                                </div>
-
-                                    {{carteReservation}}
-                                
-                                
-                            </section>
+                    <article class="stat-card">
+                        <div class="stat-icon blue-light">
+                            <i class="bi bi-book"></i>
                         </div>
 
-                        <!-- COLONNE DROITE : statistiques + commentaires -->
-                        <div class="right-panel">
+                        <div>
+                            <h3>{{nbReservation}}</h3>
+                            <p>Réservations ce mois</p>
+                            
+                        </div>
+                    </article>
 
-                            <!-- CARTE ACTIVITÉ ASSOCIATIONS -->
-                            <section class="activity-card">
-
-                                <h5>Activité associations</h5>
-
-                                <!-- Ligne statistique Tennis -->
-                                <div class="activity-item">
-                                    <span>Tennis</span>
-                                    <strong>12</strong>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="progress-fill blue"></div>
-                                </div>
-
-                                <!-- Ligne statistique Les Arts -->
-                                <div class="activity-item">
-                                    <span>Les Arts</span>
-                                    <strong>8</strong>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="progress-fill green"></div>
-                                </div>
-
-                                <!-- Ligne statistique Retraités -->
-                                <div class="activity-item">
-                                    <span>Retraités</span>
-                                    <strong>15</strong>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="progress-fill orange"></div>
-                                </div>
-
-                                <div class="activity-item">
-                                    <span>Pétanque</span>
-                                    <strong>6</strong>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="progress-fill purple"></div>
-                                </div>
-
-                                <div class="activity-item">
-                                    <span>Danse</span>
-                                    <strong>10</strong>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="progress-fill pink"></div>
-                                </div>
-
-                                <div class="activity-item">
-                                    <span>Parents</span>
-                                    <strong>4</strong>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="progress-fill azur"></div>
-                                </div>
-
-                                <div class="activity-item">
-                                    <span>Chorale</span>
-                                    <strong>9</strong>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="progress-fill yellow"></div>
-                                </div>
-
-                                <div class="activity-item">
-                                    <span>Informatique</span>
-                                    <strong>3</strong>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="progress-fill dark-blue"></div>
-                                </div>
-
-                                <div class="activity-item">
-                                    <span>Yoga</span>
-                                    <strong>11</strong>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="progress-fill bleu-vert "></div>
-                                </div>
-
-                            </section>
-
-                            <!-- CARTE COMMENTAIRES -->
-                            <section class="comments-card">
-
-                                <!-- En-tête commentaires -->
-                                <div class="card-header">
-                                    <h5>Derniers commentaires</h5>
-                                    <span class="notif-badge">2</span>
-                                </div>
-
-                                <!-- Commentaire 1 -->
-                                <div class="comment-item">
-
-                                    <div class="avatar">
-                                        SM
-                                    </div>
-
-                                    <div>
-                                        <strong>Sylvie Marque</strong>
-                                        <p>Tables supplémentaires requises.</p>
-                                        <p>01-06-2025</p>
-                                    </div>
-
-                                </div>
-
-                                <!-- Commentaire 2 -->
-                                <div class="comment-item">
-
-                                    <div class="avatar">
-                                        MD
-                                    </div>
-
-                                    <div>
-                                        <strong>Marie Dupont</strong>
-                                        <p>Noté, prévu 4 tables.</p>
-                                        <p>01-06-2025</p>
-                                    </div>
-
-                                </div>
-
-                                <div class="comment-item">
-
-                                    <div class="avatar">
-                                        AB
-                                    </div>
-
-                                    <div>
-                                        <strong>
-                                            Ahmed Benali
-                                            <span class="comment-dot"></span>
-                                        </strong>
-                                        <p>Salle préparée la veille.</p>
-                                        <p>01-06-2025</p>
-                                    </div>
-
-                                </div>
-
-                                <div class="comment-item">
-
-                                    <div class="avatar2">
-                                        JF
-                                    </div>
-
-                                    <div>
-                                        <strong>
-                                            Jean-Paul Fabre
-                                            <span class="comment-dot"></span>
-                                        </strong>
-                                        <p>Besoin sono + micro SVP</p>
-                                        <p>02-06-2025</p>
-                                    </div>
-
-                                </div>
-
-                                <div class="comment-item">
-
-                                    <div class="avatar2">
-                                        MD
-                                    </div>
-
-                                    <div>
-                                        <strong>Marie Dupont</strong>
-                                        <p>Sono dispo, micro à louer.</p>
-                                        <p>02-06-2025</p>
-                                    </div>
-
-                                </div>
-
-                            </section>
+                    <article class="stat-card">
+                        <div class="stat-icon orange-light">
+                            <i class="bi bi-lightning-charge"></i>
                         </div>
 
-                    </section>
-                </main>
+                        <div>
+                            <h3>{{nbReservationPonctuelles}}</h3>
+                            <p>Réservations ponctuelles</p>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon green-light">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+
+                        <div>
+                            <h3>{{nbReservationRecurrente}}</h3>
+                            <p>Réservations récurrentes</p>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon purple-light">
+                            <i class="bi bi-stars"></i>
+                        </div>
+
+                        <div>
+                            <h3>{{nbPassageDeMenage}}</h3>
+                            <p>Passages ménage à faire</p>
+                            <span>Cette semaine</span>
+                        </div>
+                    </article>
+
+                </section>
+                <!-- SECTION PRINCIPALE DU DASHBOARD -->
+                <section class="dashboard-layout">
+
+                    <!-- COLONNE GAUCHE : calendriers + réservations -->
+                    <div class="left-panel">
+
+                        <!-- SECTION DES 3 CALENDRIERS -->
+                        <section class="calendar-section">
+
+                            <!-- Titre de la section calendrier -->
+
+                            <div class="calendar-title-row">
+                                <h4 class="section-title">
+                                    Calendrier des réservations
+                                </h4>
+
+                                {{nomAssosCalendar}}
+                                <span>{{resteAssos}}</span>
+
+                            </div>
+
+                            
+
+                            <!-- Grille qui contient les 3 calendriers -->
+                            <div class="calendar-grid">
+
+                                                 <!-- Calendrier Mai -->
+                                <div class="calendar-card">
+                                    <div id="cal-mai"></div>
+                                </div>
+
+                                <!-- Calendrier Juin -->
+                                <div class="calendar-card">
+                                    <div id="cal-juin"></div>
+                                </div>
+
+                                <!-- Calendrier Juillet -->
+                                <div class="calendar-card">
+                                    <div id="cal-juillet"></div>
+                                </div>
+
+                            </div>
+
+                            <script>
+                                {{calendarEvents}}
+                                {{reservedDays}}
+                            </script>
+           
+
+                            <div class="calendar-type-legend">
+                                <span class="legend-recurrent">
+                                    <i class="bi bi-square-fill"></i> Récurrente
+                                </span>
+
+                                <span class="legend-punctual">
+                                    <i class="bi bi-square-fill"></i> Ponctuelle
+                                </span>
+
+                                
+                            </div>
+                        </section>
+
+                        <!-- SECTION DES PROCHAINES RÉSERVATIONS -->
+                        <section class="reservations-card">
+
+                            <!-- En-tête de la carte -->
+                            <div class="card-header">
+                                <h5>Prochaines réservations</h5>
+                                
+                            </div>
+
+                            {{carteReservation}}
+
+
+                        </section>
+
+
+                        <!-- Cartes ajout de salle-->
+
+                        <section class="reservations-card">
+                            <!-- En-tête de la carte -->
+                            <div class="card-header">
+                                <h5>Salles</h5>
+                                <button class="btn btn-primary" id="ajouter_salle">Ajouter Salle</button>
+                            </div>
+
+                            {{carteSalle}}
+
+
+                        </section>
+                    </div>
+                    <!--Ajouter salle modal-->
+                    <div id="modalAddUser" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+
+                            <h2>Ajouter une salle</h2>
+
+                            <hr>
+
+                            <form action="index.php?page=ajout_salle" method="POST" class="form_addUser">
+
+                                <div class="div_formName">
+                                    <div class="div_Name">
+                                        <label>Nom :</label>
+                                        <input class="input_form" type="text" name="identifiant" placeholder="Nom"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <label>Capacité :</label>
+                                <input class="input_form" type="text" name="capacite" placeholder="Nombre de personne"
+                                    required>
+
+                                <label>Description :</label>
+                                <input class="input_form" type="text" name="description" placeholder="Description"
+                                    required>
+
+                                <button type="button" class="btn_annuler">Annuler</button>
+                                <button type="submit" class="btn_creerUser">Créer la salle</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!--Modifier salle modal-->
+
+                    <div id="modalEditUser" class="modal">
+                        <div class="modal-content">
+                            <span class="close closeEdit">&times;</span>
+
+                            <h2>Modifier la salle</h2>
+
+                            <hr>
+
+                            <form action="index.php?page=edit_salle" method="POST" class="form_editUser">
+
+                                <input type="hidden" name="id_salle" id="id_salle">
+                                <label>Nom :</label>
+                                <input class="input_form" type="text" name="identifiant" id="edit_nom" required>
+
+                                <label>Capacité :</label>
+                                <input class="input_form" type="text" name="capacite" id="edit_capacite" required>
+
+                                <label>Description :</label>
+                                <input id="edit_description" class="input_form" type="text" name="description"
+                                     required>
+
+                                
+                                <button type="button" class="btn_annulerEdit">Annuler</button>
+                                <button type="submit" class="btn_creerUser">Modifier la salle</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- COLONNE DROITE : statistiques + commentaires -->
+                    <div class="right-panel">
+
+                        <!-- CARTE ACTIVITÉ ASSOCIATIONS -->
+                        <section class="activity-card">
+
+                            <h5>Activité associations</h5>
+
+                            {{activiteAssos}}
+                            
+
+                        </section>
+
+                        <!-- CARTE COMMENTAIRES -->
+                        <section class="comments-card">
+
+                            <!-- En-tête commentaires -->
+                            <div class="card-header">
+                                <h5>Derniers commentaires</h5>
+                                <span class="notif-badge">{{nbCommentaire}}</span>
+                            </div>
+
+                            {{carteCommentaires}}
+
+
+
+                        </section>
+                    </div>
+
+                </section>
+            </main>
         </section>
 
     </main>
@@ -453,9 +355,13 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
     <script src="JS/calendar_reservation.js"></script>
-
+    <script src="JS/dashboard.js"></script>
+    <script src="JS/menage.js"></script>
+    <script src="JS/utilisateur.js"></script>
+    <script src="JS/associationAdmin.js"></script>
+    <script src="JS/fileUp2.js"></script>
 </body>
 
 </html>

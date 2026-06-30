@@ -1,7 +1,7 @@
 function initMenage() {
 
     // Bouton commentaire
-    
+
 
     // Gestion caractères
     const input = document.getElementById('input_commentaire');
@@ -36,30 +36,6 @@ function initMenage() {
     if (btnFaire) btnFaire.addEventListener("click", () => filtrer(["a_faire"]));
     if (btnAttente) btnAttente.addEventListener("click", () => filtrer(["attente"]));
 
-    // ⭐⭐ ENVOI DU COMMENTAIRE
-    document.querySelectorAll(".partie_commentaire form").forEach(form => {
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
 
-            const data = new FormData(form);
 
-            fetch("index.php?page=menage", {
-                method: "POST",
-                body: data
-            })
-            .then(r => r.text())
-            .then(() => {
-
-                // Recharge la page ménage
-                fetch("index.php?page=menage")
-                    .then(r => r.text())
-                    .then(html => {
-                        document.querySelector(".main-content").innerHTML = html;
-
-                        // ⭐ IMPORTANT : réinitialiser les events
-                        initMenage();
-                    });
-            });
-        });
-    });
 }

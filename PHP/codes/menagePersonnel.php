@@ -117,13 +117,13 @@ else {
 }
 
     // Commentaires
-    $stmt = $conn->prepare("SELECT contenu FROM Commentaires WHERE id_reservation = ?");
+    $stmt = $conn->prepare("SELECT contenu,id_auteur,U.nom AS nom_commentaire FROM Commentaires JOIN utilisateurs U ON id_auteur=U.id WHERE id_reservation = ?");
     $stmt->execute([$m["id_reservation"]]);
     $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $blocCommentaires = "";
     foreach ($commentaires as $c) {
-        $blocCommentaires .= "<p class='commentaire'><i class='fa-solid fa-comment' style='color: rgb(148, 148, 148);'></i> {$c['contenu']}</p>";
+        $blocCommentaires .= "<p class='commentaire'><i class='fa-solid fa-comment' style='color: rgb(148, 148, 148);'></i>{$c["nom_commentaire"]} - {$c['contenu']}</p>";
     }
     if (!$blocCommentaires) $blocCommentaires = "<p class='commentaire'>Aucun commentaire</p>";
 
@@ -162,10 +162,11 @@ else {
         </div>
         <div class='partie_commentaire'>
         <form method='POST'>
+            <input type='hidden' name='action' value='commentaire'>
             <input type='hidden' name='id_reservation' value='{$m["id_reservation"]}'>
             <input type='hidden' name='date_creation' value='" . date("Y-m-d H:i:s") . "'>
             <input name='commentaire' id='input_commentaire' type='text' maxlength='50' placeholder='Commentaire...(50 car.)'>
-            <button class='btn_ok'>OK</button>
+            <button class='btn_ok' type='submit'>OK</button>
             <div id='info' class='info'>0 / 50 caractères</div>
         </form>
     </div>
@@ -175,13 +176,13 @@ else {
 
 foreach ($menagesValides as $mv) {
 
-    $stmt = $conn->prepare("SELECT contenu FROM Commentaires WHERE id_reservation = ?");
+    $stmt = $conn->prepare("SELECT contenu,id_auteur,U.nom AS nom_commentaire FROM Commentaires JOIN utilisateurs U ON id_auteur=U.id WHERE id_reservation = ?");
     $stmt->execute([$mv["id_reservation"]]);
     $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $blocCommentaires = "";
     foreach ($commentaires as $c) {
-        $blocCommentaires .= "<p class='commentaire'><i class='fa-solid fa-comment' style='color: rgb(148, 148, 148);'></i> {$c['contenu']}</p>";
+        $blocCommentaires .= "<p class='commentaire'><i class='fa-solid fa-comment' style='color: rgb(148, 148, 148);'></i>{$c["nom_commentaire"]} - {$c['contenu']}</p>";
     }
     if (!$blocCommentaires) $blocCommentaires = "<p class='commentaire'>Aucun commentaire</p>";
 
@@ -200,37 +201,44 @@ foreach ($menagesValides as $mv) {
     </div>";
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'valider') {
-
-    $stmt = $conn->prepare("
-        UPDATE Menage 
-        SET statut = 'fait', date_validation = NOW() 
-        WHERE id = ?
-    ");
-    $stmt->execute([$_POST['id_menage']]);
-
-    header("Location: index.php?page=menagePersonnel");
-    exit;
-}
-
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $stmt = $conn->prepare("INSERT INTO Commentaires (id_reservation, id_auteur, contenu, date_creation) VALUES (:id_r, :id_a, :co, :d_c)
-    ");
+    // 1) Valider le ménage
+    if ($_POST['action'] === 'valider') {
 
-    $stmt->execute([
-        'id_r' => $_POST['id_reservation'],
-        'id_a' => $_SESSION["id"],
-        'co'   => $_POST['commentaire'],
-        'd_c'  => $_POST['date_creation']
-    ]);
+        $stmt = $conn->prepare("
+            UPDATE menage 
+            SET statut = 'fait', date_validation = NOW()
+            WHERE id = ?
+        ");
+        $stmt->execute([$_POST['id_menage']]);
 
-  
-    header("Location: index.php?page=menagePersonnel");
-    exit;
+        header("Location: index.php?page=menagePersonnel");
+        exit;
+    }
+
+    // 2) Ajouter un commentaire
+    if ($_POST['action'] === 'commentaire') {
+
+        $stmt = $conn->prepare("
+            INSERT INTO Commentaires (id_reservation, id_auteur, contenu, date_creation)
+            VALUES (:id_r, :id_a, :co, :d_c)
+        ");
+
+        $stmt->execute([
+            'id_r' => $_POST['id_reservation'],
+            'id_a' => $_SESSION["id"],
+            'co'   => $_POST['commentaire'],
+            'd_c'  => $_POST['date_creation']
+        ]);
+
+        header("Location: index.php?page=menagePersonnel");
+        exit;
+    }
 }
+
 
 
 $variables = [

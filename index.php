@@ -48,6 +48,101 @@ switch($page){
     case 'utilisateur' :
         include __DIR__. '/PHP/codes/utilisateurs.php';
         break;
+
+      case 'ajouter_reservation':
+        include __DIR__ . '/PHP/codes/ajouter_reservation.php';
+        break;
+
+    case 'supprimer_reservation':
+        include __DIR__ . '/PHP/codes/supprimer_reservation.php';
+        break;
+
+    case 'modifier_reservation':
+        include __DIR__ . '/PHP/codes/modifier_reservation.php';
+        break;
+
+    case 'ajouter_membre':
+        include __DIR__ . '/PHP/codes/ajouter_membre.php';
+        break;
+
+    case 'ajouter_fichier':
+        include __DIR__ . '/PHP/codes/ajouter_fichier.php';
+        break;
+
+    case 'deconnexion':
+    include __DIR__ . '/PHP/codes/logout.php';
+    break;
+
+    case 'export_excel':
+    include __DIR__ . '/PHP/codes/export_excel.php';
+    break;
+
+    case 'export_calendar':
+    include __DIR__ . '/PHP/codes/export_calendar.php';
+    break;    
+
+    case 'associationAdmin':
+    include __DIR__ . '/PHP/codes/associationAdmin.php';
+    break; 
+
+    case 'get_association_details':
+    include __DIR__ . '/PHP/codes/get_association_details.php';
+    break;
+
+    case 'supprimer_association':
+        include __DIR__ . '/PHP/codes/supprimer_association.php';
+        break;
+
+    case 'ajout_association':
+        include __DIR__ . '/PHP/codes/ajout_association.php';
+        break;
+
+    case 'modifier_association':
+        include __DIR__ . '/PHP/codes/modifier_association.php';
+        break;
+
+     case 'reservation' :
+        include __DIR__ . '/PHP/codes/reservation.php';
+        break;
+
+    case 'createreservation' :
+        include __DIR__ . '/PHP/codes/createReservation2.php';
+        break;
+
+    case 'ajout_salle' :
+        include __DIR__ . '/PHP/codes/ajouter_salle.php';
+        break;
+
+    case 'edit_salle' :
+        include __DIR__ . '/PHP/codes/modifier_salle.php';
+        break;
+
+    case 'delete_salle' :
+        include __DIR__ . '/PHP/codes/supprimer_salle.php';
+        break;
+    
+    case 'envoie_commentaire' :
+        include __DIR__ . '/PHP/codes/envoie_commentaire.php';
+        break;
+
+    case 'deleteReservation' :
+        include __DIR__ . '/PHP/codes/deleteReservation.php';
+        break;
+
+    case 'changeReservation' :
+        include __DIR__ . '/PHP/codes/changeReservation.php';
+        break;
+
+    case "validateReservation":
+    require_once("./PHP/codes/validateReservation.php");
+    break;
+
+    case "cancelReservation":
+    require_once("./PHP/codes/cancelReservation.php");
+    break;
+
+
+    
 }
 
 ob_end_flush();

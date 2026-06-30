@@ -1,8 +1,32 @@
 document.addEventListener('DOMContentLoaded', function () {
-  createMiniCalendar('cal-mai', '2025-05-01');
-  createMiniCalendar('cal-juin', '2025-06-01');
-  createMiniCalendar('cal-juillet', '2025-07-01');
+
+  // Si tu as des événements, on prend le premier
+  const nextEventDate = calendarEvents.length > 0
+    ? new Date(calendarEvents[0].start)
+    : new Date();
+
+  const year = nextEventDate.getFullYear();
+  const month = nextEventDate.getMonth() + 1;
+
+  // Mois avant
+  const prevMonth = month - 1;
+  const prevYear = prevMonth < 1 ? year - 1 : year;
+  const prevMonthValue = prevMonth < 1 ? 12 : prevMonth;
+
+  createMiniCalendar('cal-mai', `${prevYear}-${String(prevMonthValue).padStart(2, '0')}-01`);
+
+  // Mois de l'événement
+  createMiniCalendar('cal-juin', `${year}-${String(month).padStart(2, '0')}-01`);
+
+  // Mois suivant
+  const nextMonth = month + 1;
+  const nextYear = nextMonth > 12 ? year + 1 : year;
+  const nextMonthValue = nextMonth > 12 ? 1 : nextMonth;
+
+  createMiniCalendar('cal-juillet', `${nextYear}-${String(nextMonthValue).padStart(2, '0')}-01`);
 });
+
+
 
 function createMiniCalendar(id, date) {
   const el = document.getElementById(id);
@@ -11,16 +35,10 @@ function createMiniCalendar(id, date) {
     initialView: 'dayGridMonth',
     initialDate: date,
     locale: 'fr',
-
     firstDay: 1,
-
-    eventDisplay: 'block',
-
-
-
+    eventDisplay: 'block',   // 🔥 cache les événements
     height: 370,
     contentHeight: 330,
-    
     expandRows: true,
     fixedWeekCount: true,
     showNonCurrentDates: true,
@@ -31,113 +49,58 @@ function createMiniCalendar(id, date) {
       right: ''
     },
 
-    eventContent: function () {
-    return { html: '<div class="event-bar"></div>' };
-    },
+    events: calendarEvents,
 
-    events: [
-      {
-        title: 'Tennis',
-        start: '2025-06-02',
-        className: 'event-blue'
-      },
-      {
-        title: 'Les Arts',
-        start: '2025-06-03',
-        className: 'event-green'
-      },
-      {
-        title: 'Retraités',
-        start: '2025-06-04',
-        className: 'event-orange'
-      },
-      {
-        title: 'Parents',
-        start: '2025-06-06',
-        className: 'event-cyan'
-      },
-      {
-        title : 'Chorale',
-        start: '2025-06-07',
-        className: 'event-yellow'
-      },
-      {
-        title : 'Tennis',
-        start: '2025-06-10',
-        className: 'event-blue'
-      },
-      {
-        title : 'Pétanque',
-        start: '2025-06-12',
-        className: 'event-purple'
-      },
-      {
-        title : 'Retraités',
-        start: '2025-06-14',
-        className: 'event-orange'
-      },
-      {
-        title : 'Les Arts',
-        start: '2025-06-16',
-        className: 'event-green'
-      },
-      {
-        title : 'Parents',
-        start: '2025-06-14',
-        className: 'event-cyan'
-      },
-      {
-        title : 'Informatique',
-        start: '2025-06-19',
-        className: 'event-red'
-      },
-      {
-        title : 'Danse',
-        start: '2025-06-05',
-        className: 'event-pink'
-      }
+dayCellDidMount: function (info) {
+  // Ne rien faire pour les jours hors-mois
+  if (info.isOther) return;
 
-    ],
+  const d = info.date;
+  const date = d.getFullYear() + '-' +
+    String(d.getMonth() + 1).padStart(2, '0') + '-' +
+    String(d.getDate()).padStart(2, '0');
+
+  const frame = info.el.querySelector('.fc-daygrid-day-frame');
+
+  // Trouver les événements du jour
+  const eventsDuJour = calendarEvents.filter(ev =>
+    ev.start.startsWith(date)
+  );
+
+  // Tooltip sur toute la case
+  if (eventsDuJour.length > 0) {
+    let tooltip = "";
+    eventsDuJour.forEach(ev => {
+      const association = ev.association || ev.title || "Association inconnue";
+      const heure = new Date(ev.start).toLocaleTimeString('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      tooltip += `${association} - ${heure}\n`;
+    });
+    frame.setAttribute("title", tooltip.trim());
+  }
+
+  // Bordures
+  const hasRecurrent = eventsDuJour.some(ev => ev.type === "recurrente");
+  const hasPonctuelle = eventsDuJour.some(ev => ev.type === "ponctuelle");
+
+  if (hasRecurrent) frame.classList.add('border-recurrente');
+  if (hasPonctuelle) frame.classList.add('border-ponctuelle');
+
+  if (reservedDays.includes(date)) {
+    frame.classList.add('reserved-day');
+  }
+},
 
 
-  
-
-  dayCellDidMount: function(info) {
 
 
-    const reservedDays = [
-    '2025-06-02',
-    '2025-06-03',
-    '2025-06-04',
-    '2025-06-05',
-    '2025-06-06',
-    '2025-06-07',
-    '2025-06-10',
-    '2025-06-12',
-    '2025-06-14',
-    '2025-06-16',
-    '2025-06-19'
-  ];
 
 
-    const conflictDays = [
-        '2025-06-14'
-    ];
 
-    const d = info.date;
-      const date = d.getFullYear() + '-'
-        + String(d.getMonth() + 1).padStart(2, '0') + '-'
-        + String(d.getDate()).padStart(2, '0');
- 
-      if (reservedDays.includes(date)) {
-        info.el.classList.add('reserved-day');
-      }
- 
-      if (conflictDays.includes(date)) {
-        info.el.classList.add('conflict-day');
-      }
-    }
- 
+
+
   });
 
   calendar.render();

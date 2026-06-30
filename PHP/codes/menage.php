@@ -118,13 +118,13 @@ else {
 }
 
     // Commentaires
-    $stmt = $conn->prepare("SELECT contenu FROM commentaires WHERE id_reservation = ?");
+    $stmt = $conn->prepare("SELECT contenu,id_auteur,U.nom AS nom_commentaire FROM commentaires JOIN utilisateurs U ON id_auteur=U.id WHERE id_reservation = ?");
     $stmt->execute([$m["id_reservation"]]);
     $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $blocCommentaires = "";
     foreach ($commentaires as $c) {
-        $blocCommentaires .= "<p class='commentaire'><i class='fa-solid fa-comment' style='color: rgb(148, 148, 148);'></i> {$c['contenu']}</p>";
+        $blocCommentaires .= "<p class='commentaire'><i class='fa-solid fa-comment' style='color: rgb(148, 148, 148);'></i> {$c["nom_commentaire"]} - {$c['contenu']}</p>";
     }
     if (!$blocCommentaires) $blocCommentaires = "<p class='commentaire'>Aucun commentaire</p>";
 
@@ -150,19 +150,12 @@ else {
         <div class='div_commentaire'>{$blocCommentaires}</div>
 
         <div class='div_btn_menage'>
-            <form method='POST'>
-                <input type='hidden' name='id_menage' value='{$m["id"]}'>
-                
-                    <button name='action' value='valider' class='btn_valider'>
-                        <i class='fa-regular fa-circle-check'></i> Valider le menage
-                    </button>
-                
-
-            </form>
+            
             <button class='btn_commentaire'><i class='fa-regular fa-message'></i></button>
         </div>
         <div class='partie_commentaire'>
-        <form method='POST'>
+        <form method='POST' action='./index.php?page=envoie_commentaire'>
+        <input type='hidden' name='action' value='commentaire'>
             <input type='hidden' name='id_reservation' value='{$m["id_reservation"]}'>
             <input type='hidden' name='date_creation' value='" . date("Y-m-d H:i:s") . "'>
             <input name='commentaire' id='input_commentaire' type='text' maxlength='50' placeholder='Commentaire...(50 car.)'>
@@ -201,38 +194,23 @@ foreach ($menagesValides as $mv) {
     </div>";
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'valider') {
-
-    $stmt = $conn->prepare("
-        UPDATE menage 
-        SET statut = 'a_faire', date_validation = NOW() 
-        WHERE id = ?
-    ");
-    $stmt->execute([$_POST['id_menage']]);
-
-    echo "OK";
-exit;
-
-}
-
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $stmt = $conn->prepare("INSERT INTO commentaires (id_reservation, id_auteur, contenu, date_creation) VALUES (:id_r, :id_a, :co, :d_c)
-    ");
-
-    $stmt->execute([
-        'id_r' => $_POST['id_reservation'],
-        'id_a' => $_SESSION["id"],
-        'co'   => $_POST['commentaire'],
-        'd_c'  => $_POST['date_creation']
-    ]);
+    if ($_POST['action'] === 'valider') {
+        // validation ménage
+        $stmt = $conn->prepare("
+            UPDATE menage 
+            SET statut = 'a_faire', date_validation = NOW() 
+            WHERE id = ?
+        ");
+        $stmt->execute([$_POST['id_menage']]);
+        echo "OK";
+        exit;
+    }
 
   
-    header("Location: index.php?page=menage");
-    exit;
 }
+
 
 
 $variables = [

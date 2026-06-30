@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="CSS/associationAdmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+
+
+
+
+
+
+<body>
+
+
+    <article class="en-tete">
+        <p class="assoc-save">{{nbAssociations}} associations enregistrées</p><br><br>
+        <button class="new-assoc" id="ouvrir-ajout-association">+ Nouvelle association</button>
+
+    </article>
+
+
+    <section>
+
+
+        
+            <!-- ========================================
+         GRILLE DES ASSOCIATIONS
+         Affiche toutes les associations sous forme
+         de cartes avec leurs statistiques
+         ======================================== -->
+
+            <div class="grille-associations">
+               
+                    {{cartesAssociations}}
+                               
+            </div>
+               
+
+                        {{cartesModal}}
+
+                        <!-- ===== EN-TÊTE : icône + nom + stats ===== -->
+                        
+                        <!-- Fin corps de la modale -->
+
+                    
+                
+                <!-- Fin modale voir détails -->
+
+
+
+        
+
+
+
+    </section>
+
+    <!-- modal ajout de nouvelle association  -->
+
+
+    <div class="overlay-ajout-asso overlay" id="overlay-ajout-asso">
+        <div class="modale-ajout-asso">
+
+            <button class="fermer-ajout-asso" id="fermer-ajout-asso">
+                &times;
+            </button>
+
+            <h2>Nouvelle association</h2>
+
+            <form method="POST" action="./index.php?page=ajout_association">
+
+                <div class="champ">
+                    <label>Nom de l'association</label>
+                    <input type="text" placeholder="Nom de l'association" name="nom_assos" required>
+                </div>
+
+                <div class="champ">
+                    <label>Couleur</label>
+                    <input name="couleur" type="color"  value="#2563EB">
+                </div>
+
+                <div class="champ">
+                    <label>Responsable</label>
+
+                    <select name="responsable_assos">
+                        {{optionsResponsables}}
+                    </select>
+                </div>
+
+                <div class="actions">
+                    <button type="button" id="annuler-ajout-asso">
+                        Annuler
+                    </button>
+
+                    <button type="submit">
+                        Ajouter
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+    <!-- ========= MODALE MODIFIER ASSOCIATION ========= -->
+
+    <div class="overlay" id="overlay-modifier-asso">
+
+        <div class="modale">
+
+            <button class="fermer" id="fermer-modifier-asso">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h2>Modifier une association</h2>
+
+            <form method="POST" action="./index.php?page=modifier_association">
+    <input type="hidden" name="id_association" id="modifier-id-asso">
+
+    <div class="champ">
+        <label>Nom de l'association</label>
+        <input type="text" id="modifier-nom" name="nom" required>
+    </div>
+
+    <div class="champ">
+        <label>Couleur</label>
+        <input type="color" id="modifier-couleur" name="couleur" required>
+    </div>
+
+     <div class="champ">
+        <label>Nom Responsable</label>
+        <input type="text" id="modifier-membre" name="membre" required>
+    </div>
+
+    <div class="champ">
+        <label>Nouveau Responsable</label>
+        <select id="modifier-responsable" name="id_responsable">
+            {{optionsResponsables}}
+        </select>
+    </div>
+
+    <div class="actions">
+        <button type="button" id="annuler-modifier-asso">Annuler</button>
+        <button type="submit">Enregistrer</button>
+    </div>
+</form>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!-- ========= MODALE SUPPRESSION ASSOCIATION ========= -->
+
+    <div class="overlay" id="overlay-supprimer-asso">
+
+        <div class="modale">
+
+            <button class="fermer" id="fermer-supprimer-asso">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h2>Supprimer une association</h2>
+
+            <p id="texte-suppression-asso">
+                Êtes-vous sûr de vouloir supprimer cette association ?
+            </p>
+
+            <form method="POST" action="./index.php?page=supprimer_association">
+
+                <input type="hidden" name="id_association" id="id-asso-supprimer">
+
+                <div class="actions">
+
+                    <button type="button" id="annuler-supprimer-asso">
+                        Annuler
+                    </button>
+
+                    <button type="submit" class="btn-supprimer-confirmation">
+                        Supprimer
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <script src="JS/associationadmin.js"></script>
+
+
+
+
+
+
+
+</body>
+
+</html>

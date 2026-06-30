@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="CSS/association.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</header>
+
+
+
+<body>
+    <!-- En tete "Bienvenue, Association Culturelle Les Arts" -->
+
+    <article class="head" style="background-color: {{couleur}};">
+        <article class="btn-connexion">
+            <h1>Bienvenue, {{nomassociation}}</h1>
+            <button class="deconnexion" id="ouvrir-modale-deconnexion">Deconnexion</button>
+        </article>
+        <p>Gestion de vos réservations · {{mois}}</p><br><br>
+        <button class="btn-add" id="ouvrir-modale"> + Nouvelle réservation ponctuelle</button>
+        <button class="btn-add" id="ouvrir-ajout-membre">Ajouter un membre</button>
+    </article>
+
+
+    <!-- Fin en tete "Bienvenue, Association Culturelle Les Arts" -->
+
+
+
+
+
+    <!-- modal pour le boutton Nouvelle reservation-->
+
+    <div class="overlay" id="overlay-reservation">
+        <div class="modale">
+
+            <button class="fermer-croix" id="fermer-modale">&times;</button>
+
+            <div class="modale-entete">
+                <div class="modale-icone">📅</div>
+                <h2>Nouvelle réservation</h2>
+            </div>
+            <p class="modale-sous-titre">Réservation ponctuelle pour votre association</p>
+
+
+            <form method="post" action="./index.php?page=ajouter_reservation">
+
+                <input type="hidden" name="id_association" value="<?php echo $idAssociationConnectee; ?>">
+                <input type="hidden" name="id_responsable" value="<?php echo $idUtilisateurConnecte; ?>">
+                <input type="hidden" name="statut" value="en_attente">
+
+
+
+                <label for="salle">Salle</label>
+                <select name="id_salle" id="salle" required>
+                    {{Salle_select}}
+
+
+                </select>
+
+                <label for="date_">Date</label>
+                <input type="date" name="date_" id="date_" required>
+
+                <div class="ligne-heures">
+                    <div>
+                        <label for="heure_debut">Heure début</label>
+                        <input type="time" name="heure_debut" id="heure_debut" required>
+                    </div>
+                    <div>
+                        <label for="heure_fin">Heure fin</label>
+                        <input type="time" name="heure_fin" id="heure_fin" required>
+                    </div>
+
+
+                </div>
+
+                <label for="motif">Motif de la réunion</label>
+                <input type="text" name="Motif" id="motif" required>
+
+                <label for="commentaire">Commentaire</label>
+                <input type="text" name="commentaire" id="commentaire">
+
+                <label for="menage">Personnel de ménage</label>
+                <select name="id_menage" id="menage" required>
+                    <option value="">-- Choisir un personnel de ménage --</option>
+                    {{personnel_menage}}
+                </select>
+
+
+                <div class="modale-boutons">
+                    <button type="button" class="btn-annuler-modale" id="annuler-modale">Annuler</button>
+                    <button type="submit" class="btn-valider-modale">Réserver</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <!-- Fin modal pour le boutton Nouvelle reservation-->
+
+
+
+
+
+
+
+    <!-- modal pour le boutton Ajouter un membre-->
+
+
+
+    <div class="overlay" id="overlay-ajout-membre">
+        <div class="modale">
+
+            <button class="fermer-croix" id="fermer-ajout-membre">&times;</button>
+
+            <div class="modale-entete">
+                <div class="modale-icone">👤</div>
+                <h2>Ajouter un membre</h2>
+            </div>
+
+            <p class="modale-sous-titre">
+                Ajoutez un nouveau membre à l’association
+            </p>
+
+            <form method="post" action="./index.php?page=ajouter_membre">
+
+                <label for="identifiant">Identifiant</label>
+                <input type="text" name="identifiant" id="identifiant" required>
+
+                <label for="mail">Mail</label>
+                <input type="email" name="mail" id="mail" required>
+
+                <label for="mot_de_passe">Mot de passe</label>
+                <input type="password" name="mot_de_passe" id="mot_de_passe" required>
+
+                <div class="modale-boutons">
+                    <button type="button" class="btn-annuler-modale" id="annuler-ajout-membre">
+                        Annuler
+                    </button>
+                    <button type="submit" class="btn-valider-modale">
+                        Ajouter
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <section class="rubrique">
+
+        <article class="reservationDuMois">
+            <p><i class="fa-solid fa-book-open" style="color: #35CA6C;"></i> Réservations du mois</p>
+            <h2>{{resadumois}}</h2>
+            <p>Dont {{nbRecurrentes}} récurrentes</p>
+        </article>
+
+        <article class="quota">
+            <p><i class="fa-solid fa-clock" style="color: #F97316;"></i> Quota ponctuelles</p>
+            <h2>{{quantité/quantité}}</h2>
+            <progress class="barre" value="{{nbPonctuelles}}" max="{{quotaMax}}"></progress>
+        </article>
+
+        <article class="documentDepose">
+            <p><i class="fa-solid fa-file-lines" style="color: #8B5CF6;"></i> Documents déposés</p>
+            <h2>{{nbPdfs}}</h2>
+            <p>PDF actifs</p>
+        </article>
+
+    </section>
+
+
+
+    <!-- Pour les reservations en bas de la page -->
+
+
+
+    <section class="mesReservations">
+
+
+
+        <div class="reservations-container">
+
+            <div class="reservations-header">
+                <p>Mes réservations</p>
+
+            </div>
+
+
+
+            <!-- ===== CARTE 1 ===== -->
+
+
+            {{carteReservation}}
+
+
+    </section>
+
+    <!--Fin pour les reservations en bas de la page -->
+
+
+    <!--export du fichier -->
+
+
+
+    <article>
+        <button class="btn-exporter" id="ouvrir-export"><i class="fa-solid fa-download">
+            </i>Exporter le fichier</button>
+    </article>
+
+
+
+
+
+    <!-- ========== MODALE DE SUPPRESSION (une seule pour toute la page) ========== -->
+
+    <div class="overlay" id="overlay-suppression">
+        <div class="modale modale-suppression" style="width: 340px;">
+
+            <button class="fermer-croix" id="fermer-modale-suppression">&times;</button>
+
+            <div class="cercle-icone cercle-icone-danger">🗑️</div>
+
+            <div class="modale-entete-centree">
+                <h2>Supprimer la réservation ?</h2>
+                <p>Voulez-vous vraiment supprimer la reservation ?</p>
+            </div>
+
+            <form method="post" action="./index.php?page=supprimer_reservation" id="form-suppression">
+                <input type="hidden" name="id_reservation" id="id-reservation-a-supprimer">
+
+                <div class="modale-boutons">
+                    <button type="button" class="btn-annuler-modale" id="annuler-suppression">Annuler</button>
+                    <button type="submit" class="btn-supprimer-confirme">Supprimer</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- ========== MODALE DE MODIFICATION (une seule pour toute la page) ========== -->
+
+    <div class="overlay" id="overlay-modification">
+        <div class="modale" style="width: 360px;">
+
+            <button class="fermer-croix" id="fermer-modale-modification">&times;</button>
+
+            <div class="modale-entete">
+                <div class="modale-icone-carre icone-info">✏️</div>
+                <h2>Modifier la réservation</h2>
+            </div>
+
+            <form method="post" action="./index.php?page=modifier_reservation" id="form-modification">
+
+                <input type="hidden" name="id_reservation" id="id-reservation-a-modifier">
+
+                <label for="modif-salle">Salle</label>
+                <select name="id_salle" id="modif-salle">
+                    <option value="1">Salle de réunion</option>
+                    <option value="2">Bar</option>
+                    <option value="3">Réfectoire</option>
+                    <option value="4">Local</option>
+                </select>
+
+                <label for="modif-date">Date</label>
+                <input type="date" name="date_" id="modif-date">
+
+                <div class="ligne-heures">
+                    <div>
+                        <label for="modif-heure-debut">Heure début</label>
+                        <input type="time" name="heure_debut" id="modif-heure-debut">
+                    </div>
+                    <div>
+                        <label for="modif-heure-fin">Heure fin</label>
+                        <input type="time" name="heure_fin" id="modif-heure-fin">
+                    </div>
+                </div>
+
+                <label for="modif-motif">Motif de la réunion</label>
+                <input type="text" name="Motif" id="modif-motif">
+
+                <label for="modif-commentaire">Commentaire</label>
+                <input type="text" name="commentaire" id="modif-commentaire">
+
+                <div class="modale-boutons">
+                    <button type="button" class="btn-annuler-modale" id="annuler-modification">Annuler</button>
+                    <button type="submit" class="btn-enregistrer-modif">Enregistrer</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========== MODALE DE DECONNEXION ========== -->
+
+
+
+    <div class="overlay" id="overlay-deconnexion">
+        <div class="modale modale-deconnexion">
+
+            <button class="fermer-croix" id="fermer-modale-deconnexion">&times;</button>
+
+            <div class="cercle-icone-deconnexion">🚪</div>
+
+            <h2>Se déconnecter ?</h2>
+            <p>Vous allez être redirigé vers la page de connexion.</p>
+
+
+
+            <div class="modale-boutons">
+                <button type="button" class="btn-annuler-modale" id="annuler-deconnexion">Annuler</button>
+
+                <form action="./index.php?page=deconnexion" method="POST">
+                    <button class="btn-deconnexion-confirme" type="submit">Se déconnecter</button>
+                </form>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+    <!-- modal d export de fichier -->
+
+
+
+    <div id="overlay-export" class="overlay">
+
+        <div class="modal-export">
+
+            <div class="header-export">
+
+
+
+                <button class="close-btn" id="fermer-export">&times;</button>
+
+            </div>
+
+            <div class="cartes-export">
+
+                <!-- ================= EXCEL ================= -->
+
+                <div class="carte-export">
+
+                    <div class="icone excel">
+                        <i class="fa-solid fa-file-excel"></i>
+                    </div>
+
+                    <h3>Exporter vers Excel</h3>
+
+                    <p>
+                        Télécharge les réservations au format Excel (.xlsx).
+                    </p>
+
+                    <div class="champ-export">
+                        <label>Période</label>
+
+                        <select id="periode-excel" class="select-export">
+                            <option value="mois-precedent">📅 Mois précédent</option>
+                            <option value="mois-courant" selected>📅 Mois en cours</option>
+                            <option value="trimestre">📊 Trimestre en cours</option>
+                            <option value="annee">🗓️ Année en cours</option>
+                            <option value="personnalisee">🛠️ Période personnalisée</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-excel" id="export-excel">
+                        <i class="fa-solid fa-download"></i>
+                        Exporter Excel
+                    </button>
+
+                </div>
+
+
+                <!-- ================= GOOGLE CALENDAR ================= -->
+
+                <div class="carte-export">
+
+                    <div class="icone calendar">
+                        <i class="fa-brands fa-google"></i>
+                    </div>
+
+                    <h3>Exporter vers Google Calendar</h3>
+
+                    <p>
+                        Génère un fichier .ics compatible avec Google Calendar.
+                    </p>
+
+                    <div class="champ-export">
+                        <label>Période</label>
+
+                        <select id="periode-calendar" class="select-export">
+                            <option value="mois-precedent">📅 Mois précédent</option>
+                            <option value="mois-courant" selected>📅 Mois en cours</option>
+                            <option value="trimestre">📊 Trimestre en cours</option>
+                            <option value="annee">🗓️ Année en cours</option>
+                            <option value="personnalisee">🛠️ Période personnalisée</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-calendar" id="export-calendar">
+                        <i class="fa-solid fa-download"></i>
+                        Exporter Calendar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="JS/association.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

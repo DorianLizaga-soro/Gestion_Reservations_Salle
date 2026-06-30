@@ -166,12 +166,16 @@ body {
    CALENDRIERS
 ========================= */
 
+
+/* =========================
+   GRID & CARD
+========================= */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
- 
+
 .calendar-card {
   background: white;
   border: 1px solid #dbe3ef;
@@ -180,132 +184,112 @@ body {
   overflow: hidden;
   min-height: 430px;
 }
- 
-/* Hauteur FullCalendar */
+
 .calendar-card .fc {
   height: 380px !important;
 }
 
-/* Neutralise la couleur bleue des en-têtes sam/dim */
+/* =========================
+   HEADER & STRUCTURE
+========================= */
 .calendar-card .fc-col-header-cell a {
   color: #334155 !important;
   text-decoration: none;
 }
 
-/* Masque les lignes entièrement composées de jours hors-mois */
+.calendar-card .fc-toolbar-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.calendar-card .fc-daygrid-body,
+.calendar-card .fc-daygrid-body table {
+  width: 100% !important;
+}
+
+/* Masque les lignes hors mois */
 .calendar-card .fc-daygrid-body tr:has(> td.fc-day-other:first-child):has(> td.fc-day-other:last-child) {
   display: none !important;
+}
+
+/* =========================
+   JOURS & NUMÉROS
+========================= */
+.calendar-card .fc-daygrid-day-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* surtout PAS de height:0 ici */
+}
+
+.calendar-card .fc-daygrid-day-number {
+  padding: 0;
+  text-decoration: none;
+  color: #334155;
 }
 
 .calendar-card .fc-day-sat .fc-daygrid-day-number,
 .calendar-card .fc-day-sun .fc-daygrid-day-number {
   color: #334155 !important;
 }
- 
-/* Supprime le quadrillage */
-.calendar-card .fc-scrollgrid,
-.calendar-card .fc-scrollgrid td,
-.calendar-card .fc-scrollgrid th {
-  border: none !important;
-}
- 
-/* Supprime les scrollbars */
-.calendar-card .fc-scroller,
-.calendar-card .fc-scroller-liquid,
-.calendar-card .fc-scroller-liquid-absolute {
-  overflow: visible !important;
-}
- 
-/* Titre */
-.calendar-card .fc-toolbar-title {
-  font-size: 1rem;
-  font-weight: 700;
-}
- 
-/* Grille */
-.calendar-card .fc-daygrid-body,
-.calendar-card .fc-daygrid-body table {
-  width: 100% !important;
-}
- 
-/* Numéro du jour — centré */
-.calendar-card .fc-daygrid-day-top {
-  justify-content: center;
-}
- 
-.calendar-card .fc-daygrid-day-number {
-  padding: 0;
-  text-decoration: none;
-  color: #334155;
-}
- 
-/* Désactive la coloration rouge des weekends par défaut */
-.calendar-card .fc-day-sat .fc-daygrid-day-number,
-.calendar-card .fc-day-sun .fc-daygrid-day-number {
-  color: #334155;
-}
- 
-/* Jours hors mois — invisibles */
+
+/* Jours hors mois */
 .calendar-card .fc-day-other {
   background: transparent !important;
 }
- 
+
 .calendar-card .fc-day-other .fc-daygrid-day-number {
   visibility: hidden;
 }
- 
+
 .calendar-card .fc-day-other .fc-daygrid-day-events {
   display: none !important;
 }
- 
-/* ---- Points événements ---- */
- 
-/* Masquer tout le contenu texte des events */
+
+/* =========================
+   POINTS ÉVÉNEMENTS
+========================= */
+
+/* Masque le texte */
 .calendar-card .fc-event-title,
 .calendar-card .fc-event-time,
 .calendar-card .fc-daygrid-event-dot {
   display: none !important;
 }
- 
-/* Chaque event = un petit point rond */
-.calendar-card .fc-daygrid-event  {
-  display: inline-block; 
+
+/* Point rond */
+.calendar-card .fc-daygrid-event {
+  display: inline-block;
   width: 7px;
   height: 7px;
-  min-height: 7px;
   border-radius: 50%;
-  border: none;
   padding: 0;
   margin: 0;
- 
 }
- 
-/* Conteneur des events : ligne horizontale centrée, sous le numéro */
+
+/* Conteneur des points */
 .calendar-card .fc-daygrid-day-events {
   display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
   justify-content: center !important;
   align-items: center !important;
-  gap: 2px !important;
-  padding: 2px 0 0 !important;
+  gap: 4px !important;
+  padding: 0 !important;
   margin: 0 !important;
-  min-height: 0 !important;
 }
- 
-/* Chaque harness (wrapper d'un event) en inline */
+
+/* Wrapper des points */
 .calendar-card .fc-daygrid-event-harness {
   position: static !important;
   width: auto !important;
   margin: 0 !important;
 }
- 
-/* Supprime le bloc "more" (+N) si jamais */
+
+/* Supprime le "+N" */
 .calendar-card .fc-daygrid-more-link {
   display: none !important;
 }
- 
-/* ---- Couleurs des points ---- */
+
+/* Couleurs des points */
 .calendar-card .event-blue   { background: #2563eb !important; }
 .calendar-card .event-green  { background: #22c55e !important; }
 .calendar-card .event-orange { background: #f97316 !important; }
@@ -313,44 +297,55 @@ body {
 .calendar-card .event-pink   { background: #ec4899 !important; }
 .calendar-card .event-cyan   { background: #06b6d4 !important; }
 .calendar-card .event-red    { background: #ef4444 !important; }
-.calendar-card .event-yellow {background: #F59E0B;}
-/* ---- Case réservée ---- */
+.calendar-card .event-yellow { background: #F59E0B !important; }
+
+/* =========================
+   CASE RÉSERVÉE
+========================= */
 .calendar-card .fc-daygrid-day.reserved-day .fc-daygrid-day-frame {
   background: #F6F9FE !important;
   border-radius: 8px;
   min-height: 48px;
   position: relative;
-  margin : 1px 2px;
+  margin: 1px 2px;
 }
 
-/* Annule le fond sur la td elle-même pour éviter le débordement */
 .calendar-card td.fc-daygrid-day.reserved-day {
   background: transparent !important;
 }
- 
-/* ---- Case en conflit ---- */
-.calendar-card .fc-daygrid-day.conflict-day .fc-daygrid-day-frame {
-  background: #fff5f5 !important;
-  outline: 1px solid #ef4444;
-  border-radius: 8px;
-  position: relative;
+
+/* =========================
+   BORDURES RÉCURRENTES / PONCTUELLES
+========================= */
+.calendar-card .fc-daygrid-day-frame.border-recurrente {
+  outline: 3px solid #31eb24;
+  outline-offset: -3px;
+  border-radius: 6px;
 }
 
-
-
- 
-/* Icône conflit ⚠ en haut à droite de la cellule */
-.calendar-card .fc-daygrid-day.conflict-day .fc-daygrid-day-frame::after {
-  content: "⚠";
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  font-size: 9px;
-  color: #ef4444;
-  line-height: 1;
-  pointer-events: none;
+.calendar-card .fc-daygrid-day-frame.border-ponctuelle {
+  outline: 3px solid #ff9800;
+  outline-offset: -3px;
+  border-radius: 6px;
 }
- 
+
+/* =========================
+   STRUCTURE DES CELLULES
+========================= */
+.calendar-card .fc-daygrid-day-frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* numéro en haut, points en bas */
+  align-items: center;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+.calendar-card .fc-scrollgrid,
+.calendar-card .fc-scrollgrid td,
+.calendar-card .fc-scrollgrid th {
+  border: none !important;
+}
 
 
 /* =========================
@@ -382,22 +377,12 @@ body {
    ========================= */
 
 /* Une ligne de réservation */
-.reservation-item {
-    display: grid;
-    grid-template-columns: 100px 1fr auto;
-    gap: 16px;
-
-    padding: 18px;
-    border-bottom: 1px solid #f1f5f9;
-}
 
 .reservation-item {
     position: relative;
-
     display: grid;
     grid-template-columns: 100px 1fr auto;
     gap: 16px;
-
     padding: 18px 18px 18px 28px;
     border-bottom: 1px solid #f1f5f9;
 }
@@ -406,43 +391,105 @@ body {
 
 .reservation-item::before {
     content: "";
-
     position: absolute;
     left: 12px;
     top: 50%;
-
     width: 4px;
     height: 42px;
-
     border-radius: 999px;
-
     transform: translateY(-50%);
 }
+.modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    animation: fadeIn .3s;
+}
+.close {
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+    padding: 5px;
+}
+.close:hover{
+    padding: 5px;
+    background-color: rgba(201, 201, 201, 0.445);
+    border-radius: 5px;
+}
+.div_formName{
+    display: flex;
+    gap: 20px;
+}
+.div_Name{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.input_form{
+    border: 1px solid rgba(128, 128, 128, 0.452);
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgba(207, 207, 207, 0.123);
+}
+.btn_annuler{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 80px;
+    height: 40px;
+    color: rgb(65, 64, 64);
+    cursor: pointer;
+}
+.btn_creerUser{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 150px;
+    height: 40px;
+    background-color: rgba(0, 0, 255, 0.781);
+    color: white;
+    cursor: pointer;
+}
+.btn_modif{
+    border: none;
+    background: none;
+    font-size: 16px;
+    padding: 5px;
+    cursor: pointer;
+}
+.btn_modif:hover{
+    background-color: rgba(172, 172, 172, 0.295);
+    border-radius: 5px;
+}
+.btn_delete{
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 0, 0, 0.178);
+    cursor: pointer;
+}
+.btn_modifDelete{
+    display: flex;
+    gap: 20px;
+}
+
+
 
 /* Couleurs */
-
-.reservation-blue::before {
-    background: #2563eb;
-}
-
-.reservation-green::before {
-    background: #22c55e;
-}
-
-.reservation-orange::before {
-    background: #f97316;
-}
-
-.reservation-purple::before {
-    background: #8b5cf6;
-}
-
-.reservation-pink::before {
-    background: #ec4899;
-}
-
-.reservation-bleu-vert::before {
-    background: #14B8A6;
+.reservation-color::before {
+    background-color: var(--color);
 }
 
 /* Date et heure */
@@ -480,6 +527,14 @@ body {
   align-items: center;
   gap: 10px;
 }
+
+.salle_nom_description {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
 
 .reservation-type {
   font-size: 13px;
