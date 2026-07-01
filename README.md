@@ -131,4 +131,4 @@ Le schéma complet est disponible dans Schematic_for_the_DATABASE_Reservations.p
 
 ## Auteur
 
-Ton nom
+Zoro, Doryann, Reinier, Ghost.
