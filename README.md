@@ -37,9 +37,9 @@ Application de gestion de réservation de salles (connexion, réservation, panne
 
 5. Configurer la connexion à la base de données dans le fichier `PHP/codes/connexionBDD.php` :
 ```php
-   $servername = "localhost";
+   $servername = "db";
    $username = "root";
-   $password = "";
+   $password = "rootpassword";
    $dbname = "reservation_salle";
 ```
 
