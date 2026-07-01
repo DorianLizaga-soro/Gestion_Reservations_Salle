@@ -65,6 +65,62 @@ reservation_salle/
 ├── 📄 index.php                  # Point d'entrée principal de l'application
 └── 📄 README.md
 
+Base de données
+
+La base de données reservation_salle est composée de 8 tables :
+
+utilisateurs (
+  id, nom, email, password, role, id_association
+)
+
+associations (
+  id, nom, couleur, id_responsable
+)
+
+salles (
+  id, nom, capacite, description
+)
+
+reservations (
+  id, id_association, id_salle, id_creneau_recurrent,
+  type, date_, heure_debut, heure_fin, statut,
+  id_createur, date_creation, Motif, commentaire, programme_pdf
+)
+
+creneauxrecurrents (
+  id, id_association, id_salle, jour_semaine,
+  heure_debut, heure_fin, frequence_jours, date_debut, actif
+)
+
+commentaires (
+  id, id_reservation, id_auteur, contenu, date_creation
+)
+
+messages (
+  id, id_reservation, id_auteur, contenu, date_envoi, lu
+)
+
+menage (
+  id, id_reservation, id_personnel, date_prevue, date_validation, statut
+)
+
+pdfs (
+  id, id_reservation, nom_fichier, chemin, date_upload, date_expiration
+)
+
+Rôles utilisateurs (role) : gestionnaire, responsable_association, membre_association, personnel_menage
+
+Relations principales :
+
+
+Une association a un utilisateur responsable (id_responsable)
+Une reservation est liée à une association, une salle, et éventuellement un creneau_recurrent
+Les tables commentaires, messages, menage et pdfs sont toutes rattachées à une reservation
+Toutes les suppressions en cascade (ON DELETE CASCADE) sont gérées au niveau de la base
+
+
+Le schéma complet est disponible dans Schematic_for_the_DATABASE_Reservations.pdf, et le script de création est dans reservation_salle.sql.
+
 
 ## Fonctionnalités
 
