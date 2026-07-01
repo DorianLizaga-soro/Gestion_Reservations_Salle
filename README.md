@@ -60,13 +60,43 @@ reservation_salle/
 │   ├── 📄 pdf.css                # Style des documents PDF générés
 │   ├── 📄 style.css              # Feuille de style principale
 │   └── 📄 utilisateur.css        # Style de la page utilisateur
-│
+│   ├── 📄 association.css        # Feuille de style principale
+│   └── 📄 associationAdmin.css   # Style de la page utilisateur
+|   ├── 📄 associationMembre.css  # style de la page du membre de l'asscocaiation
+│   └── 📄 connexion.css          # Style de la page de connexion
+|   ├── 📄 dashboard.css          # style du tableau de bord
+│   └── 📄 gestionnaire.css       # Style de la page gestionnaire
+|   ├── 📄 reservation.css        # style de la page reservation
+│   └── 📄 utilisateur.css        # Style de la page
+|   ├── 📄 register.css           # Style de la page
+│   └── 📄 utilisateur.css        # Style de la page
+|   ├── 📄 register.css           # Style de la page
+│   └── 📄 utilisateur.css        # Style de la page
+|
+|
+|
+|
+|
 ├── 📂 JS/
 │   ├── 📄 JS.js                  # Script principal du site
 │   ├── 📄 menage.js              # Logique JS de la page ménage
 │   ├── 📄 pdf.js                 # Génération/gestion des PDF
 │   └── 📄 utilisateur.js         # Logique JS de la page utilisateur
-│
+│   ├── 📄 association.js         # Logique JS de la page ménage
+│   ├── 📄 calendar_reservation.js   # Génération/gestion des PDF
+|   ├── 📄 dashboard.js              # Logique JS de la page ménage
+│   ├── 📄 fileUp2.js                # Génération/gestion des PDF
+|   ├── 📄 gestionnaire.js           # Logique JS de la page ménage
+│   ├── 📄 menagePersonnel.js        # Génération/gestion des PDF
+|   ├── 📄 exportation.js            # Logique JS de la page ménage
+│   ├── 📄 pdf.js                    # Génération/gestion des PDF
+|
+|
+|
+|
+|
+|
+|
 ├── 📂 html/
 │   ├── 📄 connexion.html         # Page de connexion
 │   ├── 📄 exportations.html      # Page d'exportations
@@ -75,7 +105,18 @@ reservation_salle/
 │   ├── 📄 panneaudaffichage.html # Page panneau d'affichage
 │   ├── 📄 register.html          # Page d'inscription
 │   └── 📄 utilisateur.html       # Page profil utilisateur
-│
+│   ├── 📄 association.html       # page de l'association
+│   ├── 📄 associationAdmin.html  # page administrateur de l'association
+|   ├── 📄 associationMembre.html # page membre de l'association
+│   ├── 📄 dashboard.html         # page tableau de bord    
+|   ├── 📄 dashboard_gestionnaire.html # page tableau de bord du gestionnaire
+│   ├── 📄 menagePersonnel.html        # page personnel de ménage     
+|   ├── 📄 reservation.html            # page reservation de salle
+│   ├── 📄 utilisateur.html            # page utilisateur  
+|
+|
+|
+|
 ├── 📂 PHP/
 │   ├── 📂 classe/
 │   │   └── 📄 association.php    # Classe de gestion des associations
@@ -85,12 +126,45 @@ reservation_salle/
 │       ├── 📄 logout.php         # Déconnexion
 │       ├── 📄 register.php       # Traitement de l'inscription
 │       ├── 📄 utilisateurs.php   # Gestion des utilisateurs
+
 │       ├── 📄 updateUser.php     # Mise à jour d'un utilisateur
 │       ├── 📄 deleteUser.php     # Suppression d'un utilisateur
 │       ├── 📄 menage.php         # Logique de la page ménage
 │       ├── 📄 exportations.php   # Logique des exportations
-│       └── 📄 panneaudaffichage.php # Logique du panneau d'affichage
-│
+│       ├── 📄 panneaudaffichage.php # Logique du panneau d'affichage
+|       ├── 📄 ajout_association.php   # Ajout d'une association
+│       ├── 📄 ajouter_membre.php      # Ajout d'un membre 
+|       ├── 📄 ajouter_salle.php       # Ajout d'une salle
+│       ├── 📄 associationAdmin.php   # logique de la page administrateur       
+|       ├── 📄 cancelReservation.php   # Annulation de la reservation
+│       ├── 📄 changeReservation.php   # Modifier la reservation   
+|       ├── 📄 connexionBDD.php        # Suppression d'un utilisateur
+│       ├── 📄 createReservation2.php  # Logique de la page ménage  
+|       ├── 📄 deleteReservation.php   # Suppression d'un utilisateur
+│       ├── 📄 envoie_commentaire.php  # Logique de la page ménage  
+|       ├── 📄 export_calendar.php     # Suppression d'un utilisateur
+│       ├── 📄 export_excel.php        # Logique de la page ménage   
+|       ├── 📄 gestionnaire.php        # Suppression d'un utilisateur
+│       ├── 📄 get_association_details.php  # Logique de la page ménage  
+|       ├── 📄 deleteReservation.php   # Suppression d'un utilisateur
+│       ├── 📄 lireReservation.php  # Logique de la page ménage   
+|       ├── 📄 login.php            # Logique de la page ménage   
+|       ├── 📄 logout.php           # Suppression d'un utilisateur
+│       ├── 📄 menagePersonnel.php  # Logique de la page ménage  
+|       ├── 📄 modifier_association.php     # Suppression d'un utilisateur
+│       ├── 📄 modifier_reservation.php     # Logique de la page ménage          
+|       ├── 📄 modifier_salle.php           # Logique de la page ménage   
+|       ├── 📄 register.php                 # Suppression d'un utilisateur
+│       ├── 📄 reservation.php              # Logique de la page ménage  
+|       ├── 📄 responsable.php              # Suppression d'un utilisateur
+│       ├── 📄 supprimer_association.php    # Logique de la page ménage 
+|       ├── 📄 supprimer_reservation.php    # Logique de la page ménage   
+|       ├── 📄 supprimer_salle.php          # Suppression d'un utilisateur
+│       ├── 📄 updateUser.php               # Logique de la page ménage  
+|       ├── 📄 validateReservation.php      # Suppression d'un utilisateur
+│         
+|
+|
 ├── 📂 MySQL/
 │   └── 📄 connexion.php          # Fichier de connexion à MySQL
 │
