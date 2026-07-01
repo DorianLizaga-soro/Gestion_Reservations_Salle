@@ -161,6 +161,20 @@ if (!$error) {
         // 2) Récupérer l'ID de la réservation
 $id_reservation = $conn->lastInsertId();
 
+if (!empty($_POST['commentaire'])) {
+
+    $stmtCom = $conn->prepare("
+        INSERT INTO commentaires (id_reservation, id_auteur, contenu, date_creation)
+        VALUES (:id_reservation, :id_auteur, :contenu, :date_creation)
+    ");
+
+    $stmtCom->execute([
+        'id_reservation'  => $id_reservation,
+        'id_auteur'  => $_SESSION['id'],   // auteur du commentaire
+        'contenu'     => $_POST['commentaire'],
+        'date_creation'=> date('Y-m-d H:i:s')
+    ]);
+}
 
 // Récupération des valeurs nécessaires
 $id_menage = $_POST['id_menage'] ?? null;

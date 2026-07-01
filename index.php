@@ -141,8 +141,57 @@ switch($page){
     require_once("./PHP/codes/cancelReservation.php");
     break;
 
+     case 'messagerie':
+        include __DIR__ . '/PHP/codes/messagerie.php';
+        break;
 
+    case 'envoyer_message':
+        include __DIR__ . '/PHP/codes/envoyer_message.php';
+        break;
+
+    case 'exportations':
+        include __DIR__ . '/PHP/codes/exportations.php';
+        break;
+
+    case 'export_excel_admin':
+        include __DIR__ . '/PHP/codes/export_excel_admin.php';
+        break;
+
+    case 'export_calendar_admin':
+        include __DIR__ . '/PHP/codes/export_calendar_admin.php';
+        break;
+
+    case 'telecharger_pdf':
+        include __DIR__ . '/PHP/codes/telecharger_pdf.php';
+        break;
     
+    case "messagerie_ajax":
+        include __DIR__ . '/PHP/codes/messagerie_ajax.php';
+        break;
+
+    case "notifications_ajax":
+    include __DIR__ . '/PHP/codes/notifications_ajax.php';
+    break;
+
+    case "supprimer_export":
+    include __DIR__ . '/PHP/codes/supprimer_export.php';
+    break;
+
+    case "exportations_ajax":
+    include __DIR__ . '/PHP/codes/exportations_ajax.php';
+    break;
+
+    case "export_excel_admin_ajax":
+    include __DIR__ . "/PHP/codes/export_excel_admin_ajax.php";
+    break;
+
+    case "export_calendar_admin_ajax":
+    include __DIR__ . '/PHP/codes/export_calendar_admin_ajax.php';
+    break;
+
+
+
+        
 }
 
 ob_end_flush();

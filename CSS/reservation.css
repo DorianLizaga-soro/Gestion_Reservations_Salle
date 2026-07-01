@@ -439,3 +439,7 @@ tbody tr:hover{
   border-color: #2563eb;
   background-color: #dbeafe;
 }
+.td_btn{
+    display: flex;
+    gap: 20px;
+}

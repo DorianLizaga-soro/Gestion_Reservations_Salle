@@ -1,0 +1,436 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f5f5;
+    height: 100vh;
+    overflow: auto;
+}
+
+.messagerie-container {
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    height: 100vh;
+}
+
+/* ===== COLONNE GAUCHE ===== */
+.conversations-panel {
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.conversations-header {
+    padding: 20px 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.conversations-titre {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.badge-non-lus {
+    background: #ef4444;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.conversations-liste {
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Carte conversation */
+.conversation-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background 0.15s;
+}
+
+.conversation-item:hover {
+    background: #f9fafb;
+}
+
+.conversation-item.actif {
+    background: #eff6ff;
+    border-left-color: #2563eb;
+}
+
+.conv-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.conv-infos {
+    flex: 1;
+    min-width: 0;
+}
+
+.conv-nom {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 2px;
+}
+
+.conv-motif {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.conv-dernier-message {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.conv-badge {
+    background: #2563eb;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ===== COLONNE DROITE ===== */
+.messages-panel {
+    display: flex;
+    flex-direction: column;
+    background: #f9fafb;
+    overflow: hidden;
+}
+
+/* En-tête conversation */
+.messages-entete {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.entete-gauche {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.entete-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.entete-nom {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+
+.entete-infos {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.badge-statut {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.badge-statut.confirmee {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.badge-statut.en_attente {
+    background: #fef9c3;
+    color: #ca8a04;
+}
+
+.badge-statut.annulee {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* Zone messages */
+.messages-zone {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Séparateur de date */
+.separateur-date {
+    text-align: center;
+    font-size: 12px;
+    color: #9ca3af;
+    position: relative;
+    margin: 8px 0;
+}
+
+.separateur-date::before,
+.separateur-date::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 35%;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+.separateur-date::before {
+    left: 0;
+}
+
+.separateur-date::after {
+    right: 0;
+}
+
+/* Bloc message */
+.message-bloc {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.message-bloc.moi {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.message-contenu {
+    max-width: 60%;
+}
+
+.message-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.message-bloc.moi .message-meta {
+    flex-direction: row-reverse;
+}
+
+.message-auteur {
+    font-weight: 500;
+    color: #374151;
+}
+
+.badge-role {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.badge-role.responsable_association {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.badge-role.gestionnaire {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.badge-role.personnel_menage {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.badge-role.membre_association {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+.message-bulle {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    background: #ffffff;
+    color: #111827;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.message-bloc.moi .message-bulle {
+    background: #2563eb;
+    color: white;
+}
+
+.message-statut {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 3px;
+    text-align: right;
+}
+
+.message-bloc.moi .message-statut {
+    text-align: right;
+}
+
+/* Zone d'envoi */
+.messages-footer {
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    padding: 12px 20px;
+    flex-shrink: 0;
+}
+
+.messages-footer form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.messages-footer input[type="text"] {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    font-size: 14px;
+    outline: none;
+    background: #f9fafb;
+}
+
+.messages-footer input[type="text"]:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+}
+
+.compteur {
+    font-size: 12px;
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+.btn-envoyer {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.btn-envoyer:hover {
+    background: #1d4ed8;
+}
+
+/* Vide */
+.messages-vide {
+    display: block;
+    /* plus de flex */
+    width: 100%;
+    /* prend toute la largeur */
+    height: 100%;
+    /* prend toute la hauteur */
+    padding: 20px;
+    /* espace intérieur */
+    overflow-y: auto;
+    /* scroll si beaucoup de messages */
+    color: #111827;
+    /* texte normal */
+}
+
+
+.messages-vide i {
+    font-size: 48px;
+    color: #d1d5db;
+}
+
+.message-bloc {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+    /* important */
+}
+
+.message-bloc.moi {
+    flex-direction: row-reverse;
+}
+
+.message-contenu {
+    max-width: 70%;
+    /* bulles larges */
+}

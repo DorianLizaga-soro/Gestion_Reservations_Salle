@@ -294,7 +294,7 @@ $carte6 .="
         </div>
 
         <form action='./index.php?page=deconnexion'>
-            <button type='submit'><i class='bi bi-box-arrow-right ms-auto'></i></button>
+            <button class='btn_sideBare' type='submit'><i class='bi bi-box-arrow-right ms-auto'></i></button>
         </form>
 
 

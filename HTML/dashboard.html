@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="CSS/utilisateur.css">
     <link rel="stylesheet" href="CSS/association.css">
     <link rel="stylesheet" href="CSS/reservation.css">
+    <link rel="stylesheet" href="CSS/messagerie.css">
+
+    
 </head>
 
 <body>
@@ -104,10 +107,21 @@
             <div class="topbar-actions"></div>
 
             <nav class="nav">
-                <span type="button" class="bi bi-bell"></span>
-                <span class=" notif-badge">2</span>
+                <div class="notif-wrapper">
+                    <span type="button" class="bi bi-bell" id="notif-bell"></span>
+                    <span id="notif-badge" class="notif-badge_cloche">0</span>
+                </div>
             </nav>
+
+            <!-- 🔥 Le panneau doit être DANS le header -->
+            <div id="notif-panel" class="notif-panel hidden">
+                <p class="notif-title">Notifications</p>
+                <div id="notif-content"></div>
+            </div>
         </header>
+
+
+        
         <section class="dashboard-content">
             <main class="main-content">
                 <!-- CARDS STATISTIQUES DU HAUT -->
@@ -362,6 +376,7 @@
     <script src="JS/utilisateur.js"></script>
     <script src="JS/associationAdmin.js"></script>
     <script src="JS/fileUp2.js"></script>
+    <script src="JS/messagerie.js"></script>
 </body>
 
 </html>

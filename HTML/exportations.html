@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/exportations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Exportations</title>
+</head>
+
+<body>
+    <section class="sec_body">
+        <div class="div_export">
+
+            <!-- CARTE EXCEL -->
+            <div class="card_export">
+                <p><i id="logoExcel" class="fa-regular fa-file-lines" style="color: rgb(10, 180, 0);"></i></p>
+                <b>
+                    <p>Export Excel</p>
+                </b>
+                <p>Exporte toutes les réservations avec détails complets : associations, salles, horaires, statuts,
+                    responsables.</p>
+
+                <form method="POST" action="./index.php?page=export_excel_admin">
+                    <p>Période</p>
+                    <select name="periode" id="sel_periode">
+                        <option value="mois-courant">Mois en cours</option>
+                        <option value="mois-precedent">Mois précédent</option>
+                        <option value="trimestre">Trimestre</option>
+                        <option value="annee">Année 2026</option>
+                    </select>
+
+                    <p>Association</p>
+                    <select name="id_association" id="sel_assos" required>
+                        {{optionsAssociations}}
+                    </select>
+
+                    <button type="submit" class="btn_exportExcel">
+                        <i class="fa-solid fa-download" style="color: rgb(255, 255, 255);"></i> Exporter Export Excel
+                    </button>
+                </form>
+            </div>
+
+            <!-- CARTE GOOGLE CALENDAR -->
+            <div class="card_export">
+                <p><i id="logoGoogle" class="fa-regular fa-calendar" style="color: rgb(8, 76, 248);"></i></p>
+                <b>
+                    <p>Export Google Calendar</p>
+                </b>
+                <p>Synchronise les réservations avec Google Calendar. Compatible avec iCal et Outlook.</p>
+
+                <form method="POST" action="./index.php?page=export_calendar_admin">
+                    <p>Période</p>
+                    <select name="periode" id="sel_periode2">
+                        <option value="mois-courant">Mois en cours</option>
+                        <option value="mois-precedent">Mois précédent</option>
+                        <option value="trimestre">Trimestre</option>
+                        <option value="annee">Année 2026</option>
+                    </select>
+
+                    <p>Association</p>
+                    <select name="id_association" id="sel_assos2" required>
+                        {{optionsAssociations}}
+                    </select>
+
+                    <button type="submit" class="btn_exportGoogle">
+                        <i class="fa-solid fa-download" style="color: rgb(255, 255, 255);"></i> Exporter Export Google
+                        Calendar
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="div_historique">
+            <div class="div_head">
+                <b>
+                    <p>Historique des exports</p>
+                </b>
+                <p>{{nombrePdf}} exports</p>
+            </div>
+
+            <div class="div_titre">
+                <p>TYPE</p>
+                <p>DATE</p>
+                <p>ASSOCIATION</p>
+                <p>UTILISATEUR</p>
+                <p>TÉLÉCHARGER</p>
+            </div>
+
+            <div id="zone_historique">
+                {{lignesHistorique}}
+            </div>
+
+        </div>
+
+    </section>
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 let dashboardHTML = "";
 
 document.addEventListener("DOMContentLoaded", () => {
+    updateNotifications(); 
 document.getElementById("variable").innerHTML="Tableau de bord";
     const links = document.querySelectorAll('.sidebar-link');
 
@@ -51,6 +52,117 @@ document.getElementById("variable").innerHTML="Tableau de bord";
         });
     }
 
+    // --- BOUTON Messagerie ---
+    const btnMessagerie = document.getElementById("btn_messagerie");
+    if (btnMessagerie) {
+        btnMessagerie.addEventListener("click", () => {
+            fetch("index.php?page=messagerie")
+                .then(r => r.text())
+                .then(html => {
+                    updateNotifications();
+                    document.querySelector(".main-content").innerHTML = html;
+                    document.getElementById("variable").innerHTML="Messagerie";
+                    initMessagerie();
+                });
+        });
+    }
+
+    
+    // --- BOUTON Exportations ---
+// --- BOUTON Exportations ---
+const btnExportations = document.getElementById("exportation");
+if (btnExportations) {
+    btnExportations.addEventListener("click", () => {
+
+        fetch("index.php?page=exportations")
+            .then(r => r.text())
+            .then(html => {
+
+                document.querySelector(".main-content").innerHTML = html;
+                document.getElementById("variable").innerHTML = "Exportations";
+
+                // 🔥 FORMULAIRE EXCEL
+                const formExcel = document.querySelector("form[action='./index.php?page=export_excel_admin']");
+                if (formExcel) {
+                    formExcel.addEventListener("submit", async (e) => {
+                        e.preventDefault();
+
+                        const formData = new FormData(formExcel);
+
+                        const response = await fetch("./index.php?page=export_excel_admin_ajax", {
+                            method: "POST",
+                            body: formData
+                        });
+
+                        const data = await response.json();
+
+                        const ligne = await fetch("./index.php?page=exportations_ajax", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: "id=" + data.id + "&type=excel"
+                        });
+
+                        // 2) Ajouter la ligne dans l’historique
+                        const htmlLigne = await ligne.text();
+
+                        // 🔥 Supprimer "Aucun export disponible" si présent
+                        const emptyLine = document.querySelector("#zone_historique .div_ligne p[colspan]");
+                        if (emptyLine) {
+                            emptyLine.parentElement.remove();
+                        }
+
+                        document.querySelector("#zone_historique").insertAdjacentHTML("afterbegin", htmlLigne);
+
+
+                        window.location.href = data.chemin;
+                    });
+                }
+
+                // 🔥 FORMULAIRE CALENDAR
+                const formCalendar = document.querySelector("form[action='./index.php?page=export_calendar_admin']");
+                if (formCalendar) {
+                    formCalendar.addEventListener("submit", async (e) => {
+                        e.preventDefault();
+
+                        const formData = new FormData(formCalendar);
+
+                        const response = await fetch("./index.php?page=export_calendar_admin_ajax", {
+                            method: "POST",
+                            body: formData
+                        });
+
+                        const data = await response.json();
+
+                        const ligne = await fetch("./index.php?page=exportations_ajax", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: "id=" + data.id + "&type=calendar"
+                        });
+
+                        // 2) Ajouter la ligne dans l’historique
+                        const htmlLigne = await ligne.text();
+
+                        // 🔥 Supprimer "Aucun export disponible" si présent
+                        const emptyLine = document.querySelector("#zone_historique .div_ligne p[colspan]");
+                        if (emptyLine) {
+                            emptyLine.parentElement.remove();
+                        }
+
+                        document.querySelector("#zone_historique").insertAdjacentHTML("afterbegin", htmlLigne);
+
+
+                        window.location.href = data.chemin;
+                    });
+                }
+
+            });
+    });
+}
+
+
+
+
+
     // Bouton AssocAdmin
     const btnAssociation = document.getElementById("btn_association");
     if (btnAssociation) {
@@ -71,6 +183,7 @@ document.getElementById("variable").innerHTML="Tableau de bord";
             fetch("index.php?page=reservation")
                 .then(r => r.text())
                 .then(html => {
+                    updateNotifications();
                     document.querySelector(".main-content").innerHTML = html;
                     document.getElementById("variable").innerHTML="Réservations";
                     initReservation();
@@ -119,6 +232,43 @@ document.getElementById("variable").innerHTML="Tableau de bord";
         if (e.target === modalEdit) modalEdit.style.display = "none";
     };
 
+
+    const bell = document.getElementById("notif-bell");
+const panel = document.getElementById("notif-panel");
+const badge = document.getElementById("notif-badge");
+const content = document.getElementById("notif-content");
+
+bell.addEventListener("click", () => {
+    panel.classList.toggle("hidden");
+    updateNotifications(); // 🔥 met à jour à chaque ouverture
+});
+
+
+function updateNotifications() {
+    fetch("./index.php?page=notifications_ajax")
+        .then(res => res.json())
+        .then(data => {
+
+            // Mettre à jour le badge
+            badge.textContent = data.total;
+            badge.style.display = data.total > 0 ? "inline-block" : "none";
+
+            // Si le panneau est ouvert, on met aussi à jour son contenu
+            if (!panel.classList.contains("hidden")) {
+                content.innerHTML = `
+                    <div class="notif-item">
+                        <strong>${data.reservations}</strong> réservations en attente
+                    </div>
+                    <div class="notif-item">
+                        <strong>${data.messages}</strong> nouveaux messages
+                    </div>
+                `;
+            }
+        });
+}
+
+
+  
 
 });
    

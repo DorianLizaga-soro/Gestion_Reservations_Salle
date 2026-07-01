@@ -207,11 +207,7 @@ document.body.addEventListener("click", (e) => {
 
   const id = (boutonVoirOuModifier || boutonSupprimer).dataset.id;
 
-  if (boutonSupprimer) {
-    if (!confirm("Supprimer cette réservation ?")) return;
-    parent.location.href="./index.php?page=deleteReservation&id=" + id;
-    return;
-  }
+  
 
   // Voir / Modifier
   document.getElementById("id_reservation_hidden").value = id;

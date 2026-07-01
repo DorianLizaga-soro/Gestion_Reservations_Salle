@@ -21,9 +21,25 @@ boutons.forEach(function (bouton) {
             panneau.style.maxHeight = panneau.scrollHeight + "px";
             chevron.classList.add("ouvert");
         }
+
     });
 });
 
+document.querySelectorAll(".entete-bouton").forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        // Trouver la carte ouverte
+        const carte = btn.closest(".carte-reservation");
+
+        // Trouver le badge dans cette carte
+        const badge = carte.querySelector(".badge-non-lus");
+
+        // Le supprimer si présent
+        if (badge) {
+            badge.remove();
+        }
+    });
+});
 
 
 
@@ -338,6 +354,10 @@ input.addEventListener('input', () => {
     info.textContent = `${input.value.length} / ${max} caractères`;
     info.className = input.value.length === max ? 'info warning' : 'info';
 });
+
+
+
+
 
 /* FIN de page association JS*/
 

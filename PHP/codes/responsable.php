@@ -21,6 +21,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['commentaire'])) {
     exit;
 }
 
+
+// message
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
+    $stmt = $conn->prepare("
+        INSERT INTO messages (id_reservation, id_auteur, contenu, date_envoi)
+        VALUES (?, ?, ?, NOW())
+    ");
+    $stmt->execute([
+        $_POST['id_reservation'],
+        $_SESSION["id"],
+        $_POST['message']
+    ]);
+
+    header("Location: ./index.php?page=responsable");
+    exit;
+}
+
 $stmt = $conn->query("SELECT id, nom FROM utilisateurs WHERE role = 'personnel_menage'");
 $personnels = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -86,6 +103,14 @@ $cartesHTML = "";
 
 foreach ($reservation as $r) {
 
+$stmt = $conn->prepare("
+    SELECT COUNT(*) FROM messages 
+    WHERE id_reservation = ? AND id_auteur != ? AND lu = 0
+");
+$stmt->execute([$r['id'], $_SESSION['id']]);
+$nonLus = $stmt->fetchColumn();
+
+
     $stmt = $conn->prepare("SELECT nom FROM salles WHERE id = ?");
     $stmt->execute([$r["id_salle"]]);
     $nomSalle = $stmt->fetchColumn();
@@ -94,27 +119,62 @@ foreach ($reservation as $r) {
     $stmt->execute([$r["id"]]);
     $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $messagesHTML = "";
-    if (!empty($commentaires)) {
-        foreach ($commentaires as $c) {
-            $stmt = $conn->prepare("SELECT nom FROM utilisateurs WHERE id = ?");
-            $stmt->execute([$c["id_auteur"]]);
-            $nomcommentaire = $stmt->fetchColumn();
+  
+// 1. Calculer les non lus AVANT d’ouvrir la carte
+$stmt = $conn->prepare("
+    SELECT COUNT(*) FROM messages 
+    WHERE id_reservation = ? AND id_auteur != ? AND lu = 0
+");
+$stmt->execute([$r['id'], $_SESSION['id']]);
+$nonLus = $stmt->fetchColumn();
 
-            $initiales = strtoupper(substr($nomcommentaire ?? "?", 0, 2));
-            $messagesHTML .= "
-            <div class='message'>
-                <div class='avatar'>{$initiales}</div>
-                <div class='message-contenu'>
-                    <p><span class='auteur'>{$nomcommentaire}</span> <span class='date-message'>{$c['date_creation']}</span></p>
-                    <p>{$c['contenu']}</p>
-                </div>
+// 2. Charger les messages
+$stmt = $conn->prepare("
+    SELECT m.*, u.nom AS nom_auteur
+    FROM messages m
+    JOIN utilisateurs u ON m.id_auteur = u.id
+    WHERE m.id_reservation = ?
+    ORDER BY m.date_envoi ASC
+");
+$stmt->execute([$r["id"]]);
+$messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// 3. Marquer les messages comme lus
+$stmt = $conn->prepare("
+    UPDATE messages 
+    SET lu = 1 
+    WHERE id_reservation = ? 
+    AND id_auteur != ?
+");
+$stmt->execute([$r['id'], $_SESSION['id']]);
+
+    $messagesHTML = "";
+
+if (!empty($messages)) {
+    foreach ($messages as $msg) {
+
+     
+
+        $initiales = strtoupper(substr($msg["nom_auteur"], 0, 2));
+        $dateMsg = date("d/m/Y H:i", strtotime($msg["date_envoi"]));
+
+        $messagesHTML .= "
+        <div class='message'>
+            <div class='avatar'>{$initiales}</div>
+            <div class='message-contenu'>
+                <p>
+                    <span class='auteur'>{$msg['nom_auteur']}</span>
+                    <span class='date-message'>{$dateMsg}</span>
+                </p>
+                <p>{$msg['contenu']}</p>
             </div>
-            ";
-        }
-    } else {
-        $messagesHTML = "<p style='color:#aaa; font-size:13px;'>Aucun message.</p>";
+        </div>
+        ";
     }
+} else {
+    $messagesHTML = "<p style='color:#aaa; font-size:13px;'>Aucun message.</p>";
+}
+
 
     $badge = match($r["statut"]) {
         "en_attente" => "En attente",
@@ -136,12 +196,16 @@ foreach ($reservation as $r) {
                 <p>{$r['Motif']}</p>
                 <p>{$nomSalle}</p>
             </div>
+            
         </div>
         <div class='entete-droite'>
             <span class='statut-badge'>{$badge}</span>
+            " . ($nonLus > 0 ? "<span class='badge-non-lus'>{$nonLus} non lus</span>" : "") . "
             <span class='chevron'>&#9660;</span>
         </div>
     </button>
+
+   
 
     <div class='panneau' id='panneau-{$r['id']}'>
         <div class='panneau-contenu'>
@@ -168,16 +232,27 @@ foreach ($reservation as $r) {
 
             <div class='commentaire-box'>Commentaire : {$r['commentaire']}</div>
 
-            <p class='messages-label'>Messages</p>
-            {$messagesHTML}
-
             <div class='ajout-commentaire'>
+                            <form method='POST' action='./index.php?page=responsable'>
+                                <input type='hidden' name='id_reservation' value='{$r['id']}'>
+                                <input type='text' name='commentaire' placeholder='Ajouter un commentaire... (50 car.)' maxlength='50'>
+                                <button type='submit'>Envoyer commentaire</button>
+                            </form>
+                        </div>
+
+                        <p class='messages-label'>Messages</p>
+
+                    <div class='messagerie-inline' id='messagerie-{$r['id']}'>
+                {$messagesHTML}
+
                 <form method='POST' action='./index.php?page=responsable'>
-                    <input type='hidden' name='id_reservation' value='{$r['id']}'>
-                    <input type='text' name='commentaire' placeholder='Ajouter un commentaire... (50 car.)' maxlength='50'>
-                    <button type='submit'>Envoyer</button>
-                </form>
+                <input type='hidden' name='id_reservation' value='{$r['id']}'>
+                <input type='text' name='message' placeholder='Ajouter un message... (50 car.)' maxlength='50'>
+                <button type='submit'>Envoyer Message</button>
+            </form>
+
             </div>
+           
         </div>
     </div>
 </div>
@@ -195,6 +270,8 @@ while ($salle = $stmt->fetch(PDO::FETCH_ASSOC)) {
         </option>
     ";
 }
+
+
 
 $variables = [
     "{{nomassociation}}"    => $nomAssos,

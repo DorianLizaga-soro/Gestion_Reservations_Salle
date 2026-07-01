@@ -112,7 +112,7 @@ if ($r["statut"] === "validee") {
             <td>{$r["Salle"]}</td>
             <td>{$r["nomResponsable"]}</td>
             <td>{$badge}</td>
-            <td>
+            <td class='td_btn'>
             <button class='btn btn-secondary btn-sm'
     data-id='{$r['id']}'
     data-association='{$r["id_association"]}'

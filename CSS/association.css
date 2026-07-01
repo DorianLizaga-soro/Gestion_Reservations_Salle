@@ -212,6 +212,17 @@
     flex-shrink: 0;
 }
 
+.badge-non-lus {
+    background: #e63946;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+    display: inline-block;
+}
+
 .statut-badge {
     background: #e1f5ee;
     color: #0f6e56;
@@ -276,7 +287,7 @@
 .messages-label {
     font-size: 13px;
     color: #777;
-    margin: 0 0 8px;
+    margin: 10px 0 8px;
 }
 
 .message {
@@ -331,6 +342,7 @@
     border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 14px;
+    width: 250px;
 }
 
 .ajout-commentaire button {
@@ -342,10 +354,28 @@
     cursor: pointer;
     white-space: nowrap;
 }
-
-
-
-
+.messagerie-inline{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.messagerie-inline input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 200px;
+}
+.messagerie-inline button {
+    color: #1d9e75;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+}
 
 
 /*pour la modal réservation*/

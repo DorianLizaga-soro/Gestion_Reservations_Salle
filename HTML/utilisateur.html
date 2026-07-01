@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="CSS/utilisateur.css">
     <title>Utilisateur</title>
 </head>
+
 <body>
     <section class="sec_body">
         <section class="sec_headUser">
-            <div class="div_inputHead"> 
+            <div class="div_inputHead">
                 <div class="div_search">
                     <i id="search" class="fa-solid fa-magnifying-glass" style="color: rgb(148, 148, 148);"></i>
-                    <input type="search" name="searchUser" id="searchUser" placeholder="Rechercher un utilisateur..." >
+                    <input type="search" name="searchUser" id="searchUser" placeholder="Rechercher un utilisateur...">
                 </div>
                 <select name="selectUser" id="selectUser">
                     <option value="toutRole">Tous les rôles</option>
@@ -36,17 +40,17 @@
                 <p>Gestionnnaire</p>
             </div>
 
-             <div class="div_case">
+            <div class="div_case">
                 <h1>{{nombreResponsable}}</h1>
                 <p>Responsable Association</p>
             </div>
 
-             <div class="div_case">
+            <div class="div_case">
                 <h1>{{nombreMembre}}</h1>
                 <p>Membre Association</p>
             </div>
 
-             <div class="div_case">
+            <div class="div_case">
                 <h1>{{nombreMenage}}</h1>
                 <p>Personnel Ménage</p>
             </div>
@@ -54,9 +58,11 @@
 
         <section class="sec_user">
             <div class="div_head">
-                <b><p>{{nombreUtilisateur}} utilisateur</p></b>
+                <b>
+                    <p>{{nombreUtilisateur}} utilisateur</p>
+                </b>
             </div>
-        
+
             <div class="div_titre">
                 <p>UTILISATEUR</p>
                 <p>EMAIL</p>
@@ -78,12 +84,12 @@
                 <form action="index.php?page=register" method="POST" class="form_addUser">
 
                     <input type="hidden" name="action" value="register">
-                    
+
                     <div class="div_formName">
                         <div class="div_Name">
                             <label>Nom :</label>
                             <input class="input_form" type="text" name="identifiant" placeholder="Nom" required>
-                        </div> 
+                        </div>
                     </div>
 
                     <label>Email :</label>
@@ -116,45 +122,45 @@
             </div>
         </div>
         <div id="modalEditUser" class="modal">
-    <div class="modal-content">
-        <span class="close closeEdit">&times;</span>
+            <div class="modal-content">
+                <span class="close closeEdit">&times;</span>
 
-        <h2>Modifier un utilisateur</h2>
+                <h2>Modifier un utilisateur</h2>
 
-        <hr>
+                <hr>
 
-        <form action="index.php?page=edit" method="POST" class="form_editUser">
+                <form action="index.php?page=edit" method="POST" class="form_editUser">
 
-            <input type="hidden" name="id_user" id="edit_id">
+                    <input type="hidden" name="id_user" id="edit_id">
 
-            <label>Nom :</label>
-            <input class="input_form" type="text" name="identifiant" id="edit_nom" required>
+                    <label>Nom :</label>
+                    <input class="input_form" type="text" name="identifiant" id="edit_nom">
 
-            <label>Email :</label>
-            <input class="input_form" type="email" name="email" id="edit_email" required>
+                    <label>Email :</label>
+                    <input class="input_form" type="email" name="email" id="edit_email">
 
-            <label>Mot de passe :</label>
-            <input id="edit_mdp" class="input_form" type="password" name="mdp" placeholder="Mot de passe" required>
+                    <label>Mot de passe :</label>
+                    <input id="edit_mdp" class="input_form" type="password" name="mdp" placeholder="Mot de passe">
 
-            <label>Association</label>
-            <select class="input_form" name="id_association" id="edit_association" required>
-                <option value="">Sélectionner une association</option>
-                {{optionsAssociations}}
-            </select>
+                    <label>Association</label>
+                    <select class="input_form" name="id_association" id="edit_association">
+                        <option value="">Sélectionner une association</option>
+                        {{optionsAssociations}}
+                    </select>
 
-            <label>Rôle :</label>
-            <select class="input_form" name="select_role" id="edit_role" required>
-                <option value="gestionnaire">Gestionnaire</option>
-                <option value="responsable_association">Responsable association</option>
-                <option value="membre_association">Membre association</option>
-                <option value="personnel_menage">Personnel ménage</option>
-            </select>
+                    <label>Rôle :</label>
+                    <select class="input_form" name="select_role" id="edit_role">
+                        <option value="gestionnaire">Gestionnaire</option>
+                        <option value="responsable_association">Responsable association</option>
+                        <option value="membre_association">Membre association</option>
+                        <option value="personnel_menage">Personnel ménage</option>
+                    </select>
 
-            <button type="button" class="btn_annulerEdit">Annuler</button>
-            <button type="submit" class="btn_creerUser">Modifier l'utilisateur</button>
-        </form>
-    </div>
-</div>
+                    <button type="button" class="btn_annulerEdit">Annuler</button>
+                    <button type="submit" class="btn_creerUser">Modifier l'utilisateur</button>
+                </form>
+            </div>
+        </div>
 
         </div>
     </section>
@@ -162,4 +168,5 @@
 
 
 </body>
+
 </html>
