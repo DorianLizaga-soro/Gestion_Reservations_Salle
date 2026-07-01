@@ -46,9 +46,7 @@ Application de gestion de réservation de salles (connexion, réservation, panne
 6. Lancer le projet dans le navigateur à l'adresse :
    [http://localhost/reservation_salle](http://localhost/reservation_salle)
 
-## Structure du projet
 
-reservation_salle/
 
 ## Structure du projet
 
@@ -65,7 +63,7 @@ reservation_salle/
 ├── 📄 index.php                  # Point d'entrée principal de l'application
 └── 📄 README.md
 
-Base de données
+## Base de données 
 
 La base de données reservation_salle est composée de 8 tables :
 
