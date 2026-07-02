@@ -31,24 +31,31 @@ if (!empty($_GET['statut'])) {
  **************************************************************/
 $sql = "
     SELECT
-        reservations.id,
-        date_,
-        heure_debut,
-        heure_fin,
-        associations.id AS id_association,
-        associations.nom AS nomAssos,
-        type,
-        salles.nom AS Salle,
-        statut,
-        utilisateurs.nom AS nomResponsable,
-        salles.id AS id_salle,
-        reservations.Motif AS description,
-        reservations.commentaire AS commentaire
+    reservations.id,
+    date_,
+    heure_debut,
+    heure_fin,
+    associations.id AS id_association,
+    associations.nom AS nomAssos,
+    reservations.type,
+    salles.nom AS Salle,
+    reservations.statut AS statut,
+    utilisateurs.nom AS nomResponsable,
+    salles.id AS id_salle,
+    reservations.Motif AS description,
+    reservations.commentaire AS commentaire,
+    menage.id_personnel AS idMenage,
+    menageUser.nom AS nomMenage
+
+
 
     FROM reservations
     INNER JOIN salles ON reservations.id_salle = salles.id
     INNER JOIN associations ON associations.id = reservations.id_association
     INNER JOIN utilisateurs ON utilisateurs.id = reservations.id_createur
+    LEFT JOIN menage ON menage.id_reservation = reservations.id
+    LEFT JOIN utilisateurs AS menageUser ON menageUser.id = menage.id_personnel
+
 ";
 
 if ($where) {
@@ -71,6 +78,9 @@ foreach ($personnels as $p) {
 /**************************************************************
  * TABLE ROWS HTML
  **************************************************************/
+// Récupérer le PDF lié à la réservation
+
+
 $cartesHTML = "";
 
 foreach ($reservations as $r) {
@@ -103,6 +113,15 @@ if ($r["statut"] === "validee") {
     ";
 }
 
+$stmtPdf = $conn->prepare("SELECT chemin FROM pdfs WHERE id_reservation = ?");
+$stmtPdf->execute([$r['id']]);
+$pdf = $stmtPdf->fetch(PDO::FETCH_ASSOC);
+
+$cheminPdf = $pdf ? $pdf["chemin"] : "";
+$nomDuPdf = basename($cheminPdf);
+
+
+
     $cartesHTML .= "
         <tr>
             <td>{$r["date_"]}</td>
@@ -123,6 +142,11 @@ if ($r["statut"] === "validee") {
     data-fin='{$r["heure_fin"]}'
     data-description='{$r["description"]}'
     data-commentaire='{$r["commentaire"]}'
+    data-pdf='{$cheminPdf}'
+    data-pdf-name='{$nomDuPdf}'
+    data-menage-id='{$r["idMenage"]}'
+
+
 >Voir</button>
 <button class='btn btn-secondary btn-sm'
     data-id='{$r['id']}'
@@ -134,6 +158,12 @@ if ($r["statut"] === "validee") {
     data-fin='{$r["heure_fin"]}'
     data-description='{$r["description"]}'
     data-commentaire='{$r["commentaire"]}'
+    data-pdf='{$cheminPdf}'
+    data-pdf-name='{$nomDuPdf}'
+    data-menage-id='{$r["idMenage"]}'
+
+
+
 >Modifier</button>
 
 {$btnAction}

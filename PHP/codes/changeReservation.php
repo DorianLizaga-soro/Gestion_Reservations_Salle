@@ -71,12 +71,14 @@ if (!empty($_FILES["programmePdf"]) && $_FILES["programmePdf"]["error"] !== UPLO
         $error=true;
     }
 
-    $dossierUpload = __DIR__ . "/../../uploads/programmes";
+    $dossierUpload = "./uploads/programmes";
     if (!is_dir($dossierUpload)) {
         mkdir($dossierUpload, 0755, true);
     }
 
-    $nomFichier = uniqid("programme_", true) . ".pdf";
+    $nomOriginal   = basename($_FILES["programmePdf"]["name"]);
+
+    $nomFichier = $nomOriginal;
 
     if (!move_uploaded_file($_FILES["programmePdf"]["tmp_name"], $dossierUpload . "/" . $nomFichier)) {
          $_SESSION["error_message"][]='<div class="alert alert-danger">Impossible d\'enregistrer le fichier</div>';
@@ -86,14 +88,30 @@ if (!empty($_FILES["programmePdf"]) && $_FILES["programmePdf"]["error"] !== UPLO
     // L'ancien fichier n'est plus référencé une fois remplacé : on le
     // supprime pour ne pas laisser de fichiers orphelins sur le disque.
     if (!empty($ancienne["programme_pdf"])) {
-        $ancienChemin = __DIR__ . "/../../" . $ancienne["programme_pdf"];
+        $ancienChemin = "./" . $ancienne["programme_pdf"];
         if (is_file($ancienChemin)) {
             unlink($ancienChemin);
         }
     }
 
-    $programme_pdf = "uploads/programmes/" . $nomFichier;
+    $programme_pdf = "./uploads/programmes/" . $nomFichier;
 }
+
+
+if ($programme_pdf) {
+
+    $dateUpload = date('Y-m-d H:i:s');
+
+    $stmtPdf = $conn->prepare("UPDATE pdfs SET id_reservation = ?, nom_fichier = ?, chemin = ?, date_upload = ?");
+
+    $stmtPdf->execute([
+        $id_reservation,          // réservation liée
+        $nomFichier,              // nom du fichier PDF
+        $programme_pdf,         // chemin complet
+        $dateUpload,              // date d’upload = maintenant
+    ]);
+}
+
 
 // Toute modification remet la réservation en attente : la salle ou les
 // horaires ayant pu changer, l'ancienne validation n'est plus garantie
@@ -119,6 +137,8 @@ $stmt->execute([
     $id_reservation,
 ]);
 }
+
+
 
 if (!$error) {
     unset( $_SESSION["error_message"]);

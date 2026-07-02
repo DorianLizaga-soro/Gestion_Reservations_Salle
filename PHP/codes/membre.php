@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['commentaire'])) {
         $_POST['commentaire'],
         date("Y-m-d H:i:s")
     ]);
-    header("Location: ./index.php?page=responsable");
+    header("Location: ./index.php?page=membre");
     exit;
 }
 
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
         $_POST['message']
     ]);
 
-    header("Location: ./index.php?page=responsable");
+    header("Location: ./index.php?page=membre");
     exit;
 }
 
@@ -89,10 +89,6 @@ $nbPdfs = $stmt->fetchColumn();
 $moisFr = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
 $nomMois = $moisFr[date("n") - 1] . " " . date("Y");
 
-
-
-
-
 // ===== CARTES RESERVATIONS =====
 
 $stmt = $conn->prepare("SELECT * FROM reservations WHERE id_association = ?");
@@ -106,26 +102,6 @@ if (!$reservation) {
 $cartesHTML = "";
 
 foreach ($reservation as $r) {
-
-$stmtMenage = $conn->prepare("
-    SELECT u.nom AS nom_menage
-    FROM menage m
-    JOIN utilisateurs u ON u.id = m.id_personnel
-    WHERE m.id_reservation = ?
-");
-$stmtMenage->execute([$r["id"]]);
-$menage = $stmtMenage->fetch(PDO::FETCH_ASSOC);
-
-$nomMenage = $menage["nom_menage"] ?? "";
-
-
-
-$stmtPdf = $conn->prepare("SELECT nom_fichier, chemin FROM pdfs WHERE id_reservation = ?");
-$stmtPdf->execute([$r["id"]]);
-$pdf = $stmtPdf->fetch(PDO::FETCH_ASSOC);
-
-$nomDuPdf = $pdf["nom_fichier"] ?? "";
-$cheminPdf = $pdf["chemin"] ?? "";
 
 $stmt = $conn->prepare("
     SELECT COUNT(*) FROM messages 
@@ -148,7 +124,6 @@ $nonLus = $stmt->fetchColumn();
     ");
     $stmt->execute([$r["id"]]);
     $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
   
 // 1. Calculer les non lus AVANT d’ouvrir la carte
@@ -215,7 +190,9 @@ if (!empty($messages)) {
         default      => "Inconnu"
     };
 
-
+$stmtPdf = $conn->prepare("SELECT chemin, nom_fichier FROM pdfs WHERE id_reservation = ?");
+$stmtPdf->execute([$r['id']]);
+$pdf = $stmtPdf->fetch(PDO::FETCH_ASSOC);
 
 if ($pdf) {
     // PDF existe → bouton Voir PDF
@@ -230,7 +207,7 @@ if ($pdf) {
         <form method='post' action='./index.php?page=ajouter_fichier' enctype='multipart/form-data' style='display:inline-block;'>
             <input type='hidden' name='id_reservation' value='{$r['id']}'>
             <label class='label-fichier' for='fichier-{$r['id']}'>📎 Ajouter PDF</label>
-            <input type='file' name='programmePdf' id='fichier-{$r['id']}' class='input-fichier-cache' accept='application/pdf'>
+            <input type='file' name='fichier' id='fichier-{$r['id']}' class='input-fichier-cache' accept='application/pdf'>
             <span class='nom-fichier-selectionne' id='nom-fichier-{$r['id']}'></span>
         </form>
     ";
@@ -251,15 +228,13 @@ foreach ($commentaires as $com) {
                 <span class='auteur'>role : {$com['role_auteur']} - </span>
                 <span class='auteur'>nom : {$com['auteur']} - </span>
                 <span class='date-message'>date : {$dateCom}</span>
+                
             </p>
             <p>{$com['contenu']}</p>
         </div>
     </div>
     ";
 }
-
-
-
 
     $carte = "
 <div class='carte-reservation'>
@@ -288,46 +263,22 @@ foreach ($commentaires as $com) {
     <div class='panneau' id='panneau-{$r['id']}'>
         <div class='panneau-contenu'>
             <div class='boutons-action'>
-                <button class='btn-modifier'
-                    data-id-reservation='{$r['id']}'
-                    data-id-salle='{$r['id_salle']}'
-                    data-date='{$r['date_']}'
-                    data-heure-debut='" . substr($r['heure_debut'], 0, 5) . "'
-                    data-heure-fin='" . substr($r['heure_fin'], 0, 5) . "'
-                    data-motif='" . htmlspecialchars($r['Motif']) . "'
-                    data-commentaire='" . htmlspecialchars($r['commentaire']) . "'
-                    data-menage-name='{$nomMenage}'
-                    data-pdf-name='{$nomDuPdf}'
-                    data-pdf='{$cheminPdf}'
-                >
-                    Modifier
-                </button>
-
-                <button class='btn-annuler'
-                    data-id-reservation='{$r['id']}'>
-                    Annuler
-                </button>
+             
                 {$boutonPdf}
             </div>
 
             <div class='commentaire-box'>Commentaire de la reservation : {$r['commentaire']}</div>
 
-             
-                <p class='messages-label'>Commentaires</p>
+            <p class='messages-label'>Commentaires</p>
                 <div class='messagerie-inline'>
                     {$commentairesHTML}
                 </div>
-            
-
-
-
 
             <div class='ajout-commentaire'>
-                            <form method='POST' action='./index.php?page=responsable'>
+                            <form method='POST' action='./index.php?page=membre'>
                                 <input type='hidden' name='id_reservation' value='{$r['id']}'>
-                                <input type='text' id='input_commentaire' name='commentaire' placeholder='Ajouter un commentaire... (50 car.)' maxlength='50'>
+                                <input type='text' name='commentaire' placeholder='Ajouter un commentaire... (50 car.)' maxlength='50'>
                                 <button type='submit'>Envoyer commentaire</button>
-                                <div id='info' class='info'>0 / 50 caractères</div>
                             </form>
                         </div>
 
@@ -335,12 +286,11 @@ foreach ($commentaires as $com) {
 
                     <div class='messagerie-inline' id='messagerie-{$r['id']}'>
                 {$messagesHTML}
-                    
-                <form method='POST' action='./index.php?page=responsable'>
+
+                <form method='POST' action='./index.php?page=membre'>
                 <input type='hidden' name='id_reservation' value='{$r['id']}'>
-                <input type='text' id='input_message' name='message' placeholder='Ajouter un message... (50 car.)' maxlength='50'>
+                <input type='text' name='message' placeholder='Ajouter un message... (50 car.)' maxlength='50'>
                 <button type='submit'>Envoyer Message</button>
-                <div id='info_message' class='info'>0 / 50 caractères</div>
             </form>
 
             </div>
@@ -381,6 +331,6 @@ $variables = [
 
 ];
 
-$template = file_get_contents(__DIR__ . '/../../html/association.html');
+$template = file_get_contents(__DIR__ . '/../../html/associationMembre.html');
 $page = str_replace(array_keys($variables), array_values($variables), $template);
 echo $page;

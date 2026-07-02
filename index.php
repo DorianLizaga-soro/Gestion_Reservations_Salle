@@ -190,6 +190,14 @@ switch($page){
     break;
 
 
+    case 'pdf' :
+        include __DIR__. '/PHP/codes/panneaudaffichage.php';
+        break;
+
+    case "deletePdf":
+    include __DIR__ . "/PHP/codes/deletePdf.php";
+    break;
+
 
         
 }

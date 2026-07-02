@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Réservations</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="CSS/reservation.css">
 </head>
 
@@ -147,6 +146,13 @@
                   <input type="file" name="programmePdf" id="programmePdf" accept="application/pdf" hidden />
                 </div>
 
+                <div id="pdfViewerZone" style="display:none;" class="my-3">
+                    <a id="pdfViewerBtn" href="#" target="_blank" class="btn btn-outline-info">
+                        📄 Voir le PDF de la réservation
+                    </a>
+                </div>
+
+
                 <h6>Commentaire (50 car.max)</h6>
                 <div class="input-group">
                   <textarea id="modalComment" name="commentaire" class="form-control" aria-label="With textarea"
@@ -176,7 +182,6 @@
 
     <header class="card-header">
       <span><strong>{{Reservations}} réservations</strong></span>
-      <span>Mois 2026</span>
     </header>
 
     <table>

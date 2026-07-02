@@ -1,31 +1,39 @@
 <?php
 require_once(__DIR__ . '/connexionBDD.php');
 
-
 $id_reservation = $_POST["id"] ?? "";
 
+if (!$id_reservation) {
+    header("Location: ./index.php?page=gestionnaire");
+    exit;
+}
 
-
-$stmt = $conn->prepare("SELECT programme_pdf FROM reservations WHERE id = ?");
+// 1. Récupérer tous les PDF liés à la réservation
+$stmt = $conn->prepare("SELECT chemin FROM pdfs WHERE id_reservation = ?");
 $stmt->execute([$id_reservation]);
-$reservation = $stmt->fetch(PDO::FETCH_ASSOC);
+$pdfs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// 2. Supprimer les fichiers du serveur
+foreach ($pdfs as $pdf) {
+    $chemin = $pdf["chemin"];
 
-
-$stmt = $conn->prepare("DELETE FROM reservations WHERE id = ?");
-$stmt->execute([$id_reservation]);
-
-// Le fichier joint n'est supprimé qu'une fois la ligne effectivement
-// supprimée en base, pour ne jamais perdre un fichier référencé.
-if (!empty($reservation["programme_pdf"])) {
-    $chemin = __DIR__ . "/../../" . $reservation["programme_pdf"];
-    if (is_file($chemin)) {
+    // Corriger le chemin si nécessaire
+    if (file_exists($chemin)) {
         unlink($chemin);
     }
 }
 
-unset( $_SESSION["error_message"]);
-$_SESSION["error_message"][]='<div class="alert alert-success">La réservation a été supprimée</div>';
+// 3. Supprimer les PDF dans la BDD
+$stmt = $conn->prepare("DELETE FROM pdfs WHERE id_reservation = ?");
+$stmt->execute([$id_reservation]);
+
+// 4. Supprimer la réservation
+$stmt = $conn->prepare("DELETE FROM reservations WHERE id = ?");
+$stmt->execute([$id_reservation]);
+
+// 5. Message de confirmation
+unset($_SESSION["error_message"]);
+$_SESSION["error_message"][] = '<div class="alert alert-success">La réservation et ses PDF ont été supprimés</div>';
 
 header("Location: ./index.php?page=gestionnaire");
 exit;

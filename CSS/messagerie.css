@@ -290,11 +290,13 @@ body {
 }
 
 .badge-role {
+    background: #ddd;
+    padding: 2px 6px;
+    border-radius: 4px;
     font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 500;
+    margin-left: 6px;
 }
+
 
 .badge-role.responsable_association {
     background: #dcfce7;

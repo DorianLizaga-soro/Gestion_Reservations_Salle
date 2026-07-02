@@ -55,14 +55,52 @@ $nomResponsable = $stmtR->fetchColumn() ?? "Aucun";
 $stmtH->execute([$a["id"]]);
 $historique = $stmtH->fetchAll(PDO::FETCH_ASSOC);
 
-// pdf assos
- $stmtH = $conn->prepare("SELECT * 
-    FROM pdfs 
-    WHERE id_reservation = ?
-    ORDER BY date_upload DESC
+$stmtRes = $conn->prepare("
+    SELECT id 
+    FROM reservations 
+    WHERE id_association = ?
 ");
-$stmtH->execute([$a["id"]]);
-$document = $stmtH->fetchAll(PDO::FETCH_ASSOC);
+$stmtRes->execute([$a["id"]]);
+$resIds = $stmtRes->fetchAll(PDO::FETCH_COLUMN);
+
+// Si aucune réservation → aucun document
+if (empty($resIds)) {
+    $documentHTML = "<p>Aucun document.</p>";
+} else {
+
+    // Récupérer les PDF liés aux réservations
+    $in = implode(",", $resIds);
+
+    $stmtDocs = $conn->prepare("
+        SELECT nom_fichier, date_upload, chemin
+        FROM pdfs
+        WHERE id_reservation IN ($in)
+        ORDER BY date_upload DESC
+    ");
+    $stmtDocs->execute();
+    $documents = $stmtDocs->fetchAll(PDO::FETCH_ASSOC);
+
+    $documentHTML = "";
+
+foreach ($documents as $d) {
+    $documentHTML .= "
+        <div class='historique-ligne' style='border-left: 3px solid {$couleur};'>
+            <div>
+                <p class='historique-titre'>{$d["nom_fichier"]}</p>
+                <p class='historique-sous-titre'>Déposé le {$d["date_upload"]}</p>
+            </div>
+            <div class='historique-droite'>
+                <a href='{$d["chemin"]}' target='_blank' class='btn-doc'>Ouvrir</a>
+            </div>
+        </div>
+    ";
+}
+
+if ($documentHTML === "") {
+    $documentHTML = "<p>Aucun document.</p>";
+}
+}
+
 
 
     // Compter les réservations ponctuelles du mois
@@ -122,29 +160,8 @@ if ($historiqueHTML === "") {
     $historiqueHTML = "<p>Aucune réservation passée.</p>";
 }
 
-$documentHTML ="";
 
-foreach($document as $d){
 
-$documentHTML .="
-
-<div class='historique-ligne' style='border-left: 3px solid {$couleur};'>
-            <div>
-                <p class='historique-titre'>{$d["nom_fichier"]} T{$trimestreActuel} {{annee}}</p>
-                <p class='historique-sous-titre'> Déposé le {$d["date_upload"]}</p>
-            </div>
-            <div class='historique-droite'>
-                <button>Ouvrir</button>
-            </div>
-        </div>
-
-";
-
-}
-
-if ($documentHTML === "") {
-    $documentHTML = "<p>Aucun documents.</p>";
-}
 
 
     $cartesHTML .= "

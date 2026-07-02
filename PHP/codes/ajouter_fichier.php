@@ -12,11 +12,12 @@ if (isset($_FILES["fichier"]) && $_FILES["fichier"]["error"] === 0) {
 
     $nomOriginal   = basename($_FILES["fichier"]["name"]);
     $extension     = pathinfo($nomOriginal, PATHINFO_EXTENSION);
-    $nomFichier    = uniqid() . '.' . $extension;
+    $nomFichier    = $nomOriginal;
     
-    $dossier       = __DIR__ . '/../../uploads/';
+    $dossier = './uploads/programmes/';
     $cheminServeur = $dossier . $nomFichier;
-    $cheminBDD     = 'uploads/' . $nomFichier;
+    $cheminBDD     = 'uploads/programmes/' . $nomFichier;
+
 
     if (!is_dir($dossier)) {
         mkdir($dossier, 0777, true);

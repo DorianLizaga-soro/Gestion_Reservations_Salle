@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
 </header>
 
 
@@ -47,7 +48,7 @@
             <p class="modale-sous-titre">Réservation ponctuelle pour votre association</p>
 
 
-            <form method="post" action="./index.php?page=ajouter_reservation">
+            <form method="post" action="./index.php?page=ajouter_reservation" enctype="multipart/form-data">
 
                 <input type="hidden" name="id_association" value="<?php echo $idAssociationConnectee; ?>">
                 <input type="hidden" name="id_responsable" value="<?php echo $idUtilisateurConnecte; ?>">
@@ -90,6 +91,9 @@
                     {{personnel_menage}}
                 </select>
 
+                <label for="programmePdf" class="label-fichier">📎 Ajouter un PDF</label>
+                <input type="file" name="programmePdf" id="programmePdf" accept="application/pdf" class="input-pdf">
+                <span class="nom-fichier" id="programmeFileName"></span>
 
                 <div class="modale-boutons">
                     <button type="button" class="btn-annuler-modale" id="annuler-modale">Annuler</button>
@@ -269,16 +273,14 @@
                 <h2>Modifier la réservation</h2>
             </div>
 
-            <form method="post" action="./index.php?page=modifier_reservation" id="form-modification">
+           <form method="post" action="./index.php?page=modifier_reservation" id="form-modification" enctype="multipart/form-data">
+
 
                 <input type="hidden" name="id_reservation" id="id-reservation-a-modifier">
 
                 <label for="modif-salle">Salle</label>
                 <select name="id_salle" id="modif-salle">
-                    <option value="1">Salle de réunion</option>
-                    <option value="2">Bar</option>
-                    <option value="3">Réfectoire</option>
-                    <option value="4">Local</option>
+                    {{Salle_select}}
                 </select>
 
                 <label for="modif-date">Date</label>
@@ -300,6 +302,20 @@
 
                 <label for="modif-commentaire">Commentaire</label>
                 <input type="text" name="commentaire" id="modif-commentaire">
+
+                <label for="menage">Personnel de ménage</label>
+                <input type="text" name="menage1" id="menage1">
+
+                <label for="menage">Nouveaux personnel de ménage</label>
+                <select name="id_menage" id="menage" required>
+                    <option value="">-- Choisir un personnel de ménage --</option>
+                    {{personnel_menage}}
+                </select>
+
+                <label class="nom-fichier" id="programmeFileNameEdit"></label>
+                <label for="programmePdfEdit" class="label-fichier">📎 Ajouter un PDF</label>
+                <input type="file" name="programmePdfEdit" id="programmePdfEdit" accept="application/pdf" class="input-pdf">
+                
 
                 <div class="modale-boutons">
                     <button type="button" class="btn-annuler-modale" id="annuler-modification">Annuler</button>

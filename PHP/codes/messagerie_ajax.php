@@ -74,6 +74,14 @@ if (!$messages) {
         $init = strtoupper(substr($msg["nom_auteur"], 0, 2));
         $avatarCouleur = $estMoi ? "#2563eb" : "#6b7280";
 
+        $roleLabel = match($msg["role_auteur"]) {
+            "responsable_association" => "Responsable",
+            "gestionnaire" => "Gestionnaire",
+            "personnel_menage" => "Personnel",
+            "membre_association" => "Membre",
+            default => ""
+        };
+
         if ($dateMsg !== $dateCourante) {
             $dateCourante = $dateMsg;
             $messagesHTML .= "<div class='separateur-date'>{$dateMsg}</div>";
@@ -84,12 +92,14 @@ if (!$messages) {
             <div class='message-avatar' style='background: {$avatarCouleur};'>{$init}</div>
             <div class='message-contenu'>
                 <div class='message-meta'>
-                    <span>{$msg['nom_auteur']}</span>
-                    <span>{$heureMsg}</span>
+                    <span class='message-auteur'>{$msg['nom_auteur']}</span>
+                    <span class='message-heure'>{$heureMsg}</span>
+                    <span class='badge-role {$msg['role_auteur']}'>{$roleLabel}</span>
                 </div>
                 <div class='message-bulle'>{$msg['contenu']}</div>
             </div>
         </div>";
+
     }
 }
 

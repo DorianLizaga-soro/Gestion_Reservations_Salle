@@ -146,7 +146,24 @@ if (overlayModification && inputIdAModifier) {
             const date = bouton.getAttribute("data-date");
             const heureDebut = bouton.getAttribute("data-heure-debut");
             const heureFin = bouton.getAttribute("data-heure-fin");
+            const motif = bouton.getAttribute("data-motif");
+            const commentaire = bouton.getAttribute("data-commentaire");
+            const menageName = bouton.getAttribute("data-menage-name");
+            const pdfName = bouton.getAttribute("data-pdf-name");
 
+         
+
+
+            document.getElementById("modif-motif").value = motif || "";
+            document.getElementById("modif-commentaire").value = commentaire || "";
+            document.getElementById("menage1").value = menageName || "";
+
+
+            if (pdfName) {
+                document.getElementById("programmeFileName").textContent = "PDF actuel : " + pdfName;
+            } else {
+                document.getElementById("programmeFileName").textContent = "Aucun PDF";
+            }
             inputIdAModifier.value = idReservation;
 
             if (idSalle) modifSalle.value = idSalle;
@@ -187,20 +204,29 @@ if (overlayModification && inputIdAModifier) {
 // Quand l'utilisateur choisit un fichier, on affiche son nom et on envoie le formulaire
 document.addEventListener("DOMContentLoaded", function () {
 
-    document.querySelectorAll('input[type="file"]').forEach(function (inputFichier) {
-        inputFichier.addEventListener("change", function () {
-            if (inputFichier.files.length > 0) {
-                const nomFichier = inputFichier.files[0].name;
-                const spanNom = document.getElementById("nom-" + inputFichier.id);
+    // Pour l'ajout
+    const inputAdd = document.getElementById("programmePdf");
+    const spanAdd = document.getElementById("programmeFileName");
 
-                if (spanNom) {
-                    spanNom.textContent = nomFichier;
-                }
-
-                inputFichier.closest("form").submit();
+    if (inputAdd) {
+        inputAdd.addEventListener("change", function () {
+            if (this.files.length > 0) {
+                spanAdd.textContent = this.files[0].name;
             }
         });
-    });
+    }
+
+    // Pour la modification
+    const inputEdit = document.getElementById("programmePdfEdit");
+    const spanEdit = document.getElementById("programmeFileNameEdit");
+
+    if (inputEdit) {
+        inputEdit.addEventListener("change", function () {
+            if (this.files.length > 0) {
+                spanEdit.textContent = this.files[0].name;
+            }
+        });
+    }
 
 });
 
@@ -343,6 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
 const input = document.getElementById('input_commentaire');
 const info = document.getElementById('info');
 const max = 50;
@@ -355,8 +382,17 @@ input.addEventListener('input', () => {
     info.className = input.value.length === max ? 'info warning' : 'info';
 });
 
+const inputMessage = document.getElementById('input_message');
+const infoMessage = document.getElementById('info_message');
+const maxMessage = 50;
 
-
+inputMessage.addEventListener('input', () => {
+    if (inputMessage.value.length > maxMessage) {
+        inputMessage.value = inputMessage.value.slice(0, maxMessage);
+    }
+    infoMessage.textContent = `${inputMessage.value.length} / ${maxMessage} caractères`;
+    infoMessage.className = inputMessage.value.length === maxMessage ? 'info warning' : 'info';
+});
 
 
 /* FIN de page association JS*/

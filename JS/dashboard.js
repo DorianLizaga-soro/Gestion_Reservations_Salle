@@ -177,6 +177,19 @@ if (btnExportations) {
         });
     }
 
+    const btnPdf = document.getElementById("btn_programmes");
+    if (btnPdf) {
+        btnPdf.addEventListener("click", () => {
+            fetch("index.php?page=pdf")
+                .then(r => r.text())
+                .then(html => {
+                    document.querySelector(".main-content").innerHTML = html;
+                    document.getElementById("variable").innerHTML="Panneau d'affichage";
+                    
+                });
+        });
+    }
+
     const btnReservation = document.getElementById("btn_reservation");
     if (btnReservation) {
         btnReservation.addEventListener("click", () => {

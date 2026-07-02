@@ -76,16 +76,21 @@ if (!empty($_FILES['programmePdf']) && $_FILES['programmePdf']['error'] !== UPLO
         
     }
 
+     if ($error) {
+        header("Location: ./index.php?page=gestionnaire");
+        exit;
+    }
     // Dossier hors du dossier HTML/ public pour éviter l'exécution directe
     // d'un fichier déposé. À adapter selon ton arborescence réelle.
-    $dossierUpload = __DIR__ . '/uploads/programmes';
+    $dossierUpload ='./uploads/programmes';
     if (!is_dir($dossierUpload)) {
         mkdir($dossierUpload, 0755, true);
     }
 
     // Nom généré côté serveur : on ignore le nom d'origine du fichier
     // pour éviter tout problème de path traversal ou de collision.
-    $nomFichier = uniqid('programme_', true) . '.pdf';
+    $nomOriginal   = basename($_FILES["programmePdf"]["name"]);
+    $nomFichier = $nomOriginal;
     $cheminComplet = $dossierUpload . '/' . $nomFichier;
 
     if (!move_uploaded_file($fichier['tmp_name'], $cheminComplet)) {
@@ -96,7 +101,7 @@ if (!empty($_FILES['programmePdf']) && $_FILES['programmePdf']['error'] !== UPLO
 
     // Chemin relatif stocké en base. Nécessite une colonne programme_pdf
     // (VARCHAR, nullable) sur la table reservations — voir note ci-dessous.
-    $cheminProgramme = 'uploads/programmes/' . $nomFichier;
+    $cheminProgramme = './uploads/programmes/' . $nomFichier;
 }
 
 if (!$error) {
@@ -160,6 +165,34 @@ if (!$error) {
 
         // 2) Récupérer l'ID de la réservation
 $id_reservation = $conn->lastInsertId();
+$dateUpload = date('Y-m-d H:i:s');
+$dateExpiration = date('Y-m-d H:i:s', strtotime('+3 months'));
+
+
+if ($cheminProgramme) {
+
+    $dateUpload = date('Y-m-d H:i:s');
+    $dateExpiration = date('Y-m-d H:i:s', strtotime('+3 months'));
+
+    $stmtPdf = $conn->prepare("
+        INSERT INTO pdfs (
+            id_reservation,
+            nom_fichier,
+            chemin,
+            date_upload,
+            date_expiration
+        ) VALUES (?, ?, ?, ?, ?)
+    ");
+
+    $stmtPdf->execute([
+        $id_reservation,          // réservation liée
+        $nomFichier,              // nom du fichier PDF
+        $cheminProgramme,         // chemin complet
+        $dateUpload,              // date d’upload = maintenant
+        $dateExpiration           // expiration = +3 mois
+    ]);
+}
+
 
 if (!empty($_POST['commentaire'])) {
 

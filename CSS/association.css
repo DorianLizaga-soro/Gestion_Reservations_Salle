@@ -211,6 +211,55 @@
     gap: 10px;
     flex-shrink: 0;
 }
+.upload-text {
+  color: #6b7280;
+  margin-bottom: 5px;
+}
+/* Cache complètement l'input file */
+.input-pdf {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Style du label cliquable */
+.label-fichier {
+    display: inline-block;
+    background: #4f46e5;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Affichage du nom du fichier */
+.nom-fichier {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+}
+.input-pdf::file-selector-button {
+    display: none;
+}
+.btn-voir-pdf {
+    display: inline-block;
+    background: #a5a5a586;
+    color: black;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-voir-pdf:hover {
+    background: #666666;
+}
+
+
 
 .badge-non-lus {
     background: #e63946;
@@ -333,9 +382,14 @@
 
 .ajout-commentaire {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
-
+.info { 
+    margin-top: 10px;
+    margin-left: 80px;
+    font-size: 0.9em; 
+    color: gray;
+}
 .ajout-commentaire input {
     flex: 1;
     padding: 8px 12px;
