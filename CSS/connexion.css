@@ -204,7 +204,26 @@ body{
     background-color: var(--bleu-hover);
 }
 
-/* Responsive */
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop / petits écrans PC */
+@media (max-width: 1024px){
+    .panel_branding{
+        max-width: 340px;
+        padding: 40px 32px;
+    }
+    .branding_titre{
+        font-size: 20px;
+    }
+    .panel_form{
+        padding: 32px;
+    }
+}
+
+/* Tablette */
 @media (max-width: 768px){
     #sec_compte{
         flex-direction: column;
@@ -215,5 +234,58 @@ body{
     }
     .branding_titre, .branding_sous_titre{
         display: none;
+    }
+    .panel_form{
+        padding: 32px 24px;
+    }
+    #form_login{
+        width: 100%;
+        max-width: 380px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .panel_branding{
+        padding: 24px 16px;
+    }
+    .branding_logo_text strong{
+        font-size: 20px;
+    }
+    .branding_logo_text span{
+        font-size: 16px;
+    }
+    .panel_form{
+        padding: 24px 16px;
+    }
+    #form_login{
+        width: 100%;
+    }
+    .form_titre{
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+    .form_sous_titre{
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+    .champ_label{
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+    .form_options{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+/* Très petits mobiles */
+@media (max-width: 360px){
+    .form_titre{
+        font-size: 22px;
+    }
+    .branding_logo_text strong{
+        font-size: 18px;
     }
 }

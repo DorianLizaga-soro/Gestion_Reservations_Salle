@@ -350,3 +350,79 @@
   border-color: #35CA6C;
 }
 }
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .rubrique{
+        grid-template-columns: 1fr 1fr;
+    }
+    .cartes-export{
+        flex-wrap: wrap;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .head{
+        padding: 30px 24px;
+        margin: 16px;
+    }
+    .btn-connexion{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .rubrique{
+        grid-template-columns: 1fr;
+    }
+    .reservationDuMois,
+    .quota,
+    .documentDepose,
+    .mesReservations{
+        margin: 16px;
+        padding: 20px;
+    }
+    .cartes-export{
+        flex-direction: column;
+        gap: 16px;
+    }
+    .carte-export{
+        padding: 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .head{
+        padding: 20px 16px;
+        margin: 10px;
+        border-radius: 14px;
+    }
+    .reservationDuMois,
+    .quota,
+    .documentDepose,
+    .mesReservations{
+        margin: 10px;
+        padding: 16px;
+    }
+    .resa{
+        flex-direction: column;
+        gap: 8px;
+    }
+    .btn-add,
+    .btn-exporter{
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+    .icone{
+        width: 56px;
+        height: 56px;
+        font-size: 26px;
+    }
+}

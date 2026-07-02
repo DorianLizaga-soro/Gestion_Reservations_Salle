@@ -211,6 +211,66 @@
     gap: 10px;
     flex-shrink: 0;
 }
+.upload-text {
+  color: #6b7280;
+  margin-bottom: 5px;
+}
+/* Cache complètement l'input file */
+.input-pdf {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Style du label cliquable */
+.label-fichier {
+    display: inline-block;
+    background: #4f46e5;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Affichage du nom du fichier */
+.nom-fichier {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+}
+.input-pdf::file-selector-button {
+    display: none;
+}
+.btn-voir-pdf {
+    display: inline-block;
+    background: #a5a5a586;
+    color: black;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-voir-pdf:hover {
+    background: #666666;
+}
+
+
+
+.badge-non-lus {
+    background: #e63946;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+    display: inline-block;
+}
 
 .statut-badge {
     background: #e1f5ee;
@@ -276,7 +336,7 @@
 .messages-label {
     font-size: 13px;
     color: #777;
-    margin: 0 0 8px;
+    margin: 10px 0 8px;
 }
 
 .message {
@@ -322,15 +382,21 @@
 
 .ajout-commentaire {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
-
+.info { 
+    margin-top: 10px;
+    margin-left: 80px;
+    font-size: 0.9em; 
+    color: gray;
+}
 .ajout-commentaire input {
     flex: 1;
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 14px;
+    width: 250px;
 }
 
 .ajout-commentaire button {
@@ -342,10 +408,28 @@
     cursor: pointer;
     white-space: nowrap;
 }
-
-
-
-
+.messagerie-inline{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.messagerie-inline input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 200px;
+}
+.messagerie-inline button {
+    color: #1d9e75;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+}
 
 
 /*pour la modal réservation*/
@@ -979,4 +1063,128 @@
   color: white;
   border-color: #35CA6C;
 }
+}
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .rubrique{
+        grid-template-columns: 1fr 1fr;
+    }
+    .cartes-export{
+        flex-wrap: wrap;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .head{
+        padding: 30px 24px;
+        margin: 16px;
+    }
+    .btn-connexion{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .rubrique{
+        grid-template-columns: 1fr;
+    }
+    .reservationDuMois,
+    .quota,
+    .documentDepose,
+    .mesReservations{
+        margin: 16px;
+        padding: 20px;
+    }
+    .reservations-header{
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .entete-bouton{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .entete-gauche{
+        flex-wrap: wrap;
+    }
+    .cartes-export{
+        flex-direction: column;
+        gap: 16px;
+    }
+    .modale{
+        width: 92%;
+    }
+    .ligne-heures{
+        grid-template-columns: 1fr;
+    }
+    .ajout-commentaire input,
+    .messagerie-inline input{
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .head{
+        padding: 20px 16px;
+        margin: 10px;
+        border-radius: 14px;
+    }
+    .reservationDuMois,
+    .quota,
+    .documentDepose,
+    .mesReservations{
+        margin: 10px;
+        padding: 16px;
+    }
+    .resa{
+        flex-direction: column;
+        gap: 8px;
+    }
+    .btn-add,
+    .btn-exporter{
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+    .entete-droite{
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .date-heure{
+        min-width: 0;
+    }
+    .boutons-action{
+        flex-wrap: wrap;
+    }
+    .message{
+        flex-wrap: wrap;
+    }
+    .ajout-commentaire{
+        flex-direction: column;
+    }
+    .messagerie-inline button,
+    .ajout-commentaire button{
+        width: 100%;
+    }
+    .modale{
+        width: 94%;
+        padding: 20px 18px;
+    }
+    .modale-deconnexion{
+        width: 94%;
+    }
+    .modale-boutons{
+        flex-direction: column;
+    }
+    .icone{
+        width: 56px;
+        height: 56px;
+        font-size: 26px;
+    }
 }
