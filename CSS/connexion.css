@@ -1,35 +1,219 @@
+:root{
+    --bleu: #2563EB;
+    --bleu-hover: #1D4ED8;
+    --navy: #151E2E;
+    --navy-text: #0f0f0f;
+    --bg-page: #F8F9FC;
+    --border: #D1D5DB;
+    --texte: #111827;
+    --texte-muted: #6B7280;
+}
+
+body{
+    margin: 0;
+    background-color: var(--bg-page);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
 #sec_compte{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 100px;
-    margin-top: 100px;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+    margin-top: 0;
+    min-height: 100vh;
 }
+
+/* Panneau gauche - branding */
+.panel_branding{
+    flex: 1;
+    max-width: 420px;
+    background-color: var(--navy);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.branding_logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.branding_logo_icon{
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: var(--bleu);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.branding_logo_text strong{
+    display: block;
+    color: white;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.branding_logo_text span{
+    display: block;
+    color: white;
+    font-size: 20px;
+}
+
+.branding_titre{
+    color: white;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 280px;
+    margin-top: 56px;
+}
+
+.branding_sous_titre{
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 260px;
+    margin-top: 14px;
+}
+
+/* Panneau droit - formulaire */
+.panel_form{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-sizing: border-box;
+    background-color: rgb(9, 146, 226);
+}
+
 #form_login{
     display: flex;
     flex-direction: column;
-    padding: 50px;
-    height: 400px;
-    width: 400px;
-    gap: 100px;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 20px;
-    background-color: beige;
+    padding: 0;
+    height: auto;
+    width: 320px;
+    gap: 0;
+    align-items: stretch;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
 }
-.btn_compte{
-    width: 400px;
-    border: 1px solid black;
-    margin-top: 50px;
-    padding: 16px;
-    border-radius: 14px;
+
+.form_titre{
+    font-size: 35px;
+    font-weight: 500;
+    color: var(--texte);
+    margin-bottom: 30px;
+}
+
+.form_sous_titre{
+    font-size: 20px;
+    color: black;
+    margin-bottom: 80px;
+}
+
+.champ_label{
+    font-size: 20px;
+    color: #0a0a0a;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.champ_wrapper{
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.champ_wrapper i{
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9CA3AF;
     font-size: 16px;
-    font-weight: 600;
-    cursor: pointer; 
 }
+
 .input_login{
-    width: 250px;
-    padding: 10px;
-    border: 1px solid black;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px 11px 36px;
+    border: 1px solid var(--border);
     border-radius: 10px;
+    background-color: white;
+    font-size: 13px;
+    transition: border-color 0.15s ease;
+}
+
+.input_login:focus{
+    outline: none;
+    border-color: var(--bleu);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form_options{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    font-size: 12px;
+}
+
+.form_souvenir{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: black;
+}
+
+.form_oubli{
+    color: black;
+    text-decoration: none;
+}
+
+.form_oubli:hover{
+    text-decoration: underline;
+}
+
+.btn_compte{
+    width: 100%;
+    border: none;
+    margin-top: 30px;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: var(--bleu);
+    color: white;
+    transition: background-color 0.15s ease;
+    box-sizing: border-box;
+}
+
+.btn_compte:hover{
+    background-color: var(--bleu-hover);
+}
+
+/* Responsive */
+@media (max-width: 768px){
+    #sec_compte{
+        flex-direction: column;
+    }
+    .panel_branding{
+        max-width: none;
+        padding: 32px 24px;
+    }
+    .branding_titre, .branding_sous_titre{
+        display: none;
+    }
 }
