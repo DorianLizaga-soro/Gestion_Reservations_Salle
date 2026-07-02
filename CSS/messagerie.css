@@ -1,438 +1,280 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #f5f5f5;
-    height: 100vh;
-    overflow: auto;
-}
-
-.messagerie-container {
-    display: grid;
-    grid-template-columns: 270px 1fr;
-    height: 100vh;
-}
-
-/* ===== COLONNE GAUCHE ===== */
-.conversations-panel {
-    background: #ffffff;
-    border-right: 1px solid #e5e7eb;
+.sec_body{
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-}
-
-.conversations-header {
-    padding: 20px 16px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #f3f4f6;
-}
-
-.conversations-titre {
-    font-size: 16px;
-    font-weight: 600;
-    color: #111827;
-}
-
-.badge-non-lus {
-    background: #ef4444;
-    color: white;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-}
-
-.conversations-liste {
-    overflow-y: auto;
-    flex: 1;
-}
-
-/* Carte conversation */
-.conversation-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    cursor: pointer;
-    border-left: 3px solid transparent;
-    transition: background 0.15s;
-}
-
-.conversation-item:hover {
-    background: #f9fafb;
-}
-
-.conversation-item.actif {
-    background: #eff6ff;
-    border-left-color: #2563eb;
-}
-
-.conv-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    flex-shrink: 0;
-}
-
-.conv-infos {
-    flex: 1;
-    min-width: 0;
-}
-
-.conv-nom {
-    font-size: 14px;
-    font-weight: 600;
-    color: #111827;
-    margin: 0 0 2px;
-}
-
-.conv-motif {
-    font-size: 12px;
-    color: #6b7280;
-    margin: 0 0 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.conv-dernier-message {
-    font-size: 12px;
-    color: #9ca3af;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.conv-badge {
-    background: #2563eb;
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-/* ===== COLONNE DROITE ===== */
-.messages-panel {
-    display: flex;
-    flex-direction: column;
-    background: #f9fafb;
-    overflow: hidden;
-}
-
-/* En-tête conversation */
-.messages-entete {
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-}
-
-.entete-gauche {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.entete-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.entete-nom {
-    font-size: 15px;
-    font-weight: 600;
-    color: #111827;
-    margin: 0;
-}
-
-.entete-infos {
-    font-size: 12px;
-    color: #6b7280;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.badge-statut {
-    font-size: 12px;
-    font-weight: 500;
-    padding: 4px 12px;
-    border-radius: 20px;
-}
-
-.badge-statut.confirmee {
-    background: #dcfce7;
-    color: #16a34a;
-}
-
-.badge-statut.en_attente {
-    background: #fef9c3;
-    color: #ca8a04;
-}
-
-.badge-statut.annulee {
-    background: #fee2e2;
-    color: #dc2626;
-}
-
-/* Zone messages */
-.messages-zone {
-    flex: 1;
-    overflow-y: auto;
+    gap: 20px;
     padding: 20px;
+    background-color: rgba(233, 231, 231, 0.247);
+}
+.sec_header{
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* Séparateur de date */
-.separateur-date {
-    text-align: center;
-    font-size: 12px;
-    color: #9ca3af;
-    position: relative;
-    margin: 8px 0;
-}
-
-.separateur-date::before,
-.separateur-date::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 35%;
-    height: 1px;
-    background: #e5e7eb;
-}
-
-.separateur-date::before {
-    left: 0;
-}
-
-.separateur-date::after {
-    right: 0;
-}
-
-/* Bloc message */
-.message-bloc {
-    display: flex;
-    gap: 10px;
-    align-items: flex-end;
-}
-
-.message-bloc.moi {
-    flex-direction: row-reverse;
-}
-
-.message-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    color: white;
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 600;
-    flex-shrink: 0;
-}
-
-.message-contenu {
-    max-width: 60%;
-}
-
-.message-meta {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 4px;
-    font-size: 12px;
-    color: #6b7280;
-}
-
-.message-bloc.moi .message-meta {
-    flex-direction: row-reverse;
-}
-
-.message-auteur {
-    font-weight: 500;
-    color: #374151;
-}
-
-.badge-role {
-    background: #ddd;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 11px;
-    margin-left: 6px;
-}
-
-
-.badge-role.responsable_association {
-    background: #dcfce7;
-    color: #16a34a;
-}
-
-.badge-role.gestionnaire {
-    background: #eff6ff;
-    color: #2563eb;
-}
-
-.badge-role.personnel_menage {
-    background: #fff7ed;
-    color: #ea580c;
-}
-
-.badge-role.membre_association {
-    background: #f5f3ff;
-    color: #7c3aed;
-}
-
-.message-bulle {
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-size: 14px;
-    line-height: 1.4;
-    background: #ffffff;
-    color: #111827;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-}
-
-.message-bloc.moi .message-bulle {
-    background: #2563eb;
+    background-color: rgb(59, 144, 255);
+    padding: 10px;
+    border-radius: 20px;
     color: white;
 }
-
-.message-statut {
-    font-size: 11px;
-    color: #9ca3af;
-    margin-top: 3px;
-    text-align: right;
-}
-
-.message-bloc.moi .message-statut {
-    text-align: right;
-}
-
-/* Zone d'envoi */
-.messages-footer {
-    background: #ffffff;
-    border-top: 1px solid #e5e7eb;
-    padding: 12px 20px;
-    flex-shrink: 0;
-}
-
-.messages-footer form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.messages-footer input[type="text"] {
-    flex: 1;
-    padding: 10px 14px;
-    border: 1px solid #e5e7eb;
-    border-radius: 24px;
-    font-size: 14px;
-    outline: none;
-    background: #f9fafb;
-}
-
-.messages-footer input[type="text"]:focus {
-    border-color: #2563eb;
-    background: #ffffff;
-}
-
-.compteur {
-    font-size: 12px;
-    color: #9ca3af;
-    white-space: nowrap;
-}
-
-.btn-envoyer {
-    width: 40px;
+.btn_deconnexion{
+    padding: 10px;
     height: 40px;
-    border-radius: 50%;
-    background: #2563eb;
-    color: white;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
+    
+}
+.btn_deconnexion:hover{
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
+
+.nav_btn{
+    display: flex;
+    gap: 20px;
+}
+.btn_menage{
+    background-color: white;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius:10px ;
+    color: rgb(87, 87, 87);
+    cursor: pointer;
+}
+#btn_tous:hover{
+    background: blue;
+    color: white;
+    border: 1px solid blue;
+}
+#btn_faire:hover{
+    background: rgb(254, 243, 199);
+    color: rgb(146, 64, 14);
+    border: 1px solid rgb(146, 64, 14);
+}
+#btn_effectue:hover{
+    background: rgb(143, 255, 162);
+    color: rgb(17, 83, 0);
+    border: 1px solid rgb(17, 83, 0);
+}
+#btn_attente:hover{
+    background: #F1F5F9;
+    color: #4e5d6e;
+    border: 1px solid #4e5d6e;
+}
+.card_menage{
+    width: 300px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+}
+.card_header{
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
+    gap: 100px;
 }
-
-.btn-envoyer:hover {
-    background: #1d4ed8;
+.nom_assos{
+    background-color: rgb(186, 248, 186);
+    padding: 10px;
+    border-radius: 10px;
 }
-
-/* Vide */
-.messages-vide {
-    display: block;
-    /* plus de flex */
-    width: 100%;
-    /* prend toute la largeur */
-    height: 100%;
-    /* prend toute la hauteur */
-    padding: 20px;
-    /* espace intérieur */
-    overflow-y: auto;
-    /* scroll si beaucoup de messages */
-    color: #111827;
-    /* texte normal */
-}
-
-
-.messages-vide i {
-    font-size: 48px;
-    color: #d1d5db;
-}
-
-.message-bloc {
+.div_resp{
     display: flex;
+    align-items: center;
     gap: 10px;
-    align-items: flex-start;
-    width: 100%;
-    /* important */
+}
+.commentaire{
+    background-color: rgba(228, 226, 226, 0.397);
+    padding: 10px;
+    border-radius: 10px;
+    white-space: normal;
+    word-wrap: break-word; 
+    margin: 5px 0;
+}
+.sec_historique{
+    display:flex ;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: white;
+    
+}
+.div_passage{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid black;
+    padding: 10 px;
+}
+.div_historique{
+    display: flex;
+    gap: 20px;
+}
+.div_comHistorique{
+    display: flex;
+    gap: 20px;
+}
+.initial_resp{
+    border-radius: 50%;
+    padding: 10px;
+    color: white;
+    background-color: blue;
+}
+.btn_valider{
+    background-color: rgb(4, 201, 4);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+.btn_valider.valide{
+    background-color: rgba(3, 218, 3, 0.849);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(2, 68, 0);
+    cursor: pointer;
+}
+.btn_commentaire{
+    background-color: rgba(212, 212, 212, 0.356);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.partie_commentaire{
+    margin-top: 10px;
+   display: none;
+}
+.partie_commentaire.active{
+    display: block ;
+}
+#input_commentaire{
+    padding: 10px;
+    border-radius: 5px;
+    width: 75%;
+    border: 1px solid grey;
+    background-color: rgba(184, 184, 184, 0.199);
+}
+.btn_ok{
+    background-color: blue;
+    color: white;
+    margin-left: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.badge {
+    background-color: rgb(254, 243, 199);
+    color: rgb(146, 64, 14);
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 20px;
+}
+.badge.valide{
+    background-color: rgba(117, 255, 25, 0.712);
+    color: rgb(41, 85, 0);
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 20px;
+}
+.badge.attente{
+    background-color: rgba(180, 180, 180, 0.521);
+    color: rgb(85, 85, 85);
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 20px;
+}
+.sec_carteMenage{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 50px;
+}
+.div_commentaire{
+    display: flex;
+    flex-direction: column;
+}
+.info { 
+    margin-top: 10px;
+    margin-left: 80px;
+    font-size: 0.9em; 
+    color: gray;
+}
+.div_btn_menage{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 20px;
 }
 
-.message-bloc.moi {
-    flex-direction: row-reverse;
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .sec_carteMenage{
+        grid-template-columns: auto auto;
+        gap: 24px;
+    }
 }
 
-.message-contenu {
-    max-width: 70%;
-    /* bulles larges */
+/* Tablette */
+@media (max-width: 768px){
+    .sec_header{
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+    .nav_btn{
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .btn_menage{
+        flex: 1 1 auto;
+    }
+    .sec_carteMenage{
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .card_menage{
+        width: 100%;
+    }
+    .card_header{
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .div_passage{
+        flex-direction: column;
+        gap: 6px;
+    }
+    .div_historique,
+    .div_comHistorique{
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .sec_body{
+        padding: 12px;
+    }
+    .sec_header{
+        padding: 12px;
+    }
+    .btn_deconnexion{
+        width: 100%;
+    }
+    #input_commentaire{
+        width: 100%;
+    }
+    .div_btn_menage{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .info{
+        margin-left: 0;
+    }
 }

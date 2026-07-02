@@ -256,3 +256,99 @@
     color: rgb(65, 64, 64);
     cursor: pointer;
 }
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .sec_case{
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    .div_case{
+        width: calc(50% - 8px);
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .sec_headUser{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .div_inputHead{
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .div_search{
+        width: 100%;
+    }
+    #search{
+        width: auto;
+    }
+    #searchUser{
+        width: 100%;
+    }
+    #selectUser{
+        width: 100%;
+    }
+    .btn_ajoutUser{
+        width: 100%;
+    }
+    .sec_case{
+        flex-direction: column;
+    }
+    .div_case{
+        width: 100%;
+    }
+    .div_userElement{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .div_titre{
+        display: none;
+    }
+    .modal-content{
+        width: 92%;
+    }
+    .div_formName{
+        flex-direction: column;
+    }
+    .roles{
+        flex-direction: column;
+    }
+    .role-btn{
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .sec_body{
+        padding: 12px;
+        gap: 14px;
+    }
+    .div_user{
+        flex-wrap: wrap;
+    }
+    .btn_modifDelete{
+        gap: 10px;
+    }
+    .div_btn_form{
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn_annuler,
+    .btn_creerUser,
+    .btn_annulerEdit{
+        width: 100%;
+    }
+    .modal-content{
+        width: 94%;
+        padding: 16px;
+    }
+}

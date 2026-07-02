@@ -206,3 +206,75 @@
     margin-top: 10px;
     gap: 20px;
 }
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .sec_carteMenage{
+        grid-template-columns: auto auto;
+        gap: 24px;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .sec_header{
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+    .nav_btn{
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .btn_menage{
+        flex: 1 1 auto;
+    }
+    .sec_carteMenage{
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .card_menage{
+        width: 100%;
+    }
+    .card_header{
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .div_passage{
+        flex-direction: column;
+        gap: 6px;
+    }
+    .div_historique,
+    .div_comHistorique{
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .sec_body{
+        padding: 12px;
+    }
+    .sec_header{
+        padding: 12px;
+    }
+    .btn_deconnexion{
+        width: 100%;
+    }
+    #input_commentaire{
+        width: 100%;
+    }
+    .div_btn_menage{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .info{
+        margin-left: 0;
+    }
+}

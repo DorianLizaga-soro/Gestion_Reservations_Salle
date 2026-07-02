@@ -443,3 +443,71 @@ tbody tr:hover{
     display: flex;
     gap: 20px;
 }
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .search{
+        width: 220px;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    body{
+        padding: 12px;
+    }
+    .toolbar{
+        flex-wrap: wrap;
+    }
+    .search{
+        width: 100%;
+    }
+    .toolbar input,
+    .toolbar select{
+        width: 100%;
+    }
+    .btn-primary{
+        margin-left: 0;
+        width: 100%;
+    }
+    .card-header{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .card{
+        overflow-x: auto;
+    }
+    table{
+        min-width: 640px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    body{
+        padding: 10px;
+    }
+    thead th,
+    tbody td{
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    .drop-zone{
+        padding: 24px 12px;
+    }
+    .td_btn{
+        flex-direction: column;
+        gap: 8px;
+    }
+    .actions button{
+        margin-right: 0;
+        margin-bottom: 6px;
+        width: 100%;
+    }
+}

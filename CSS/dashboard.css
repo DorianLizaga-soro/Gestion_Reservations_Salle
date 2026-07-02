@@ -189,3 +189,82 @@ body {
 .dashboard-content {
   padding: 24px
 }
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop / petits écrans PC */
+@media (max-width: 1024px){
+    .sidebar{
+        width: 200px;
+    }
+    #header-content{
+        margin-left: 200px;
+    }
+    .topbar{
+        padding: 0 16px;
+    }
+    .dashboard-content{
+        padding: 16px;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    body{
+        flex-direction: column;
+    }
+    .sidebar{
+        position: static;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+    .sidebar-nav{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .sidebar-user{
+        margin: 10px;
+    }
+    #header-content{
+        margin-left: 0;
+    }
+    .topbar{
+        height: auto;
+        flex-wrap: wrap;
+        padding: 12px 16px;
+    }
+    .dashboard-content{
+        padding: 16px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .sidebar-brand{
+        padding: 0 10px;
+    }
+    .sidebar-label{
+        display: none;
+    }
+    .sidebar-link{
+        font-size: 13px;
+        padding: 0 8px;
+    }
+    .topbar{
+        padding: 10px 12px;
+    }
+    #choixrole{
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 8px;
+    }
+    .dashboard-content{
+        padding: 12px;
+    }
+}

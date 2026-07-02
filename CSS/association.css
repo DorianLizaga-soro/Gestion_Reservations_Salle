@@ -1064,3 +1064,127 @@
   border-color: #35CA6C;
 }
 }
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .rubrique{
+        grid-template-columns: 1fr 1fr;
+    }
+    .cartes-export{
+        flex-wrap: wrap;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .head{
+        padding: 30px 24px;
+        margin: 16px;
+    }
+    .btn-connexion{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .rubrique{
+        grid-template-columns: 1fr;
+    }
+    .reservationDuMois,
+    .quota,
+    .documentDepose,
+    .mesReservations{
+        margin: 16px;
+        padding: 20px;
+    }
+    .reservations-header{
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .entete-bouton{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .entete-gauche{
+        flex-wrap: wrap;
+    }
+    .cartes-export{
+        flex-direction: column;
+        gap: 16px;
+    }
+    .modale{
+        width: 92%;
+    }
+    .ligne-heures{
+        grid-template-columns: 1fr;
+    }
+    .ajout-commentaire input,
+    .messagerie-inline input{
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .head{
+        padding: 20px 16px;
+        margin: 10px;
+        border-radius: 14px;
+    }
+    .reservationDuMois,
+    .quota,
+    .documentDepose,
+    .mesReservations{
+        margin: 10px;
+        padding: 16px;
+    }
+    .resa{
+        flex-direction: column;
+        gap: 8px;
+    }
+    .btn-add,
+    .btn-exporter{
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+    .entete-droite{
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .date-heure{
+        min-width: 0;
+    }
+    .boutons-action{
+        flex-wrap: wrap;
+    }
+    .message{
+        flex-wrap: wrap;
+    }
+    .ajout-commentaire{
+        flex-direction: column;
+    }
+    .messagerie-inline button,
+    .ajout-commentaire button{
+        width: 100%;
+    }
+    .modale{
+        width: 94%;
+        padding: 20px 18px;
+    }
+    .modale-deconnexion{
+        width: 94%;
+    }
+    .modale-boutons{
+        flex-direction: column;
+    }
+    .icone{
+        width: 56px;
+        height: 56px;
+        font-size: 26px;
+    }
+}

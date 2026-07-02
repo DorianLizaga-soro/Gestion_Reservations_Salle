@@ -115,3 +115,55 @@
 .btn_telecharger:hover {
     background: #e5e7eb;
 }
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .card_export{
+        width: 480px;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .div_export{
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+    }
+    .card_export{
+        width: 100%;
+    }
+    .div_head{
+        flex-direction: column;
+        gap: 12px;
+    }
+    .div_titre,
+    .div_ligne{
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .sec_body{
+        padding: 12px;
+    }
+    .card_export{
+        padding: 12px;
+    }
+    .div_titre,
+    .div_ligne{
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 4px;
+    }
+    .div_historique{
+        overflow-x: auto;
+    }
+}

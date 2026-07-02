@@ -814,3 +814,110 @@ body {
 .notif-item:last-child {
     border-bottom: none;
 }
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1200px){
+    .dashboard-layout{
+        grid-template-columns: 1fr 300px;
+    }
+}
+
+@media (max-width: 1024px){
+    .stats-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .dashboard-layout{
+        grid-template-columns: 1fr;
+    }
+    .calendar-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .stats-grid{
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .stat-card{
+        padding: 14px;
+    }
+    .calendar-grid{
+        grid-template-columns: 1fr;
+    }
+    .calendar-card{
+        min-height: 380px;
+    }
+    .calendar-title-row{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .reservation-item{
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 14px 14px 14px 20px;
+    }
+    .reservation-actions{
+        flex-wrap: wrap;
+    }
+    .modal-content{
+        width: 92%;
+    }
+    .div_formName{
+        flex-direction: column;
+    }
+    .notif-panel{
+        width: 220px;
+        right: 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .stats-grid{
+        grid-template-columns: 1fr;
+    }
+    .stat-icon{
+        width: 32px;
+        height: 32px;
+    }
+    .card-header{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 14px;
+    }
+    .calendar-card .fc{
+        height: 300px !important;
+    }
+    .comment-item{
+        flex-wrap: wrap;
+    }
+    .btn_modifDelete{
+        gap: 10px;
+    }
+    .btn_annuler,
+    .btn_creerUser{
+        width: 100%;
+    }
+    .modal-content{
+        width: 94%;
+        padding: 16px;
+    }
+    .notif-panel{
+        width: 90vw;
+        right: -20px;
+    }
+    .avatar,
+    .avatar2{
+        width: 34px;
+        height: 34px;
+    }
+}

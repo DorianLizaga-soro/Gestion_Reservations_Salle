@@ -880,3 +880,96 @@
 .btn-supprimer-confirmation:hover {
     background: #b91c1c;
 }
+
+/* ==========================================================
+   RESPONSIVE (ajout)
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .en-tete{
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .modale-details{
+        width: 92%;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .en-tete{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .new-assoc{
+        width: 100%;
+        margin: 12px 0;
+    }
+    .carte-asso-stats{
+        grid-template-columns: 1fr 1fr;
+    }
+    .details-info-grille{
+        grid-template-columns: 1fr;
+    }
+    .modale-details{
+        width: 94%;
+        max-height: 85vh;
+    }
+    .modale-ajout-asso,
+    .modale{
+        width: 92%;
+    }
+    .modale-details-onglets{
+        overflow-x: auto;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .grille-associations{
+        padding: 10px;
+        gap: 16px;
+    }
+    .carte-asso{
+        padding: 14px 16px;
+    }
+    .carte-asso-stats{
+        grid-template-columns: 1fr;
+    }
+    .carte-asso-actions{
+        flex-wrap: wrap;
+    }
+    .modale-details-entete{
+        padding: 16px 16px 0;
+    }
+    .modale-details-titre{
+        flex-wrap: wrap;
+    }
+    .modale-details-corps{
+        padding: 16px;
+    }
+    .onglet-btn{
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    .modale-ajout-asso,
+    .modale{
+        width: 94%;
+        padding: 18px;
+    }
+    .historique-ligne,
+    .document-ligne{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    .historique-droite{
+        text-align: left;
+        margin-left: 0;
+    }
+    .actions{
+        flex-wrap: wrap;
+    }
+}
