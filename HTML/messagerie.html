@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messagerie</title>
+    <link rel="stylesheet" href="CSS/messagerie.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+
+
+
+
+
+
+<body>
+
+
+    <div class="messagerie-container">
+
+        <!-- ===== COLONNE GAUCHE : liste des conversations ===== -->
+        <div class="conversations-panel">
+
+            <div class="conversations-header">
+               
+                <p class="conversations-titre">Conversations</p>
+                <span id="badge-global-nonlus" class="badge-non-lus">{{nbNonLus}}</span>
+                <span class="badge-non-lus-label">non lus</span>
+
+            </div>
+
+            <div class="conversations-liste">
+                {{listeConversations}}
+            </div>
+
+        </div>
+
+        <!-- ===== COLONNE DROITE : messages ===== -->
+        <div class="messages-panel">
+
+            <!-- En-tête de la conversation -->
+            <div class="messages-entete" id="messages-entete">
+                {{enteteConversation}}
+            </div>
+
+            <!-- Zone des messages -->
+            <div class="messages-zone" id="messages-zone">
+                {{messagesHTML}}
+            </div>
+
+            <!-- Zone d'envoi -->
+            <div class="messages-footer" id="messages-footer" >
+                <form method="POST" action="./index.php?page=envoyer_message" id="form-message">
+                    <input type="hidden" name="id_reservation" value="{{idReservationActive}}">
+                    <input type="text" name="contenu" id="input-message"
+                        placeholder="Écrire un message... (50 caractères max)" maxlength="50" autocomplete="off">
+                    <span class="compteur">0/50</span>
+                    <button type="submit" class="btn-envoyer">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="JS/messagerie.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

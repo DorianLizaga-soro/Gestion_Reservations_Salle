@@ -1,0 +1,386 @@
+<?php
+require_once(__DIR__ . '/connexionBDD.php');
+
+if (!isset($_SESSION["id"])) {
+    header("Location: ./index.php?page=login");
+    exit;
+}
+
+
+
+// commentaire
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['commentaire'])) {
+    $stmt = $conn->prepare("INSERT INTO commentaires (id_reservation, id_auteur, contenu, date_creation) VALUES (?, ?, ?, ?)");
+    $stmt->execute([
+        $_POST['id_reservation'],
+        $_SESSION["id"],
+        $_POST['commentaire'],
+        date("Y-m-d H:i:s")
+    ]);
+    header("Location: ./index.php?page=responsable");
+    exit;
+}
+
+
+// message
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
+    $stmt = $conn->prepare("
+        INSERT INTO messages (id_reservation, id_auteur, contenu, date_envoi)
+        VALUES (?, ?, ?, NOW())
+    ");
+    $stmt->execute([
+        $_POST['id_reservation'],
+        $_SESSION["id"],
+        $_POST['message']
+    ]);
+
+    header("Location: ./index.php?page=responsable");
+    exit;
+}
+
+$stmt = $conn->query("SELECT id, nom FROM utilisateurs WHERE role = 'personnel_menage'");
+$personnels = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$optionsMenage = "";
+foreach ($personnels as $p) {
+    $optionsMenage .= "<option value='{$p['id']}'>{$p['nom']}</option>";
+}
+
+
+// association de l'utilisateur connecté
+$stmt = $conn->prepare("SELECT nom, id_responsable, couleur FROM associations WHERE id = ?");
+$stmt->execute([$_SESSION["id_association"]]);
+$association = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$nomAssos = $association["nom"];
+$idResponsable = $association["id_responsable"];
+$couleur = $association["couleur"] ?? "#35CA6C";
+
+// ===== STATISTIQUES =====
+
+$moisActuel = date("Y-m");
+
+// Nombre total de réservations du mois
+$stmt = $conn->prepare("SELECT COUNT(*) FROM reservations 
+    WHERE id_association = ? AND DATE_FORMAT(date_, '%Y-%m') = ?");
+$stmt->execute([$_SESSION["id_association"], $moisActuel]);
+$nbResaMois = $stmt->fetchColumn();
+
+// Nombre de réservations récurrentes du mois
+$stmt = $conn->prepare("SELECT COUNT(*) FROM reservations 
+    WHERE id_association = ? AND type = 'recurrente' AND DATE_FORMAT(date_, '%Y-%m') = ?");
+$stmt->execute([$_SESSION["id_association"], $moisActuel]);
+$nbRecurrentes = $stmt->fetchColumn();
+
+// Nombre de réservations ponctuelles du mois
+$stmt = $conn->prepare("SELECT COUNT(*) FROM reservations 
+    WHERE id_association = ? AND type = 'ponctuelle' AND DATE_FORMAT(date_, '%Y-%m') = ?");
+$stmt->execute([$_SESSION["id_association"], $moisActuel]);
+$nbPonctuelles = $stmt->fetchColumn();
+$quotaMax = 3;
+
+// Nombre de PDFs
+$stmt = $conn->prepare("SELECT COUNT(*) FROM pdfs 
+    WHERE id_reservation IN (SELECT id FROM reservations WHERE id_association = ?)");
+$stmt->execute([$_SESSION["id_association"]]);
+$nbPdfs = $stmt->fetchColumn();
+
+// Mois en français
+$moisFr = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+$nomMois = $moisFr[date("n") - 1] . " " . date("Y");
+
+
+
+
+
+// ===== CARTES RESERVATIONS =====
+
+$stmt = $conn->prepare("SELECT * FROM reservations WHERE id_association = ?");
+$stmt->execute([$_SESSION["id_association"]]);
+$reservation = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if (!$reservation) {
+    $reservation = [];
+}
+
+$cartesHTML = "";
+
+foreach ($reservation as $r) {
+
+$stmtMenage = $conn->prepare("
+    SELECT u.nom AS nom_menage
+    FROM menage m
+    JOIN utilisateurs u ON u.id = m.id_personnel
+    WHERE m.id_reservation = ?
+");
+$stmtMenage->execute([$r["id"]]);
+$menage = $stmtMenage->fetch(PDO::FETCH_ASSOC);
+
+$nomMenage = $menage["nom_menage"] ?? "";
+
+
+
+$stmtPdf = $conn->prepare("SELECT nom_fichier, chemin FROM pdfs WHERE id_reservation = ?");
+$stmtPdf->execute([$r["id"]]);
+$pdf = $stmtPdf->fetch(PDO::FETCH_ASSOC);
+
+$nomDuPdf = $pdf["nom_fichier"] ?? "";
+$cheminPdf = $pdf["chemin"] ?? "";
+
+$stmt = $conn->prepare("
+    SELECT COUNT(*) FROM messages 
+    WHERE id_reservation = ? AND id_auteur != ? AND lu = 0
+");
+$stmt->execute([$r['id'], $_SESSION['id']]);
+$nonLus = $stmt->fetchColumn();
+
+
+    $stmt = $conn->prepare("SELECT nom FROM salles WHERE id = ?");
+    $stmt->execute([$r["id_salle"]]);
+    $nomSalle = $stmt->fetchColumn();
+
+   $stmt = $conn->prepare("
+    SELECT c.contenu, c.date_creation, u.nom AS auteur, u.role AS role_auteur
+    FROM commentaires c
+    JOIN utilisateurs u ON c.id_auteur = u.id
+    WHERE c.id_reservation = ?
+    ORDER BY c.date_creation DESC
+    ");
+    $stmt->execute([$r["id"]]);
+    $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+  
+// 1. Calculer les non lus AVANT d’ouvrir la carte
+$stmt = $conn->prepare("
+    SELECT COUNT(*) FROM messages 
+    WHERE id_reservation = ? AND id_auteur != ? AND lu = 0
+");
+$stmt->execute([$r['id'], $_SESSION['id']]);
+$nonLus = $stmt->fetchColumn();
+
+// 2. Charger les messages
+$stmt = $conn->prepare("
+    SELECT m.*, u.nom AS nom_auteur, u.role AS role_auteur
+    FROM messages m
+    JOIN utilisateurs u ON m.id_auteur = u.id
+    WHERE m.id_reservation = ?
+    ORDER BY m.date_envoi ASC
+");
+$stmt->execute([$r["id"]]);
+$messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// 3. Marquer les messages comme lus
+$stmt = $conn->prepare("
+    UPDATE messages 
+    SET lu = 1 
+    WHERE id_reservation = ? 
+    AND id_auteur != ?
+");
+$stmt->execute([$r['id'], $_SESSION['id']]);
+
+    $messagesHTML = "";
+
+if (!empty($messages)) {
+    foreach ($messages as $msg) {
+
+     
+
+        $initiales = strtoupper(substr($msg["nom_auteur"], 0, 2));
+        $dateMsg = date("d/m/Y H:i", strtotime($msg["date_envoi"]));
+
+        $messagesHTML .= "
+        <div class='message'>
+            <div class='avatar'>{$initiales}</div>
+            <div class='message-contenu'>
+                <p>
+                    <span class='auteur'>role : {$msg['role_auteur']} - </span>
+                    <span class='auteur'>nom : {$msg['nom_auteur']} - </span>
+                    <span class='date-message'>date : {$dateMsg}</span>
+                </p>
+                <p>{$msg['contenu']}</p>
+            </div>
+        </div>
+        ";
+    }
+} else {
+    $messagesHTML = "<p style='color:#aaa; font-size:13px;'>Aucun message.</p>";
+}
+
+
+    $badge = match($r["statut"]) {
+        "en_attente" => "En attente",
+        "validee"    => "Validée",
+        "annulee"    => "Annulée",
+        default      => "Inconnu"
+    };
+
+
+
+if ($pdf) {
+    // PDF existe → bouton Voir PDF
+    $boutonPdf = "
+        <a href='{$pdf['chemin']}' target='_blank' class='btn-voir-pdf'>
+            📎 Voir PDF
+        </a>
+    ";
+} else {
+    // Aucun PDF → bouton Ajouter PDF
+    $boutonPdf = "
+        <form method='post' action='./index.php?page=ajouter_fichier' enctype='multipart/form-data' style='display:inline-block;'>
+            <input type='hidden' name='id_reservation' value='{$r['id']}'>
+            <label class='label-fichier' for='fichier-{$r['id']}'>📎 Ajouter PDF</label>
+            <input type='file' name='programmePdf' id='fichier-{$r['id']}' class='input-fichier-cache' accept='application/pdf'>
+            <span class='nom-fichier-selectionne' id='nom-fichier-{$r['id']}'></span>
+        </form>
+    ";
+}
+
+$commentairesHTML = "";
+
+foreach ($commentaires as $com) {
+
+    $initiales = strtoupper(substr($com["auteur"], 0, 2));
+    $dateCom = date("d/m/Y H:i", strtotime($com["date_creation"]));
+
+    $commentairesHTML .= "
+    <div class='message'>
+        <div class='avatar'>{$initiales}</div>
+        <div class='message-contenu'>
+            <p>
+                <span class='auteur'>role : {$com['role_auteur']} - </span>
+                <span class='auteur'>nom : {$com['auteur']} - </span>
+                <span class='date-message'>date : {$dateCom}</span>
+            </p>
+            <p>{$com['contenu']}</p>
+        </div>
+    </div>
+    ";
+}
+
+
+
+
+    $carte = "
+<div class='carte-reservation'>
+    <button class='entete-bouton' data-cible='panneau-{$r['id']}'>
+        <div class='entete-gauche'>
+            <div class='barre-couleur'></div>
+            <div class='date-heure'>
+                <p>{$r['date_']}</p>
+                <p>" . substr($r['heure_debut'], 0, 5) . " – " . substr($r['heure_fin'], 0, 5) . "</p>
+            </div>
+            <div class='titre-salle'>
+                <p>{$r['Motif']}</p>
+                <p>{$nomSalle}</p>
+            </div>
+            
+        </div>
+        <div class='entete-droite'>
+            <span class='statut-badge'>{$badge}</span>
+            " . ($nonLus > 0 ? "<span class='badge-non-lus'>{$nonLus} non lus</span>" : "") . "
+            <span class='chevron'>&#9660;</span>
+        </div>
+    </button>
+
+   
+
+    <div class='panneau' id='panneau-{$r['id']}'>
+        <div class='panneau-contenu'>
+            <div class='boutons-action'>
+                <button class='btn-modifier'
+                    data-id-reservation='{$r['id']}'
+                    data-id-salle='{$r['id_salle']}'
+                    data-date='{$r['date_']}'
+                    data-heure-debut='" . substr($r['heure_debut'], 0, 5) . "'
+                    data-heure-fin='" . substr($r['heure_fin'], 0, 5) . "'
+                    data-motif='" . htmlspecialchars($r['Motif']) . "'
+                    data-commentaire='" . htmlspecialchars($r['commentaire']) . "'
+                    data-menage-name='{$nomMenage}'
+                    data-pdf-name='{$nomDuPdf}'
+                    data-pdf='{$cheminPdf}'
+                >
+                    Modifier
+                </button>
+
+                <button class='btn-annuler'
+                    data-id-reservation='{$r['id']}'>
+                    Annuler
+                </button>
+                {$boutonPdf}
+            </div>
+
+            <div class='commentaire-box'>Commentaire de la reservation : {$r['commentaire']}</div>
+
+             
+                <p class='messages-label'>Commentaires</p>
+                <div class='messagerie-inline'>
+                    {$commentairesHTML}
+                </div>
+            
+
+
+
+
+            <div class='ajout-commentaire'>
+                            <form method='POST' action='./index.php?page=responsable'>
+                                <input type='hidden' name='id_reservation' value='{$r['id']}'>
+                                <input type='text' id='input_commentaire' name='commentaire' placeholder='Ajouter un commentaire... (50 car.)' maxlength='50'>
+                                <button type='submit'>Envoyer commentaire</button>
+                                <div id='info' class='info'>0 / 50 caractères</div>
+                            </form>
+                        </div>
+
+                        <p class='messages-label'>Messages</p>
+
+                    <div class='messagerie-inline' id='messagerie-{$r['id']}'>
+                {$messagesHTML}
+                    
+                <form method='POST' action='./index.php?page=responsable'>
+                <input type='hidden' name='id_reservation' value='{$r['id']}'>
+                <input type='text' id='input_message' name='message' placeholder='Ajouter un message... (50 car.)' maxlength='50'>
+                <button type='submit'>Envoyer Message</button>
+                <div id='info_message' class='info'>0 / 50 caractères</div>
+            </form>
+
+            </div>
+           
+        </div>
+    </div>
+</div>
+";
+
+    $cartesHTML .= $carte;
+}
+$salleOptions = "<option value=''>-- Choisir une salle --</option>";
+
+$stmt = $conn->query("SELECT id, nom FROM salles ORDER BY nom");
+while ($salle = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $salleOptions .= "
+        <option value='{$salle['id']}'>
+            " . htmlspecialchars($salle['nom']) . "
+        </option>
+    ";
+}
+
+
+
+$variables = [
+    "{{nomassociation}}"    => $nomAssos,
+    "{{carteReservation}}"  => $cartesHTML,
+    "{{couleur}}"           => $couleur,
+    "{{mois}}"              => $nomMois,
+    "{{resadumois}}"        => $nbResaMois,
+    "{{nbRecurrentes}}"     => $nbRecurrentes,
+    "{{quantité/quantité}}" => $nbPonctuelles . " / " . $quotaMax,
+    "{{nbPonctuelles}}"     => $nbPonctuelles,
+    "{{quotaMax}}"          => $quotaMax,
+    "{{nbPdfs}}"            => $nbPdfs,
+    "{{personnel_menage}}" => $optionsMenage,
+    "{{Salle_select}}" => $salleOptions,
+
+];
+
+$template = file_get_contents(__DIR__ . '/../../html/association.html');
+$page = str_replace(array_keys($variables), array_values($variables), $template);
+echo $page;

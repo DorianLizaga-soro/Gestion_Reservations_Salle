@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="CSS/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="CSS/gestionnaire.css">
+    <link rel="stylesheet" href="CSS/menage.css">
+    <link rel="stylesheet" href="CSS/utilisateur.css">
+    <link rel="stylesheet" href="CSS/association.css">
+    <link rel="stylesheet" href="CSS/reservation.css">
+    <link rel="stylesheet" href="CSS/messagerie.css">
+    <link rel="stylesheet" href="CSS/pdf.css">
+
+    
+</head>
+
+<body>
+    <aside class="sidebar">
+        <section class="d-flex">
+            <section id="side-bar" class="sidebar mb-2">
+                <div class="sidebar-brand">
+                    <div class="brand-icon">
+                        <i class="bi bi-building"></i>
+                    </div>
+                    <article class="sidebar-header">
+                        <h3>Monestié</h3>
+                        <p>Réservations</p>
+                    </article>
+                </div>
+
+                <div class="sidebar-separator"></div>
+
+                <nav class="sidebar-nav">
+
+                    <span class="sidebar-label">PRINCIPAL</span>
+
+                    <button class="sidebar-link active" id="btn_tableau_de_bord">
+                        <i class="bi bi-grid"></i>
+                        <span>Tableau de bord</span>
+                    </button>
+
+                    <button class="sidebar-link" id="btn_reservation">
+                        <i class="bi bi-book"></i>
+                        <span>Réservations</span>
+                    </button>
+
+                    <span class="sidebar-label">GESTION</span>
+
+                    <button class="sidebar-link" id="btn_association">
+                        <i class="bi bi-building"></i>
+                        <span>Associations</span>
+                    </button>
+
+                    <button class="sidebar-link" id="btn_utilisateur">
+                        <i class="bi bi-people"></i>
+                        <span>Utilisateurs</span>
+                    </button>
+
+                    <button class="sidebar-link" id="btn-menage">
+                        <i class="bi bi-stars"></i>
+                        <span>Gestion du ménage</span>
+                    </button>
+
+
+
+                    <button class="sidebar-link" id="btn_messagerie">
+                        <i class="bi bi-chat-left"></i>
+                        <span>Messagerie</span>
+                    </button>
+
+                    <span class="sidebar-label">OUTILS</span>
+
+                    <button class="sidebar-link" id="btn_programmes">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span>Programmes PDF</span>
+                    </button>
+
+                    <button class="sidebar-link" id="exportation">
+                        <i class="bi bi-download"></i>
+                        <span>Exportations</span>
+                    </button>
+
+
+                </nav>
+
+                <!-- Profil bas -->
+                 {{sidebarUser}}
+
+                
+
+    </aside>
+
+
+    <main id="header-content" class="container-fluid">
+        <header class="topbar">
+            <h4 id="variable">Variable</h4>
+
+            <div class="topbar-actions"></div>
+
+            <nav class="nav">
+                <div class="notif-wrapper">
+                    <span type="button" class="bi bi-bell" id="notif-bell"></span>
+                    <span id="notif-badge" class="notif-badge_cloche">0</span>
+                </div>
+            </nav>
+
+            <!-- 🔥 Le panneau doit être DANS le header -->
+            <div id="notif-panel" class="notif-panel hidden">
+                <p class="notif-title">Notifications</p>
+                <div id="notif-content"></div>
+            </div>
+        </header>
+
+
+        
+        <section class="dashboard-content">
+            <main class="main-content">
+                <!-- CARDS STATISTIQUES DU HAUT -->
+                <section class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-icon blue-light">
+                            <i class="bi bi-book"></i>
+                        </div>
+
+                        <div>
+                            <h3>{{nbReservation}}</h3>
+                            <p>Réservations ce mois</p>
+                            
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon orange-light">
+                            <i class="bi bi-lightning-charge"></i>
+                        </div>
+
+                        <div>
+                            <h3>{{nbReservationPonctuelles}}</h3>
+                            <p>Réservations ponctuelles</p>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon green-light">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+
+                        <div>
+                            <h3>{{nbReservationRecurrente}}</h3>
+                            <p>Réservations récurrentes</p>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon purple-light">
+                            <i class="bi bi-stars"></i>
+                        </div>
+
+                        <div>
+                            <h3>{{nbPassageDeMenage}}</h3>
+                            <p>Passages ménage à faire</p>
+                            <span>Cette semaine</span>
+                        </div>
+                    </article>
+
+                </section>
+                <!-- SECTION PRINCIPALE DU DASHBOARD -->
+                <section class="dashboard-layout">
+
+                    <!-- COLONNE GAUCHE : calendriers + réservations -->
+                    <div class="left-panel">
+
+                        <!-- SECTION DES 3 CALENDRIERS -->
+                        <section class="calendar-section">
+
+                            <!-- Titre de la section calendrier -->
+
+                            <div class="calendar-title-row">
+                                <h4 class="section-title">
+                                    Calendrier des réservations
+                                </h4>
+
+                                {{nomAssosCalendar}}
+                                <span>{{resteAssos}}</span>
+
+                            </div>
+
+                            
+
+                            <!-- Grille qui contient les 3 calendriers -->
+                            <div class="calendar-grid">
+
+                                                 <!-- Calendrier Mai -->
+                                <div class="calendar-card">
+                                    <div id="cal-mai"></div>
+                                </div>
+
+                                <!-- Calendrier Juin -->
+                                <div class="calendar-card">
+                                    <div id="cal-juin"></div>
+                                </div>
+
+                                <!-- Calendrier Juillet -->
+                                <div class="calendar-card">
+                                    <div id="cal-juillet"></div>
+                                </div>
+
+                            </div>
+
+                            <script>
+                                {{calendarEvents}}
+                                {{reservedDays}}
+                            </script>
+           
+
+                            <div class="calendar-type-legend">
+                                <span class="legend-recurrent">
+                                    <i class="bi bi-square-fill"></i> Récurrente
+                                </span>
+
+                                <span class="legend-punctual">
+                                    <i class="bi bi-square-fill"></i> Ponctuelle
+                                </span>
+
+                                
+                            </div>
+                        </section>
+
+                        <!-- SECTION DES PROCHAINES RÉSERVATIONS -->
+                        <section class="reservations-card">
+
+                            <!-- En-tête de la carte -->
+                            <div class="card-header">
+                                <h5>Prochaines réservations</h5>
+                                
+                            </div>
+
+                            {{carteReservation}}
+
+
+                        </section>
+
+
+                        <!-- Cartes ajout de salle-->
+
+                        <section class="reservations-card">
+                            <!-- En-tête de la carte -->
+                            <div class="card-header">
+                                <h5>Salles</h5>
+                                <button class="btn btn-primary" id="ajouter_salle">Ajouter Salle</button>
+                            </div>
+
+                            {{carteSalle}}
+
+
+                        </section>
+                    </div>
+                    <!--Ajouter salle modal-->
+                    <div id="modalAddUser" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+
+                            <h2>Ajouter une salle</h2>
+
+                            <hr>
+
+                            <form action="index.php?page=ajout_salle" method="POST" class="form_addUser">
+
+                                <div class="div_formName">
+                                    <div class="div_Name">
+                                        <label>Nom :</label>
+                                        <input class="input_form" type="text" name="identifiant" placeholder="Nom"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <label>Capacité :</label>
+                                <input class="input_form" type="text" name="capacite" placeholder="Nombre de personne"
+                                    required>
+
+                                <label>Description :</label>
+                                <input class="input_form" type="text" name="description" placeholder="Description"
+                                    required>
+
+                                <button type="button" class="btn_annuler">Annuler</button>
+                                <button type="submit" class="btn_creerUser">Créer la salle</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!--Modifier salle modal-->
+
+                    <div id="modalEditUser" class="modal">
+                        <div class="modal-content">
+                            <span class="close closeEdit">&times;</span>
+
+                            <h2>Modifier la salle</h2>
+
+                            <hr>
+
+                            <form action="index.php?page=edit_salle" method="POST" class="form_editUser">
+
+                                <input type="hidden" name="id_salle" id="id_salle">
+                                <label>Nom :</label>
+                                <input class="input_form" type="text" name="identifiant" id="edit_nom" required>
+
+                                <label>Capacité :</label>
+                                <input class="input_form" type="text" name="capacite" id="edit_capacite" required>
+
+                                <label>Description :</label>
+                                <input id="edit_description" class="input_form" type="text" name="description"
+                                     required>
+
+                                
+                                <button type="button" class="btn_annulerEdit">Annuler</button>
+                                <button type="submit" class="btn_creerUser">Modifier la salle</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- COLONNE DROITE : statistiques + commentaires -->
+                    <div class="right-panel">
+
+                        <!-- CARTE ACTIVITÉ ASSOCIATIONS -->
+                        <section class="activity-card">
+
+                            <h5>Activité associations</h5>
+
+                            {{activiteAssos}}
+                            
+
+                        </section>
+
+                        <!-- CARTE COMMENTAIRES -->
+                        <section class="comments-card">
+
+                            <!-- En-tête commentaires -->
+                            <div class="card-header">
+                                <h5>Derniers commentaires</h5>
+                                <span class="notif-badge">{{nbCommentaire}}</span>
+                            </div>
+
+                            {{carteCommentaires}}
+
+
+
+                        </section>
+                    </div>
+
+                </section>
+            </main>
+        </section>
+
+    </main>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
+    <script src="JS/calendar_reservation.js"></script>
+    <script src="JS/dashboard.js"></script>
+    <script src="JS/menage.js"></script>
+    <script src="JS/utilisateur.js"></script>
+    <script src="JS/associationAdmin.js"></script>
+    <script src="JS/fileUp2.js"></script>
+    <script src="JS/messagerie.js"></script>
+    
+</body>
+
+</html>

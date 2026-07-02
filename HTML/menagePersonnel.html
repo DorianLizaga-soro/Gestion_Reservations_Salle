@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/menage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Gestion du ménage</title>
+</head>
+<body>
+<section class="sec_body">
+    <section class="sec_header">
+        
+        <h1><i class="fa-solid fa-broom" style="color: rgb(255, 255, 255);"></i> Planning du ménage</h1>
+        <h2>Bienvenue, {{nomPersonnelMenage}}</h2>
+        <form action="./index.php?page=deconnexion" method="POST" class="logoutForm" id="logoutForm">
+            <button class="btn_deconnexion" type="submit">Déconnexion</button>
+        </form> 
+
+    </section>  
+
+    <nav class="nav_btn">
+        <button class="btn_menage" id="btn_tous">Tous</button>
+        <button class="btn_menage" id="btn_faire">À faire</button>
+        <button class="btn_menage" id="btn_attente">En attente</button>
+    </nav>
+
+    <section class="sec_carteMenage">
+        {{cartesMenage}}
+    </section>
+
+    <section class="sec_historique">
+        <h2>Historique des passages validés</h2>
+        {{carteValidation}}
+         
+    </section>
+</section>
+<script src="JS/menagePersonnel.js"></script>
+</body>
+</html>

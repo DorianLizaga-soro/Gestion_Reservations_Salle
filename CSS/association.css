@@ -1,0 +1,1190 @@
+/*Pour le corps du body */
+
+
+.head {
+    border-radius: 20px;
+    background-color: #35CA6C;
+    padding: 50px;
+    margin: 30px;
+    color: aliceblue;
+}
+
+.btn-connexion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.deconnexion {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+.deconnexion:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+
+
+
+
+
+.rubrique {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+.reservationDuMois {
+    border-radius: 20px;
+    background-color: rgb(247, 241, 241);
+    padding: 30px;
+    margin: 30px;
+}
+
+.quota {
+    border-radius: 20px;
+    background-color: rgb(247, 241, 241);
+    padding: 30px;
+    margin: 30px;
+}
+
+.documentDepose {
+    border-radius: 20px;
+    background-color: rgb(247, 241, 241);
+    padding: 30px;
+    margin: 30px;
+}
+
+
+
+
+.mesReservations {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-color: rgb(247, 241, 241);
+    padding: 30px;
+    margin: 30px;
+
+}
+
+.resa {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.btn-add {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-add:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+.btn-exporter {
+    background: #35CA6C;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 30px;
+}
+
+
+
+
+/* pour le boutton Nouvelle réservation*/
+
+
+.reservations-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px 12px;
+}
+
+.reservations-header p {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+}
+
+.ajouter-lien {
+    color: #1d9e75;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.carte-reservation {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.entete-bouton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    text-align: left;
+}
+
+.entete-gauche {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.barre-couleur {
+    width: 3px;
+    height: 36px;
+    background: #ba7517;
+}
+
+.date-heure {
+    min-width: 60px;
+}
+
+.date-heure p:first-child {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0;
+}
+
+.date-heure p:last-child {
+    font-size: 13px;
+    color: #777;
+    margin: 0;
+}
+
+.titre-salle p:first-child {
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0;
+}
+
+.titre-salle p:last-child {
+    font-size: 13px;
+    color: #777;
+    margin: 0;
+}
+
+.entete-droite {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.upload-text {
+  color: #6b7280;
+  margin-bottom: 5px;
+}
+/* Cache complètement l'input file */
+.input-pdf {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Style du label cliquable */
+.label-fichier {
+    display: inline-block;
+    background: #4f46e5;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Affichage du nom du fichier */
+.nom-fichier {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+}
+.input-pdf::file-selector-button {
+    display: none;
+}
+.btn-voir-pdf {
+    display: inline-block;
+    background: #a5a5a586;
+    color: black;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-voir-pdf:hover {
+    background: #666666;
+}
+
+
+
+.badge-non-lus {
+    background: #e63946;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+    display: inline-block;
+}
+
+.statut-badge {
+    background: #e1f5ee;
+    color: #0f6e56;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+
+.chevron {
+    font-size: 18px;
+    color: #777;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.chevron.ouvert {
+    transform: rotate(180deg);
+}
+
+.panneau {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+}
+
+.panneau-contenu {
+    padding: 0 16px 16px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.boutons-action {
+    display: flex;
+    gap: 8px;
+    margin: 14px 0;
+}
+
+.boutons-action button {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-modifier {
+    color: #1d9e75;
+}
+
+.btn-annuler {
+    color: #e24b4a;
+}
+
+.commentaire-box {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.messages-label {
+    font-size: 13px;
+    color: #777;
+    margin: 10px 0 8px;
+}
+
+.message {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e1f5ee;
+    color: #0f6e56;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.message-contenu {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    flex: 1;
+}
+
+.message-contenu p {
+    margin: 0;
+}
+
+.message-contenu .auteur {
+    font-weight: 600;
+}
+
+.message-contenu .date-message {
+    color: #999;
+    font-size: 12px;
+}
+
+.ajout-commentaire {
+    display: flex;
+    gap: 10px;
+}
+.info { 
+    margin-top: 10px;
+    margin-left: 80px;
+    font-size: 0.9em; 
+    color: gray;
+}
+.ajout-commentaire input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 250px;
+}
+
+.ajout-commentaire button {
+    color: #1d9e75;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.messagerie-inline{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.messagerie-inline input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 200px;
+}
+.messagerie-inline button {
+    color: #1d9e75;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+
+/*pour la modal réservation*/
+
+
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 30, 25, 0.55);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay.actif {
+    display: flex;
+}
+
+.modale {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px 32px;
+    width: 400px;
+    max-width: 92%;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.fermer-croix {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    color: #666;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fermer-croix:hover {
+    background: #35CA6C;
+}
+
+.modale-entete {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.modale-icone {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #e1f5ee;
+    color: #0f6e56;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.modale h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.modale-sous-titre {
+    font-size: 13px;
+    color: #777;
+    margin: 0 0 20px 46px;
+}
+
+.modale label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.modale input,
+.modale select {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    background: #fafafa;
+}
+
+.modale input:focus,
+.modale select:focus {
+    outline: none;
+    border-color: #1d9e75;
+    background: #ffffff;
+}
+
+.ligne-heures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.modale-boutons {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn-annuler-modale {
+    flex: 1;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+.btn-annuler-modale:hover {
+    background: #ebebeb;
+}
+
+.btn-valider-modale {
+    flex: 1;
+    background: #1d9e75;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-valider-modale:hover {
+    background: #18815f;
+}
+
+
+
+
+/* modal de suppression, modification, ajoput d un fichier et d ajout*/
+
+
+
+
+.modale-suppression {
+    text-align: center;
+}
+
+.cercle-icone {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 24px;
+}
+
+.cercle-icone-danger {
+    background: #fbeaf0;
+    color: #993556;
+}
+
+.cercle-icone-info {
+    background: #e6f1fb;
+    color: #185fa5;
+}
+
+.modale-entete-centree {
+    text-align: center;
+}
+
+.modale-entete-centree h2 {
+    margin: 0 0 8px;
+    font-size: 17px;
+}
+
+.modale-entete-centree p {
+    font-size: 13px;
+    color: #777;
+    margin: 0 0 22px;
+    line-height: 1.5;
+}
+
+.modale-entete {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.modale-icone-carre {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.icone-info {
+    background: #e6f1fb;
+    color: #185fa5;
+}
+
+.modale-entete h2 {
+    margin: 0;
+    font-size: 17px;
+}
+
+.modale label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.modale input,
+.modale select {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    background: #fafafa;
+}
+
+.modale input:focus,
+.modale select:focus {
+    outline: none;
+    border-color: #185fa5;
+    background: #ffffff;
+}
+
+.ligne-heures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.modale-boutons {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn-annuler-modale {
+    flex: 1;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+.btn-annuler-modale:hover {
+    background: #ebebeb;
+}
+
+.btn-supprimer-confirme {
+    flex: 1;
+    background: #e24b4a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-supprimer-confirme:hover {
+    background: #c93f3e;
+}
+
+.btn-enregistrer-modif {
+    flex: 1;
+    background: #185fa5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-enregistrer-modif:hover {
+    background: #134d87;
+}
+
+
+
+
+
+.input-fichier-cache {
+    display: none;
+}
+
+.label-fichier {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    background: #fff;
+    color: #555;
+}
+
+.label-fichier:hover {
+    background: #f5f5f5;
+}
+
+.nom-fichier-selectionne {
+    font-size: 13px;
+    color: #555;
+    margin-left: 8px;
+}
+
+
+
+/*boutton Deconnexion*/
+
+
+.modale-deconnexion {
+    text-align: center;
+    width: 340px;
+}
+
+.modale-deconnexion .cercle-icone-deconnexion {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #fbeaf0;
+    color: #993556;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 24px;
+}
+
+.modale-deconnexion h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.modale-deconnexion p {
+    font-size: 13px;
+    color: #777;
+    margin: 0 0 22px;
+    line-height: 1.5;
+}
+
+.btn-deconnexion-confirme {
+    flex: 1;
+    background: #e24b4a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-deconnexion-confirme:hover {
+    background: #c93f3e;
+}
+
+
+
+
+
+/*modal d export de fichier*/
+
+
+
+
+.cartes-export {
+
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+
+}
+
+.carte-export {
+
+    flex: 1;
+
+    background: #fff;
+
+    border: 1px solid #E5E7EB;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+
+    transition: .25s;
+
+}
+
+.carte-export:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .15);
+
+}
+
+.icone {
+
+    width: 70px;
+    height: 70px;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 34px;
+
+    margin-bottom: 20px;
+
+}
+
+.excel {
+
+    background: #DDF7E5;
+
+    color: #107C41;
+
+}
+
+.calendar {
+
+    background: #E8F0FE;
+
+    color: #4285F4;
+
+}
+
+.carte-export h3 {
+
+    margin-bottom: 10px;
+
+    font-size: 22px;
+
+}
+
+.carte-export p {
+
+    color: #666;
+
+    margin-bottom: 25px;
+
+}
+
+.champ-export {
+
+    margin-bottom: 25px;
+
+}
+
+.champ-export label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: 600;
+
+}
+
+.select-export {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #D1D5DB;
+
+    font-size: 15px;
+
+    transition: .2s;
+
+}
+
+.select-export:focus {
+
+    border-color: #3B82F6;
+
+    outline: none;
+
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, .15);
+
+}
+
+.btn-excel {
+
+    width: 100%;
+
+    padding: 14px;
+
+    background: #107C41;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.btn-excel:hover {
+
+    background: #0B6333;
+
+}
+
+.btn-calendar {
+
+    width: 100%;
+
+    padding: 14px;
+
+    background: #4285F4;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.btn-calendar:hover {
+
+    background: #2563EB;
+
+}
+
+
+/*boutton fermeture modal d export*/
+
+.close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  background: #35CA6C;
+  color: white;
+  border-color: #35CA6C;
+}
+
+
+
+/*boutton fermeture modal deconnexion*/
+
+.fermer-croix{
+    .close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #35CA6C;;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.fermer-croix:hover {
+  background: #35CA6C;
+  color: white;
+  border-color: #35CA6C;
+}
+}
+
+/* ==========================================================
+   RESPONSIVE
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .rubrique{
+        grid-template-columns: 1fr 1fr;
+    }
+    .cartes-export{
+        flex-wrap: wrap;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .head{
+        padding: 30px 24px;
+        margin: 16px;
+    }
+    .btn-connexion{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .rubrique{
+        grid-template-columns: 1fr;
+    }
+    .reservationDuMois,
+    .quota,
+    .documentDepose,
+    .mesReservations{
+        margin: 16px;
+        padding: 20px;
+    }
+    .reservations-header{
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .entete-bouton{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .entete-gauche{
+        flex-wrap: wrap;
+    }
+    .cartes-export{
+        flex-direction: column;
+        gap: 16px;
+    }
+    .modale{
+        width: 92%;
+    }
+    .ligne-heures{
+        grid-template-columns: 1fr;
+    }
+    .ajout-commentaire input,
+    .messagerie-inline input{
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .head{
+        padding: 20px 16px;
+        margin: 10px;
+        border-radius: 14px;
+    }
+    .reservationDuMois,
+    .quota,
+    .documentDepose,
+    .mesReservations{
+        margin: 10px;
+        padding: 16px;
+    }
+    .resa{
+        flex-direction: column;
+        gap: 8px;
+    }
+    .btn-add,
+    .btn-exporter{
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+    .entete-droite{
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .date-heure{
+        min-width: 0;
+    }
+    .boutons-action{
+        flex-wrap: wrap;
+    }
+    .message{
+        flex-wrap: wrap;
+    }
+    .ajout-commentaire{
+        flex-direction: column;
+    }
+    .messagerie-inline button,
+    .ajout-commentaire button{
+        width: 100%;
+    }
+    .modale{
+        width: 94%;
+        padding: 20px 18px;
+    }
+    .modale-deconnexion{
+        width: 94%;
+    }
+    .modale-boutons{
+        flex-direction: column;
+    }
+    .icone{
+        width: 56px;
+        height: 56px;
+        font-size: 26px;
+    }
+}

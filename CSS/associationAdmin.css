@@ -1,0 +1,975 @@
+.en-tete {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.assoc-save {
+    padding: 20px;
+
+}
+
+.new-assoc {
+    margin: 22px;
+    width: 15%;
+    height: 50px;
+    background: rgba(137, 141, 137, 0.452);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 14px;
+
+
+}
+
+.new-assoc:hover {
+    background: rgba(46, 243, 6, 0.582);
+}
+
+
+/* ========================================
+   GRILLE DES ASSOCIATIONS
+   Affiche les cartes en 3 colonnes
+   (responsive : 2 colonnes sur tablette, 1 sur mobile)
+   ======================================== */
+
+.grille-associations {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 20px;
+}
+
+/* 2 colonnes sur tablette */
+@media (max-width: 1024px) {
+    .grille-associations {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 1 colonne sur mobile */
+@media (max-width: 640px) {
+    .grille-associations {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ========================================
+   CARTE ASSOCIATION
+   Conteneur blanc avec bordure fine et coins arrondis
+   ======================================== */
+
+.carte-asso {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    padding: 16px 20px;
+}
+
+
+/* ========================================
+   BLOC 1 : EN-TÊTE DE LA CARTE
+   Icône + nom de l'association + code couleur
+   ======================================== */
+
+.carte-asso-entete {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+/* Carré avec icône colorée selon l'association */
+.carte-asso-icone {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* Nom de l'association */
+.carte-asso-nom {
+    font-weight: 500;
+    font-size: 15px;
+    margin: 0;
+    color: #111827;
+}
+
+/* Ligne avec pastille de couleur et code hex */
+.carte-asso-couleur {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Petite pastille ronde de couleur */
+.pastille-couleur {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+
+/* ========================================
+   BLOC 2 : STATISTIQUES
+   Deux cases côte à côte (membres / réservations)
+   ======================================== */
+
+.carte-asso-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+/* Case de statistique individuelle */
+.stat-box {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+/* Libellé au-dessus du chiffre */
+.stat-label {
+    font-size: 11px;
+    color: #6b7280;
+    margin: 0 0 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Chiffre principal de la statistique */
+.stat-valeur {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+    color: #111827;
+}
+
+
+/* ========================================
+   BLOC 3 : BARRE DE PROGRESSION DU QUOTA
+   Affiche le quota mensuel (3 ponctuelles max)
+   ======================================== */
+
+.carte-asso-quota {
+    margin-bottom: 14px;
+}
+
+/* Ligne avec texte à gauche et ratio à droite */
+.quota-texte {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+/* Ratio (ex: 3/3) coloré selon l'association */
+.quota-ratio {
+    font-weight: 500;
+}
+
+/* Fond gris de la barre de progression */
+.quota-barre-fond {
+    background: #f3f4f6;
+    border-radius: 4px;
+    height: 4px;
+}
+
+/* Partie remplie de la barre (colorée selon l'asso) */
+.quota-barre-remplie {
+    height: 4px;
+    border-radius: 4px;
+    /* La largeur est définie en inline style dans le HTML
+       ex: width: 66% pour 2/3, width: 100% pour 3/3 */
+}
+
+
+/* ========================================
+   BLOC 4 : BOUTONS D'ACTION
+   Voir détails + Modifier + Supprimer
+   ======================================== */
+
+.carte-asso-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 12px;
+}
+
+/* Bouton "Voir détails" : prend toute la place disponible */
+.btn-voir-details {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 7px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.btn-voir-details:hover {
+    opacity: 0.85;
+}
+
+/* Bouton modifier : carré neutre gris */
+.btn-modifier-asso {
+    width: 34px;
+    height: 34px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.btn-modifier-asso:hover {
+    background: #f3f4f6;
+}
+
+/* Bouton supprimer : carré rouge clair */
+.btn-supprimer-asso {
+    width: 34px;
+    height: 34px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e24b4a;
+    font-size: 14px;
+}
+
+.btn-supprimer-asso:hover {
+    background: #fee2e2;
+}
+
+
+
+
+
+
+
+
+
+
+/* ========================================
+   OVERLAY : fond sombre derrière la modale
+   ======================================== */
+.overlay-details {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 30, 25, 0.55);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Classe ajoutée par le JS pour afficher la modale */
+.overlay-details.actif {
+    display: flex;
+}
+.overlay-details {
+    z-index: 999999 !important;
+}
+
+.modale-details {
+    z-index: 1000000 !important;
+}
+
+.overlay,
+.overlay-ajout-asso {
+    z-index: 900 !important;
+}
+
+
+/* ========================================
+   MODALE PRINCIPALE
+   Carte blanche centrée avec coins arrondis
+   ======================================== */
+.modale-details {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 560px;
+    max-width: 95%;
+    position: relative;
+    overflow: hidden;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ========================================
+   EN-TÊTE DE LA MODALE
+   Icône + nom + stats membres/réservations
+   ======================================== */
+.modale-details-entete {
+    padding: 20px 24px 0;
+    flex-shrink: 0;
+}
+
+/* Bouton croix pour fermer la modale */
+.modale-details-fermer {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.modale-details-fermer:hover {
+    background: #e0e0e0;
+}
+
+/* Ligne : icône + nom + stats */
+.modale-details-titre {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+/* Carré de couleur contenant l'icône de l'association */
+.modale-details-icone {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+/* Nom de l'association */
+.modale-details-nom {
+    font-weight: 500;
+    font-size: 17px;
+    margin: 0;
+    color: #111827;
+}
+
+/* Ligne membres + réservations sous le nom */
+.modale-details-stats {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+/* ========================================
+   ONGLETS DE NAVIGATION
+   Informations / Calendrier / Historique / Documents
+   ======================================== */
+.modale-details-onglets {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid #e5e7eb;
+    margin-top: 4px;
+}
+
+/* Bouton d'onglet (état inactif par défaut) */
+.onglet-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    cursor: pointer;
+    color: #6b7280;
+    margin-bottom: -1px;
+    font-weight: 400;
+    transition: color 0.15s;
+}
+
+.onglet-btn:hover {
+    color: #374151;
+}
+
+/* Onglet actif : texte coloré + bordure en bas */
+.onglet-btn.actif {
+    color: #2563EB;
+    border-bottom: 2px solid #2563EB;
+    font-weight: 500;
+}
+
+
+/* ========================================
+   CORPS DE LA MODALE (contenu des onglets)
+   ======================================== */
+.modale-details-corps {
+    padding: 20px 24px 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Un panneau par onglet, caché par défaut */
+.onglet-panel {
+    display: none;
+}
+
+/* Panneau actif visible */
+.onglet-panel.actif {
+    display: block;
+}
+
+
+/* ========================================
+   ONGLET 1 : INFORMATIONS
+   Deux colonnes (Contact / Couleur) + Membres principaux
+   ======================================== */
+
+/* Grille 2 colonnes pour Contact et Couleur */
+.details-info-grille {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+/* Boîte grise (Contact ou Couleur) */
+.details-box {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 14px 16px;
+}
+
+/* Titre en petit (CONTACT, COULEUR, MEMBRES PRINCIPAUX) */
+.details-box-titre {
+    font-size: 11px;
+    font-weight: 500;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 10px;
+}
+
+/* Ligne de contact (email ou téléphone) */
+.details-contact-ligne {
+    font-size: 13px;
+    margin: 0 0 6px;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.details-contact-ligne:last-child {
+    margin-bottom: 0;
+}
+
+/* Carré de couleur dans la boîte Couleur */
+.details-couleur-carre {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+}
+
+/* Ligne couleur : carré + code hex */
+.details-couleur-ligne {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Code hex affiché à côté du carré de couleur */
+.details-couleur-code {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+}
+
+/* Un membre principal (avatar + nom + rôle) */
+.membre-ligne {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.membre-ligne:last-child {
+    margin-bottom: 0;
+}
+
+/* Avatar rond avec initiale */
+.membre-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.membre-nom {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.membre-role {
+    margin: 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+
+/* ========================================
+   ONGLET 2 : CALENDRIER
+   Centré avec icône et nombre de réservations
+   ======================================== */
+.details-calendrier-vide {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.details-calendrier-vide i {
+    font-size: 40px;
+    color: #d1d5db;
+}
+
+.details-calendrier-vide p {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 12px 0 0;
+}
+
+
+/* ========================================
+   ONGLET 3 : HISTORIQUE
+   Liste des réservations passées
+   ======================================== */
+
+/* Ligne d'historique avec bordure gauche colorée */
+.historique-ligne {
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    background: #f9fafb;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.historique-ligne:last-child {
+    margin-bottom: 0;
+}
+
+/* Titre de la réservation */
+.historique-titre {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+}
+
+/* Sous-titre : salle + horaires */
+.historique-sous-titre {
+    margin: 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* Partie droite : date + badge type */
+.historique-droite {
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 12px;
+}
+
+.historique-date {
+    margin: 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* Badge type réservation (Récurrente = vert, Ponctuelle = rouge) */
+.badge-recurrente {
+    font-size: 12px;
+    color: #16a34a;
+    font-weight: 500;
+}
+
+.badge-ponctuelle {
+    font-size: 12px;
+    color: #e24b4a;
+    font-weight: 500;
+}
+
+
+/* ========================================
+   ONGLET 4 : DOCUMENTS
+   Liste des fichiers déposés
+   ======================================== */
+
+/* Ligne de document : icône + infos + bouton */
+.document-ligne {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.document-ligne:last-child {
+    margin-bottom: 0;
+}
+
+/* Partie gauche : icône + nom + infos */
+.document-gauche {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Icône du document */
+.document-icone {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.document-nom {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.document-infos {
+    margin: 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* Bouton "Ouvrir" */
+.btn-ouvrir-doc {
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+
+
+
+/*ajout association*/
+
+.overlay-ajout-asso {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-ajout-asso.actif {
+    display: flex;
+}
+
+.modale-ajout-asso {
+    width: 420px;
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    position: relative;
+}
+
+.fermer-ajout-asso {
+    position: absolute;
+    top: 15px;
+    right: 18px;
+    border: none;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.champ {
+    margin-top: 18px;
+}
+
+.champ label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.champ input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.champ input[type="color"] {
+    width: 70px;
+    height: 45px;
+    border: none;
+    cursor: pointer;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.actions button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.actions button[type="submit"] {
+    background: #2563EB;
+    color: white;
+}
+
+
+
+/*MODALE MODIFIER ASSOCIATION*/
+
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, .45);
+    z-index: 999;
+}
+
+.overlay.actif {
+    display: flex;
+}
+
+.modale {
+    width: 420px;
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    position: relative;
+}
+
+.fermer {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.champ {
+    margin-top: 20px;
+}
+
+.champ label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.champ input[type=text] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.champ input[type=color] {
+    width: 70px;
+    height: 45px;
+    border: none;
+}
+
+.actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+
+
+
+/*MODALE supprimer ASSOCIATION*/
+
+
+
+.btn-supprimer-confirmation {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-supprimer-confirmation:hover {
+    background: #b91c1c;
+}
+
+/* ==========================================================
+   RESPONSIVE (ajout)
+   Mobile (<=480px) / Tablette (481-768px) / Laptop (769-1024px) / PC (>1024px)
+   ========================================================== */
+
+/* Laptop */
+@media (max-width: 1024px){
+    .en-tete{
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .modale-details{
+        width: 92%;
+    }
+}
+
+/* Tablette */
+@media (max-width: 768px){
+    .en-tete{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .new-assoc{
+        width: 100%;
+        margin: 12px 0;
+    }
+    .carte-asso-stats{
+        grid-template-columns: 1fr 1fr;
+    }
+    .details-info-grille{
+        grid-template-columns: 1fr;
+    }
+    .modale-details{
+        width: 94%;
+        max-height: 85vh;
+    }
+    .modale-ajout-asso,
+    .modale{
+        width: 92%;
+    }
+    .modale-details-onglets{
+        overflow-x: auto;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+    .grille-associations{
+        padding: 10px;
+        gap: 16px;
+    }
+    .carte-asso{
+        padding: 14px 16px;
+    }
+    .carte-asso-stats{
+        grid-template-columns: 1fr;
+    }
+    .carte-asso-actions{
+        flex-wrap: wrap;
+    }
+    .modale-details-entete{
+        padding: 16px 16px 0;
+    }
+    .modale-details-titre{
+        flex-wrap: wrap;
+    }
+    .modale-details-corps{
+        padding: 16px;
+    }
+    .onglet-btn{
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    .modale-ajout-asso,
+    .modale{
+        width: 94%;
+        padding: 18px;
+    }
+    .historique-ligne,
+    .document-ligne{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    .historique-droite{
+        text-align: left;
+        margin-left: 0;
+    }
+    .actions{
+        flex-wrap: wrap;
+    }
+}
