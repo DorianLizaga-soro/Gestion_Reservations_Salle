@@ -24,9 +24,9 @@ Application de gestion de réservation de salles (connexion, réservation, panne
    git clone <url-du-repo>
 ```
 
-2. Placer le dossier `www` du projet dans le répertoire `htdocs` de XAMPP, en le renommant si besoin (ex: `reservation_salle`) :
-   - Windows : `C:\xampp\htdocs\reservation_salle`
-   - Mac : `/Applications/XAMPP/htdocs/reservation_salle`
+2. Placer le dossier `www` du projet dans le répertoire `htdocs` de XAMPP, en le renommant si besoin (ex: `ProjetReservationSalle`) :
+   - Windows : `C:\xampp\htdocs\ProjetReservationSalle`
+   - Mac : `/Applications/XAMPP/htdocs/ProjetReservationSalle`
 
 3. Démarrer **Apache** et **MySQL** depuis le panneau de contrôle XAMPP.
 
@@ -44,7 +44,7 @@ Application de gestion de réservation de salles (connexion, réservation, panne
 ```
 
 6. Lancer le projet dans le navigateur à l'adresse :
-   [http://localhost/reservation_salle](http://localhost/reservation_salle)
+   [http://localhost/ProjetReservationSalle](http://localhost/ProjetReservationSalle)
 
 
 
